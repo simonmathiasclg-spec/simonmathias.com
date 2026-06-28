@@ -1,26 +1,407 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ----------------------------------------------------------------------------
+   Simon OS — design tokens
+   A living sky world. Two themes via the menubar toggle: "day" (default) and
+   "night" (.dark). The fun lives in the world; window surfaces stay clean, opaque
+   paper so text is always high-contrast. Components reference these tokens — never
+   raw hex.
+---------------------------------------------------------------------------- */
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* sky world — DAY */
+  --sky-top: #4fb8ff;
+  --sky-horizon: #c7ecff;
+  --sun: #ffd23f;
+  --cloud: #ffffff;
+  --cloud-2: #eef7ff;
+  --sea-top: #28c0ce;
+  --sea-deep: #0e7c8c;
+  --sea-streak: rgba(255, 246, 214, 0.55); /* sunlight on water */
+  --sand: #e9d7a6;
+  --palm: #2c6e44; /* palm silhouette */
+  --island: #3f9e5a; /* small green island */
+
+  /* constant day/night layers for the animated theme crossfade
+     (these never switch — the Sky crossfades between them) */
+  --day-sky-top: #4fb8ff;
+  --day-sky-horizon: #c7ecff;
+  --night-sky-top: #0a1b3a;
+  --night-sky-horizon: #17386a;
+  --day-sea-top: #28c0ce;
+  --day-sea-deep: #0e7c8c;
+  --night-sea-top: #0e2a45;
+  --night-sea-deep: #071a2c;
+  --day-streak: rgba(255, 246, 214, 0.55);
+  --night-streak: rgba(237, 230, 207, 0.45);
+  --day-island: #3f9e5a;
+  --night-island: #16304a;
+  --day-palm: #2c6e44;
+  --night-palm: #102a40;
+  --swap: 1200ms;
+  --swap-ease: cubic-bezier(0.45, 0.05, 0.3, 1);
+
+  /* solid fallback that peeks for a frame before the Sky paints */
+  --desk: #59b6f3;
+
+  /* window surfaces — clean warm paper, fully opaque over the bright sky */
+  --window: #f8f5ef;
+  --window-2: #efeade;
+  --photo-frame: #fffdf7;
+  --hair: rgba(22, 19, 15, 0.1);
+  --hair-strong: rgba(22, 19, 15, 0.16);
+
+  /* ink */
+  --ink: #16130f;
+  --ink-muted: #6b6457;
+
+  /* accents — the sun IS the primary accent */
+  --saffron: #ffd23f;
+  --cerulean: #2e6bff;
+
+  /* chrome — dark translucent, reads over the bright sky */
+  --menubar: rgba(9, 24, 41, 0.52);
+  --menubar-ink: #f3f7fb;
+  --menubar-hair: rgba(255, 255, 255, 0.16);
+  --dock: rgba(9, 24, 41, 0.42);
+
+  /* window shadows (dark, so they read crisply over the bright sky) */
+  --win-shadow: 0 1px 1px rgba(6, 22, 38, 0.16), 0 10px 22px rgba(6, 22, 38, 0.2),
+    0 30px 64px rgba(6, 22, 38, 0.26);
+  --win-shadow-focus: 0 2px 5px rgba(6, 22, 38, 0.22),
+    0 20px 44px rgba(6, 22, 38, 0.3), 0 52px 110px rgba(6, 22, 38, 0.4);
+
+  --radius: 0.625rem;
+
+  /* shadcn semantic tokens remapped onto the palette */
+  --background: var(--window);
+  --foreground: var(--ink);
+  --card: var(--window);
+  --card-foreground: var(--ink);
+  --popover: #0a1b30;
+  --popover-foreground: #eef4fb;
+  --primary: var(--ink);
+  --primary-foreground: var(--window);
+  --secondary: var(--window-2);
+  --secondary-foreground: var(--ink);
+  --muted: var(--window-2);
+  --muted-foreground: var(--ink-muted);
+  --accent: var(--window-2);
+  --accent-foreground: var(--ink);
+  --destructive: #c8462f;
+  --border: var(--hair);
+  --input: var(--hair);
+  --ring: var(--cerulean);
+}
+
+.dark {
+  /* sky world — NIGHT */
+  --sky-top: #0a1b3a;
+  --sky-horizon: #17386a;
+  --moon: #ede6cf;
+  --cloud: rgba(216, 228, 252, 0.85);
+  --cloud-2: rgba(196, 214, 244, 0.7);
+  --sea-top: #0e2a45;
+  --sea-deep: #071a2c;
+  --sea-streak: rgba(237, 230, 207, 0.45); /* moonlight streak */
+  --sand: #233456;
+  --palm: #16324c;
+  --island: #14304b;
+
+  --desk: #0a1b3a;
+
+  /* windows — charcoal, still opaque + readable */
+  --window: #161b24;
+  --window-2: #1d232f;
+  --photo-frame: #232a36;
+  --hair: rgba(255, 255, 255, 0.08);
+  --hair-strong: rgba(255, 255, 255, 0.14);
+
+  --ink: #ece7dd;
+  --ink-muted: #969ba6;
+
+  --menubar: rgba(3, 9, 20, 0.56);
+  --menubar-ink: #eef4fb;
+  --menubar-hair: rgba(255, 255, 255, 0.1);
+  --dock: rgba(3, 9, 20, 0.46);
+
+  --win-shadow: 0 1px 1px rgba(0, 0, 0, 0.4), 0 10px 24px rgba(0, 0, 0, 0.5),
+    0 30px 70px rgba(0, 0, 0, 0.6);
+  --win-shadow-focus: 0 2px 6px rgba(0, 0, 0, 0.5),
+    0 22px 50px rgba(0, 0, 0, 0.62), 0 56px 120px rgba(0, 0, 0, 0.72);
+
+  --background: var(--window);
+  --foreground: var(--ink);
+  --card: var(--window);
+  --card-foreground: var(--ink);
+  --popover: #05080f;
+  --popover-foreground: #eef4fb;
+  --primary: var(--ink);
+  --primary-foreground: #0a0f17;
+  --secondary: var(--window-2);
+  --secondary-foreground: var(--ink);
+  --muted: var(--window-2);
+  --muted-foreground: var(--ink-muted);
+  --accent: var(--window-2);
+  --accent-foreground: var(--ink);
+  --border: var(--hair);
+  --input: var(--hair);
+  --ring: var(--cerulean);
 }
 
 @theme inline {
+  /* fonts (wired in layout.tsx via next/font) */
+  --font-display: var(--font-bricolage);
+  --font-heading: var(--font-bricolage);
+  --font-sans: var(--font-geist);
+  --font-mono: var(--font-geist-mono);
+
+  /* palette → Tailwind color tokens */
+  --color-desk: var(--desk);
+  --color-sky-top: var(--sky-top);
+  --color-sky-horizon: var(--sky-horizon);
+  --color-sun: var(--sun);
+  --color-sea-top: var(--sea-top);
+  --color-sea-deep: var(--sea-deep);
+  --color-sand: var(--sand);
+  --color-palm: var(--palm);
+  --color-window: var(--window);
+  --color-window-2: var(--window-2);
+  --color-photo-frame: var(--photo-frame);
+  --color-ink: var(--ink);
+  --color-ink-muted: var(--ink-muted);
+  --color-saffron: var(--saffron);
+  --color-cerulean: var(--cerulean);
+  --color-hair: var(--hair);
+  --color-hair-strong: var(--hair-strong);
+  --color-menubar-ink: var(--menubar-ink);
+
+  /* shadcn semantic tokens */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    height: 100%;
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  body {
+    height: 100%;
+    background: var(--desk);
+    color: var(--ink);
+    overscroll-behavior: none;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--cerulean);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+  :focus:not(:focus-visible) {
+    outline: none;
+  }
+
+  ::selection {
+    background: var(--saffron);
+    color: #16130f;
+  }
+
+  body.cursor-hidden,
+  body.cursor-hidden * {
+    cursor: none !important;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* legible white text floating over the bright sky */
+.sky-text-shadow {
+  text-shadow: 0 1px 2px rgba(6, 22, 40, 0.35), 0 4px 22px rgba(6, 22, 40, 0.28);
+}
+
+/* paper scrollbars inside windows */
+.paper-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--ink) 22%, transparent) transparent;
+}
+.paper-scroll::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+.paper-scroll::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--ink) 18%, transparent);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+.paper-scroll::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--ink) 32%, transparent);
+  background-clip: content-box;
+}
+
+/* ----------------------------------------------------------------------------
+   Sky scene animations — all transform/opacity only, GPU-cheap.
+---------------------------------------------------------------------------- */
+@keyframes cloud-drift {
+  from { transform: translate3d(-135%, 0, 0); }
+  to { transform: translate3d(135%, 0, 0); }
+}
+@keyframes wave-x {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(-50%, 0, 0); }
+}
+@keyframes wave-bob {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.95; }
+}
+@keyframes float-bob {
+  0%, 100% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(0, -16px, 0); }
+}
+@keyframes wing-flap {
+  0%, 100% { transform: scaleY(1); }
+  50% { transform: scaleY(0.55); }
+}
+@keyframes bird-fly {
+  0% { transform: translate3d(-10vw, 8vh, 0) scale(0.85); opacity: 0; }
+  4% { opacity: 0.85; }
+  20% { transform: translate3d(48vw, 2vh, 0) scale(1); }
+  34% { transform: translate3d(112vw, 6vh, 0) scale(1.05); opacity: 0.85; }
+  37%, 100% { transform: translate3d(112vw, 6vh, 0); opacity: 0; }
+}
+@keyframes sun-pulse {
+  0%, 100% { opacity: 0.85; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.04); }
+}
+/* a slow sheen gliding across the sea surface — drifts, never jumps (alternate) */
+@keyframes sea-sheen {
+  0%   { transform: translate3d(-16%, 0, 0); }
+  100% { transform: translate3d(16%, 0, 0); }
+}
+/* the sun/moon reflection breathes + widens on the ripples at the waterline */
+@keyframes reflect-breathe {
+  0%, 100% { transform: scaleX(0.9); opacity: 0.66; }
+  50%      { transform: scaleX(1.12); opacity: 1; }
+}
+/* bright bands sliding down the reflection column — rippling light on water */
+@keyframes reflect-drift {
+  from { background-position: 0 0; }
+  to   { background-position: 0 26px; }
+}
+
+.anim-wave-x { animation: wave-x linear infinite; }
+.anim-wave-bob { animation: wave-bob ease-in-out infinite; }
+.anim-cloud { animation: cloud-drift linear infinite; }
+.anim-twinkle { animation: twinkle ease-in-out infinite; }
+.anim-float { animation: float-bob ease-in-out infinite; }
+.anim-bird { animation: bird-fly linear infinite; }
+.anim-wing { animation: wing-flap ease-in-out infinite; transform-origin: center; }
+.anim-sun { animation: sun-pulse ease-in-out infinite; }
+.anim-sea-sheen { animation: sea-sheen ease-in-out infinite alternate; }
+.anim-reflect-breathe { animation: reflect-breathe ease-in-out infinite; transform-origin: top center; }
+.anim-reflect-drift { animation: reflect-drift linear infinite; }
+
+/* ----------------------------------------------------------------------------
+   Animated day ↔ night swap — CSS-driven off the .dark class so the toggle is a
+   single ~1.2s eased transition (no JS animation needed). The sun arcs down on
+   one side as the moon arcs up on the other; gradients, stars, sea, and object
+   tint crossfade in lockstep.
+---------------------------------------------------------------------------- */
+/* opacity-only — safe on layers that also carry Motion's parallax transform */
+.swap {
+  transition: opacity var(--swap) var(--swap-ease);
+}
+/* SVG solid fills (island, waves) ease their color across the swap */
+.swap-fill path,
+.swap-fill {
+  transition: fill var(--swap) var(--swap-ease);
+}
+.celestial-arm {
+  position: absolute;
+  transform-origin: center;
+  transition: transform var(--swap) var(--swap-ease);
+}
+.sun-arm { transform: rotate(-13deg); }
+.dark .sun-arm { transform: rotate(116deg); }
+.moon-arm { transform: rotate(-116deg); }
+.dark .moon-arm { transform: rotate(13deg); }
+
+.sun-body { opacity: 1; }
+.dark .sun-body { opacity: 0; }
+.moon-body { opacity: 0; }
+.dark .moon-body { opacity: 1; }
+
+.layer-day { opacity: 1; }
+.dark .layer-day { opacity: 0; }
+.layer-night { opacity: 0; }
+.dark .layer-night { opacity: 1; }
+
+.objects-tint {
+  transition: filter var(--swap) var(--swap-ease);
+}
+.dark .objects-tint {
+  filter: brightness(0.88) saturate(0.97);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .anim-wave-x,
+  .anim-wave-bob,
+  .anim-cloud,
+  .anim-twinkle,
+  .anim-float,
+  .anim-bird,
+  .anim-wing,
+  .anim-sun,
+  .anim-sea-sheen,
+  .anim-reflect-breathe,
+  .anim-reflect-drift {
+    animation: none !important;
+  }
+  .swap,
+  .swap-fill,
+  .swap-fill path,
+  .celestial-arm,
+  .sun-arm,
+  .moon-arm,
+  .sun-body,
+  .moon-body,
+  .layer-day,
+  .layer-night,
+  .objects-tint {
+    transition: none !important;
+  }
 }
