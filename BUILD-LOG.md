@@ -342,6 +342,16 @@ A finish pass — fixes, accessibility, real contact details, and deploy-readine
   the Music & Stage window — a lazy facade (real thumbnail + play button + "starts at the
   solo") that mounts the no-cookie iframe on click. That is the video.
 
+## PI behavioral report (v11)
+
+- Simon's **Predictive Index behavioral report** (the official PDF) is served from
+  `/public/simon-mathias-pi-behavioral-report.pdf` and surfaced by a small stacked
+  button in the About window, just under the portrait: **PI** / *Behavioral report*
+  with a chart icon + ↗. It opens the real PDF in a new tab (`target="_blank"`,
+  verified `200 · application/pdf`). Shared by the desktop window + mobile sheet, fits
+  at 380px, keyboard-focusable. Embedding the actual report (vs. recreating it) keeps it
+  faithful and works on every browser.
+
 ## Screenshot / critique notes
 
 Each screen was launched, screenshotted, critiqued, and fixed — at least twice. Notable

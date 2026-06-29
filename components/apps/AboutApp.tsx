@@ -5,8 +5,12 @@ import {
   GraduationCap,
   MusicNoteSimple,
   Confetti,
+  ChartBar,
+  ArrowUpRight,
 } from "@phosphor-icons/react";
 import { AppHeader, Body, Photo, Divider } from "./_kit";
+
+const PI_REPORT = "/simon-mathias-pi-behavioral-report.pdf";
 
 const facts = [
   { icon: MapPin, label: "Bangalore → Toronto" },
@@ -70,6 +74,31 @@ export default function AboutApp() {
             <span>Simon Mathias</span>
             <span className="text-saffron">online</span>
           </figcaption>
+
+          {/* PI behavioral report — opens the official PDF */}
+          <a
+            href={PI_REPORT}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open Simon's Predictive Index behavioral report (PDF, opens in a new tab)"
+            className="cursor-hover group mt-3.5 flex items-center gap-3 rounded-xl border border-hair bg-window-2 px-3.5 py-2.5 transition-colors hover:border-saffron/50 hover:bg-saffron/[0.07] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cerulean)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--window)]"
+          >
+            <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-saffron/15 text-[color-mix(in_srgb,var(--saffron)_72%,var(--ink))] ring-1 ring-inset ring-saffron/25">
+              <ChartBar weight="duotone" className="size-5" />
+            </span>
+            <span className="flex flex-col leading-tight">
+              <span className="font-display text-[17px] font-extrabold tracking-tight text-ink">
+                PI
+              </span>
+              <span className="font-mono text-[10px] uppercase tracking-[0.16em] text-ink-muted">
+                Behavioral report
+              </span>
+            </span>
+            <ArrowUpRight
+              weight="bold"
+              className="ml-auto size-4 shrink-0 text-ink-muted transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-saffron"
+            />
+          </a>
         </figure>
       </div>
 
