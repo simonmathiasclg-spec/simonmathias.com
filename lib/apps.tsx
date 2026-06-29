@@ -5,6 +5,7 @@ import {
   PaperPlaneTilt,
   MicrophoneStage,
   Trophy,
+  Sunglasses,
 } from "@phosphor-icons/react";
 import type { AppId } from "@/lib/os-store";
 import type { AppIcon } from "@/components/apps/_kit";
@@ -14,6 +15,7 @@ import StartupSchoolApp from "@/components/apps/StartupSchoolApp";
 import ContactApp from "@/components/apps/ContactApp";
 import MusicStageApp from "@/components/apps/MusicStageApp";
 import LeadershipApp from "@/components/apps/LeadershipApp";
+import GoofyApp from "@/components/apps/GoofyApp";
 
 export type AppDef = {
   id: AppId;
@@ -55,7 +57,7 @@ export const APPS: AppDef[] = [
   {
     id: "startup-school",
     name: "startup-school",
-    dockLabel: "Startup School",
+    dockLabel: "YC Startup School",
     tagline: "founder's notes",
     icon: RocketLaunch,
     Content: StartupSchoolApp,
@@ -91,6 +93,16 @@ export const APPS: AppDef[] = [
     icon: Trophy,
     Content: LeadershipApp,
     window: { w: 700, h: 620 },
+    dock: false,
+  },
+  {
+    id: "goofy",
+    name: "goofy",
+    dockLabel: "Goofy",
+    tagline: "the fun side",
+    icon: Sunglasses,
+    Content: GoofyApp,
+    window: { w: 660, h: 600 },
     dock: false,
   },
 ];

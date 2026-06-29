@@ -9,6 +9,7 @@ const ENTRIES: { id: AppId; name: string; blurb: string }[] = [
   { id: "startup-school", name: "Startup School", blurb: "Founder's notes — Juno, the 'Uber for tutors' that hit ~1M LinkedIn views; Read the Room (a live PI training platform) and a sales dashboard shipped end-to-end; and a 'Duolingo for music' he's building toward." },
   { id: "music-stage", name: "Music & Stage", blurb: "Self-taught saxophonist who played a solo for 3,000 at 15; saxophonist in the band Project Going Nowhere; taught guitar to differently-abled kids." },
   { id: "leadership", name: "Leadership", blurb: "Elected College President by a record 70% margin, leading ~2,500 students; an undefeated festing season; raised $18,000 for charity." },
+  { id: "goofy", name: "Goofy", blurb: "The unserious side — proof he doesn't take himself too seriously." },
   { id: "contact", name: "Contact", blurb: "Get in touch by email, LinkedIn, or GitHub." },
 ];
 

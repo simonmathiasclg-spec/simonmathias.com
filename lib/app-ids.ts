@@ -8,6 +8,7 @@ export const APP_IDS = [
   // windowed but not in the dock — opened by clicking the floating photos
   "music-stage",
   "leadership",
+  "goofy",
 ] as const;
 
 export type AppId = (typeof APP_IDS)[number];

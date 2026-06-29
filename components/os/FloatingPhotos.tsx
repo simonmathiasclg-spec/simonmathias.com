@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useSpring, useTransform } from "motion/react";
-import { ImageSquare } from "@phosphor-icons/react";
+import { ImageSquare, ArrowRight } from "@phosphor-icons/react";
 import { useOS } from "@/lib/os-store";
 import { playNote } from "@/lib/sound";
 import { PHOTOS, type PhotoDef } from "@/lib/photos";
@@ -112,20 +112,18 @@ function PhotoFrame({
           )}
         </div>
 
-        {/* hover caption */}
-        <AnimatePresence>
-          {hovered && (
-            <motion.span
-              initial={{ opacity: 0, y: 4 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: 4 }}
-              transition={{ duration: 0.18 }}
-              className="pointer-events-none absolute left-1/2 top-full mt-2 w-max max-w-[210px] -translate-x-1/2 rounded-full border border-[var(--menubar-hair)] bg-[var(--menubar)] px-3 py-1 text-center font-mono text-[10px] leading-snug text-menubar-ink shadow-lg backdrop-blur-xl"
-            >
-              {photo.caption}
-            </motion.span>
-          )}
-        </AnimatePresence>
+        {/* permanent doorway label — signals "click to enter" */}
+        <span className="absolute left-1/2 top-full mt-2.5 flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full border border-[var(--menubar-hair)] bg-[var(--menubar)] px-2.5 py-1 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-menubar-ink shadow-[0_4px_16px_-5px_rgba(4,8,15,0.55)] backdrop-blur-md">
+          {photo.label}
+          <motion.span
+            aria-hidden
+            animate={{ x: hovered ? 3 : 0 }}
+            transition={{ type: "spring", stiffness: 420, damping: 18 }}
+            className="text-saffron"
+          >
+            <ArrowRight weight="bold" className="size-3" />
+          </motion.span>
+        </span>
 
         {/* one-time "click me" nudge (first photo only) */}
         <AnimatePresence>

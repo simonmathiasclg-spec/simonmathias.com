@@ -72,7 +72,7 @@ export default function Window({
         zIndex: z,
         boxShadow: focused ? "var(--win-shadow-focus)" : "var(--win-shadow)",
       }}
-      className="flex flex-col overflow-hidden rounded-xl bg-window ring-1 ring-[var(--hair-strong)] transition-shadow duration-300"
+      className="pointer-events-auto flex flex-col overflow-hidden rounded-xl bg-window ring-1 ring-[var(--hair-strong)] transition-shadow duration-300"
     >
       {/* title bar (drag handle) */}
       <div

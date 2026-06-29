@@ -4,7 +4,7 @@ import { APP_IDS, isAppId, type AppId } from "@/lib/app-ids";
 import SimonOS from "@/components/os/SimonOS";
 import Seo from "@/components/Seo";
 
-// only the six app routes exist; anything else 404s + they prerender (crawlable)
+// only the app routes exist; anything else 404s + they prerender (crawlable)
 export const dynamicParams = false;
 
 export function generateStaticParams() {
@@ -18,6 +18,7 @@ const TITLES: Record<AppId, string> = {
   contact: "Contact",
   "music-stage": "Music & Stage",
   leadership: "Leadership",
+  goofy: "Goofy",
 };
 
 export async function generateMetadata({

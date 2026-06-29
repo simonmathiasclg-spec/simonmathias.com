@@ -63,6 +63,8 @@ await (async () => {
   await coverCrop("On Mike but not a huge fan .JPG", "photo-lead.jpg", 4, 5, { y: "top", cap: 1280 });
   await coverCrop("At Work.JPG", "photo-candid.jpg", 1, 1, { y: "top", cap: 1200 });
   await coverCrop("Headshot.png", "portrait.jpg", 4, 5, { x: "center", y: "center", cap: 1400 });
+  // GOOFY doorway — the real pharaoh-costume shot
+  await coverCrop("Goofy main.jpeg", "photo-goofy.jpg", 4, 5, { y: "top", cap: 1100 });
 
   // --- Open Graph card background (his face, exact 1200x630) ---
   await coverExact("Headshot.png", "og-headshot.jpg", 1200, 630, { y: "center" });

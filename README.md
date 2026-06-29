@@ -22,10 +22,10 @@ npm run build    # production build (what Vercel runs)
 
 Your real photos are in and optimized. The web-ready slot files live in
 `/public/photos/` (committed); the **raw originals** live in
-`/public/photos/_source/` (git-ignored, kept locally). The five `photo-*.jpg` files
-are the home-screen signature — each is a doorway that opens a themed window; a small
-"view all photos" link (inside the Music & Stage window, and on the mobile launcher)
-browses them all in a lightbox.
+`/public/photos/_source/` (git-ignored, kept locally). The home screen shows **five
+distinct doorways** — one per facet, each labeled (`MUSIC →`, `LEADERSHIP →`, …) — and
+each opens its themed window. A small "view all photos" link (inside the Music & Stage
+window, and on the mobile launcher) browses them all in a lightbox.
 
 **To swap a photo:** drop a new original into `/public/photos/_source/`, point the
 matching entry in [`scripts/process-photos.mjs`](scripts/process-photos.mjs) at it, then:
@@ -35,26 +35,32 @@ node scripts/process-photos.mjs   # re-crops + compresses into the slot files
 ```
 
 The script **only resizes / crops / compresses** (auto-orienting via EXIF, never
-upscaling). Current mapping:
+upscaling). Current mapping — the **home doorways** (one per facet, no repeats):
+
+| Doorway (label) | Slot file | From original | Opens |
+| --- | --- | --- | --- |
+| `MUSIC →` | `photo-perform.jpg` | `Sax pic.JPG` (red kurta) | **Music & Stage** |
+| `LEADERSHIP →` | `photo-lead.jpg` | `On Mike … .JPG` | **Leadership** |
+| `WORK →` | `photo-build.jpg` | `At Work.JPG` | **Work** |
+| `ABOUT →` | `portrait.jpg` | `Headshot.png` | **About** |
+| `GOOFY →` | `photo-goofy.jpg` | `Goofy main.jpeg` | **Goofy** |
+
+…and the supporting images (inside windows / social):
 
 | Slot file | From original | Used for |
 | --- | --- | --- |
-| `photo-stage.jpg` | `Sax 1.JPG` | home doorway → **Music & Stage** hero |
-| `photo-perform.jpg` | `Sax pic.JPG` | home doorway → Music & Stage gallery |
-| `photo-lead.jpg` | `On Mike … .JPG` | home doorway → **Leadership** hero |
-| `photo-build.jpg` | `At Work.JPG` | home doorway → **Work** |
-| `photo-candid.jpg` | `At Work.JPG` (reuse) | home doorway → **About** |
-| `portrait.jpg` | `Headshot.png` | inside the About window |
+| `photo-stage.jpg` | `Sax 1.JPG` (with the band) | Music & Stage gallery |
+| `gallery-mic.jpg` | `Mic 3.JPG` | Music & Stage gallery |
+| `gallery-*.jpg` | trophies / poster / team | Leadership "trophy wall" |
 | `og-headshot.jpg` | `Headshot.png` | social-preview (OG) card |
-| `gallery-*.jpg` | Mic 3 / trophies / poster | woven into the window stories |
+| `goofy-1.jpg`, `goofy-2.jpg` | _(add yours)_ | Goofy window slots |
 | `read-the-room.jpg` | _(add yours)_ | startup-school → Read the Room (16:9) |
 
 Captions + the floating layout live in [`lib/photos.ts`](lib/photos.ts); the in-window
 photo stories live in each app component (e.g. `components/apps/LeadershipApp.tsx`).
 
-> Note: `photo-candid.jpg` and `photo-build.jpg` are both crops of `At Work.JPG`, so the
-> same desk shot appears in two home frames. If you'd rather vary it, there's an unused
-> `On Stage.JPG` in `_source/` you can point `photo-candid` at and re-run the script.
+> The Goofy doorway now uses your real `Goofy main.jpeg` (pharaoh costume). Fill
+> `goofy-1.jpg` / `goofy-2.jpg` to populate the two in-window photo slots.
 
 ---
 

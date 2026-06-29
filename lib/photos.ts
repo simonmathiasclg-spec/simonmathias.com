@@ -1,14 +1,14 @@
 import type { AppId } from "./app-ids";
 
-// The floating photos are doorways: clicking one opens a themed window. They also
-// double as the gallery (a small "view all photos" affordance opens a lightbox).
-// Drop real files at these paths in /public/photos; until then each slot shows a
-// labeled placeholder with its filename.
+// The floating photos are doorways: clicking one opens a themed window. Each frame
+// is ONE distinct facet of Simon — no repeats. The extra music/leadership photos
+// live inside their windows as galleries. A small "view all photos" link inside a
+// window opens the lightbox. Drop real files at these paths in /public/photos.
 export type PhotoDef = {
   id: string;
   src: string;
-  label: string; // short label (placeholder + alt)
-  caption: string; // hover + viewer caption
+  label: string; // the doorway facet, shown as a tag under the frame ("Music")
+  caption: string; // hover + alt detail
   target: AppId; // the window this photo opens
   note: number; // pentatonic note played on click (gated by sound toggle)
   // desktop floating layout
@@ -24,15 +24,15 @@ export type PhotoDef = {
 
 export const PHOTOS: PhotoDef[] = [
   {
-    id: "stage",
-    src: "/photos/photo-stage.jpg",
-    label: "On stage",
-    caption: "Sax solo · 3,000 people · age 15",
+    id: "music",
+    src: "/photos/photo-perform.jpg", // Sax pic — red kurta, on stage
+    label: "Music",
+    caption: "Sax · the band · the stage",
     target: "music-stage",
     note: 261.63,
-    left: 12,
-    top: 27,
-    w: 164,
+    left: 13,
+    top: 25,
+    w: 198,
     ratio: "4 / 5",
     tilt: -4,
     bob: 14,
@@ -40,15 +40,15 @@ export const PHOTOS: PhotoDef[] = [
     dur: 9.5,
   },
   {
-    id: "perform",
-    src: "/photos/photo-perform.jpg",
-    label: "Performing",
-    caption: "Guitar, live",
-    target: "music-stage",
-    note: 293.66,
-    left: 88,
-    top: 28,
-    w: 150,
+    id: "about",
+    src: "/photos/portrait.jpg", // studio headshot
+    label: "About",
+    caption: "Who I am",
+    target: "about",
+    note: 440.0,
+    left: 87,
+    top: 26,
+    w: 186,
     ratio: "4 / 5",
     tilt: 4,
     bob: 16,
@@ -56,31 +56,31 @@ export const PHOTOS: PhotoDef[] = [
     dur: 8.5,
   },
   {
-    id: "build",
-    src: "/photos/photo-build.jpg",
-    label: "Building",
-    caption: "Building software people use",
-    target: "work",
-    note: 329.63,
-    left: 88,
-    top: 63,
-    w: 144,
+    id: "goofy",
+    src: "/photos/photo-goofy.jpg", // the pharaoh-costume goofy shot
+    label: "Goofy",
+    caption: "Not taking myself too seriously",
+    target: "goofy",
+    note: 349.23,
+    left: 50,
+    top: 15,
+    w: 156,
     ratio: "4 / 5",
-    tilt: -3,
-    bob: 12,
-    drift: 12,
-    dur: 10.5,
+    tilt: -2,
+    bob: 13,
+    drift: 14,
+    dur: 11,
   },
   {
-    id: "lead",
-    src: "/photos/photo-lead.jpg",
-    label: "Leading",
-    caption: "Elected College President",
+    id: "leadership",
+    src: "/photos/photo-lead.jpg", // On Mike — suit + crowd
+    label: "Leadership",
+    caption: "President & more",
     target: "leadership",
     note: 392.0,
-    left: 11,
-    top: 64,
-    w: 140,
+    left: 12.5,
+    top: 61,
+    w: 182,
     ratio: "4 / 5",
     tilt: 3,
     bob: 11,
@@ -88,19 +88,19 @@ export const PHOTOS: PhotoDef[] = [
     dur: 12,
   },
   {
-    id: "candid",
-    src: "/photos/photo-candid.jpg",
-    label: "At my desk",
-    caption: "At my desk",
-    target: "about",
-    note: 440.0,
-    left: 50,
-    top: 13,
-    w: 124,
-    ratio: "1 / 1",
-    tilt: -2,
-    bob: 13,
-    drift: 14,
-    dur: 11,
+    id: "work",
+    src: "/photos/photo-build.jpg", // At Work — desk, thumbs up
+    label: "Work",
+    caption: "Building software people use",
+    target: "work",
+    note: 329.63,
+    left: 87.5,
+    top: 62,
+    w: 188,
+    ratio: "4 / 5",
+    tilt: -3,
+    bob: 12,
+    drift: 12,
+    dur: 10.5,
   },
 ];

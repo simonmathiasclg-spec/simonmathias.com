@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
-import { CaretRight, Star } from "@phosphor-icons/react";
+import { CaretRight, Star, ArrowRight } from "@phosphor-icons/react";
 import { DOCK_APPS, APP_MAP } from "@/lib/apps";
 import { useOS, type AppId } from "@/lib/os-store";
 import { PHOTOS } from "@/lib/photos";
@@ -68,7 +68,7 @@ export default function MobileShell({
       >
         {/* photo cluster — tap to open that part of the world */}
         <div className="flex flex-col gap-2">
-          <div className="flex gap-2.5">
+          <div className="flex gap-3">
             {CLUSTER.map((i, k) => {
               const p = PHOTOS[i];
               return (
@@ -76,10 +76,18 @@ export default function MobileShell({
                   key={p.id}
                   onClick={() => setActive(p.target)}
                   aria-label={`Open — ${p.caption}`}
-                  style={{ transform: `rotate(${k === 1 ? 0 : p.tilt}deg)` }}
-                  className="block rounded-xl bg-photo-frame p-1 shadow-[0_8px_20px_-8px_rgba(6,22,40,0.5)] ring-1 ring-white/15 transition-transform active:scale-95"
+                  className="flex flex-col items-center gap-1.5 transition-transform active:scale-95"
                 >
-                  <Photo src={p.src} label={p.label} className="size-[74px] rounded-lg" />
+                  <span
+                    style={{ transform: `rotate(${k === 1 ? 0 : p.tilt}deg)` }}
+                    className="block rounded-xl bg-photo-frame p-1 shadow-[0_8px_20px_-8px_rgba(6,22,40,0.5)] ring-1 ring-white/15"
+                  >
+                    <Photo src={p.src} label={p.label} className="size-[88px] rounded-lg" />
+                  </span>
+                  <span className="flex items-center gap-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-white/80">
+                    {p.label}
+                    <ArrowRight weight="bold" className="size-2.5 text-saffron" />
+                  </span>
                 </button>
               );
             })}

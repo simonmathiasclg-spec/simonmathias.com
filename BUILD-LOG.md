@@ -233,6 +233,41 @@ him — only resize / crop / compress.
   with a bottom scrim + name + saffron accent. `og:image` and `twitter:image` (verified
   in the rendered `<head>`) both resolve to it, so shared links show his face.
 
+## Doorway labels, one-photo-per-facet, Goofy, and the click bug (v8)
+
+- **The click bug — found + fixed.** Clicking a floating photo did nothing in a real
+  browser. Cause: `WindowManager` renders a full-area `div` (the drag-constraints region,
+  `z-10`) that is **always mounted even with zero windows open**, with default
+  `pointer-events: auto` — so it silently ate every click meant for the photos at `z-2`
+  behind it. (Earlier eval `.click()` "worked" only because it bypasses hit-testing.)
+  Fix: the container is now `pointer-events-none` and each `Window` is `pointer-events-auto`
+  (drag still works — `dragConstraints` only reads the container's rect). Verified by
+  coordinate **hit-testing** (`elementFromPoint` → the photo's `<img>` is now topmost) and
+  by dispatching real pointer-sequence clicks at each photo's centre: all 5 photos and all
+  4 dock items open their correct windows. (Note: the preview harness's own click tool
+  can't drive React's onClick in a backgrounded tab — it failed even on the static dock —
+  so verification used hit-tested coordinate clicks, which click whatever is actually on
+  top at each pixel, exactly like a user.)
+- **One photo per facet — redundancy removed.** The home was showing ~3 stories across 5
+  frames (two sax, two desk). Now five *distinct* doorways, each its best single shot:
+  Music ← the red-kurta solo, Leadership ← suit-and-mic, Work ← the desk thumbs-up
+  (once), About ← the studio headshot, Goofy ← the pharaoh-costume shot (`Goofy main.jpeg`).
+  The dropped sax/desk shots still live *inside* the Music window gallery.
+- **Clickable doorway labels.** Each frame now carries a permanent mono pill under it —
+  `MUSIC →`, `LEADERSHIP →`, `WORK →`, `ABOUT →`, `GOOFY →` — white on dark glass with a
+  saffron arrow that nudges on hover (the whole photo lifts/brightens). Self-evidently
+  doorways, not a gallery. The label is part of the button, so it's clickable too. The
+  mobile cluster got the same labels.
+- **Bigger photos.** Floating widths bumped ~15–25% (face-legible, personality-forward)
+  while keeping the name leading; mobile cluster tiles went 74→88px. Verified the layout
+  + label legibility by magnifying a frame 2× in an overlay.
+- **New Goofy window** (`GoofyApp`, reached by its photo, not the dock): a short,
+  self-aware "fun side" — light copy, a `B)` kicker, and two fillable placeholder slots.
+  Wired through `app-ids`, `apps`, the deep-link route titles, and the crawlable SEO list.
+- **Dock:** "Startup School" → **"YC Startup School"** (★ READ THIS kept). Still
+  About · Work · YC Startup School · Contact; fits one line on the desktop dock and wraps
+  cleanly on the 380px mobile launcher.
+
 ## Screenshot / critique notes
 
 Each screen was launched, screenshotted, critiqued, and fixed — at least twice. Notable

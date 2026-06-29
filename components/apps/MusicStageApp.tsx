@@ -22,9 +22,9 @@ export default function MusicStageApp() {
   return (
     <div className="flex flex-col gap-8">
       <Figure
-        src="/photos/photo-stage.jpg"
+        src="/photos/photo-perform.jpg"
         label="On stage"
-        caption="On stage with the band"
+        caption="Sax solo · 3,000 people · age 15"
         aspect="4 / 5"
         priority
         className="mx-auto w-full max-w-[290px]"
@@ -56,9 +56,9 @@ export default function MusicStageApp() {
       {/* two from the stage — varied sizes + slight tilts */}
       <div className="grid grid-cols-2 gap-4">
         <Figure
-          src="/photos/photo-perform.jpg"
-          label="Performing"
-          caption="Solo, mid-set"
+          src="/photos/photo-stage.jpg"
+          label="With the band"
+          caption="With the band"
           aspect="4 / 5"
           tilt={-1.5}
         />
