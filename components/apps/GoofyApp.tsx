@@ -46,19 +46,19 @@ export default function GoofyApp() {
       <Divider />
 
       <section className="flex flex-col gap-4">
-        <SectionLabel>The evidence (drop your photos here)</SectionLabel>
+        <SectionLabel>The evidence</SectionLabel>
         <div className="grid grid-cols-2 gap-4">
           <Figure
             src="/photos/goofy-1.jpg"
-            label="Goofy 1"
-            caption="Add a photo →"
+            label="Guitar"
+            caption="Guitar, behind the head"
             aspect="4 / 5"
             tilt={1.5}
           />
           <Figure
             src="/photos/goofy-2.jpg"
             label="Goofy 2"
-            caption="…and another"
+            caption="Add a photo →"
             aspect="4 / 5"
             tilt={-1.5}
             className="mt-6"

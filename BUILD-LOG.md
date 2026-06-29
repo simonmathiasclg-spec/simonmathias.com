@@ -321,6 +321,27 @@ A finish pass — fixes, accessibility, real contact details, and deploy-readine
   gracefully until then.
 - The deploy itself (Vercel login is yours) — follow `DEPLOY.md`.
 
+## Four pre-deploy fixes (v10)
+
+- **Goofy doorway matched the others.** It was `w:144` vs the cluster's ~182–198; set to
+  `186` (= About) so all five floating photos read as one size. Because the taller frame
+  pushed its label into the name's kicker, the name block dropped (`mt-20 → mt-36`,
+  measured a ~23px rest gap), and Goofy's bob was calmed so it still clears the 32px
+  menubar (rest ~28px, ≥12px worst-case).
+- **Guitar shot into the Goofy window.** `Funny Guitar.JPG` (guitar-behind-the-head)
+  processed through `process-photos.mjs` (crop/compress only) into `goofy-1.jpg`; it now
+  renders in the "evidence" two-up (caption "Guitar, behind the head") and clears one of
+  the goofy-* 404s. (`goofy-2.jpg` stays a graceful placeholder.)
+- **YC centerpiece CTA.** A bold saffron pill — 🚀 **"Why YC Startup School →"** — added
+  to `Home`, centered directly below the tagline and above the dock, far more prominent
+  than a dock icon. Clicking it opens the startup-school window (verified by a real
+  hit-tested click). It replaces the old generic "where to start" hint; the dock is
+  unchanged.
+- **Sax video confirmed (not faked).** No ffmpeg, so the 142 MB MP4 is *not* embedded.
+  The YouTube performance embed (`TbWnnb5J-Ec`, `?start=134`) renders and is visible in
+  the Music & Stage window — a lazy facade (real thumbnail + play button + "starts at the
+  solo") that mounts the no-cookie iframe on click. That is the video.
+
 ## Screenshot / critique notes
 
 Each screen was launched, screenshotted, critiqued, and fixed — at least twice. Notable
