@@ -4,7 +4,7 @@ import { useState, type ReactNode } from "react";
 import {
   EnvelopeSimple,
   LinkedinLogo,
-  GithubLogo,
+  Phone,
   Copy,
   Check,
   type IconProps,
@@ -12,27 +12,15 @@ import {
 import { AppHeader } from "./_kit";
 import { cn } from "@/lib/utils";
 
-/*
-  TODO(simon): drop in your real handles below (and the matching rows in
-  README.md → "Fill in your contact handles"). Each placeholder is marked in the
-  UI with a dashed saffron underline so you can spot what's left to wire up.
-*/
-const EMAIL = "hello@simonmathias.dev"; // TODO(simon): real email
-const LINKEDIN_URL = "https://linkedin.com/in/your-handle"; // TODO(simon)
-const LINKEDIN_LABEL = "/in/your-handle";
-const GITHUB_URL = "https://github.com/your-handle"; // TODO(simon)
-const GITHUB_LABEL = "@your-handle";
+// Real, working contact details.
+const EMAIL = "simon.mathiasclg@gmail.com";
+const LINKEDIN_URL = "https://www.linkedin.com/in/simonnandmathias/";
+const LINKEDIN_LABEL = "/in/simonnandmathias";
+const PHONE_DISPLAY = "+1 437 430 8003";
+const PHONE_TEL = "+14374308003";
 
-function Placeholder({ children }: { children: ReactNode }) {
-  return (
-    <span className="relative whitespace-nowrap underline decoration-dashed decoration-saffron/70 decoration-1 underline-offset-4">
-      {children}
-      <sup className="ml-1 align-super font-mono text-[8px] font-semibold uppercase tracking-wider text-saffron">
-        to add
-      </sup>
-    </span>
-  );
-}
+const focusRing =
+  "rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cerulean)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--window)]";
 
 function Row({
   icon: Icon,
@@ -54,12 +42,34 @@ function Row({
         <span className="font-mono text-[10px] uppercase tracking-[0.18em] text-ink-muted">
           {channel}
         </span>
-        <span className="truncate text-[15px] font-medium text-ink">
-          {children}
-        </span>
+        <span className="truncate text-[15px] font-medium text-ink">{children}</span>
       </div>
       <div className="ml-auto shrink-0">{action}</div>
     </li>
+  );
+}
+
+function OpenLink({ href, external, label }: { href: string; external?: boolean; label: string }) {
+  return (
+    <a
+      href={href}
+      {...(external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
+      aria-label={label}
+      className={cn(
+        "cursor-hover grid size-8 place-items-center rounded-lg text-ink-muted transition-colors hover:bg-window-2 hover:text-ink",
+        focusRing,
+      )}
+    >
+      <svg viewBox="0 0 16 16" className="size-4" fill="none" aria-hidden>
+        <path
+          d="M5 11L11 5M11 5H6M11 5V10"
+          stroke="currentColor"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </a>
   );
 }
 
@@ -92,45 +102,48 @@ export default function ContactApp() {
           action={
             <button
               onClick={copyEmail}
+              aria-label={copied ? "Email copied" : "Copy email address"}
               className={cn(
-                "inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 font-mono text-[11px] font-medium uppercase tracking-wider transition-colors",
+                "cursor-hover inline-flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 font-mono text-[11px] font-medium uppercase tracking-wider transition-colors",
                 copied
                   ? "bg-saffron/15 text-[color-mix(in_srgb,var(--saffron)_72%,var(--ink))]"
                   : "bg-window-2 text-ink-muted hover:text-ink",
+                focusRing,
               )}
-              aria-label="Copy email address"
             >
-              {copied ? (
-                <Check weight="bold" className="size-3.5" />
-              ) : (
-                <Copy weight="bold" className="size-3.5" />
-              )}
+              {copied ? <Check weight="bold" className="size-3.5" /> : <Copy weight="bold" className="size-3.5" />}
               {copied ? "Copied" : "Copy"}
             </button>
           }
         >
-          <a
-            href={`mailto:${EMAIL}`}
-            className="transition-colors hover:text-saffron"
-          >
-            <Placeholder>{EMAIL}</Placeholder>
+          <a href={`mailto:${EMAIL}`} className={cn("transition-colors hover:text-saffron", focusRing)}>
+            {EMAIL}
           </a>
         </Row>
 
         <Row
           icon={LinkedinLogo}
           channel="LinkedIn"
-          action={<ActionArrow href={LINKEDIN_URL} />}
+          action={<OpenLink href={LINKEDIN_URL} external label="Open LinkedIn profile in a new tab" />}
         >
-          <Placeholder>{LINKEDIN_LABEL}</Placeholder>
+          <a
+            href={LINKEDIN_URL}
+            target="_blank"
+            rel="noopener noreferrer"
+            className={cn("transition-colors hover:text-saffron", focusRing)}
+          >
+            {LINKEDIN_LABEL}
+          </a>
         </Row>
 
         <Row
-          icon={GithubLogo}
-          channel="GitHub"
-          action={<ActionArrow href={GITHUB_URL} />}
+          icon={Phone}
+          channel="Phone"
+          action={<OpenLink href={`tel:${PHONE_TEL}`} label="Call this number" />}
         >
-          <Placeholder>{GITHUB_LABEL}</Placeholder>
+          <a href={`tel:${PHONE_TEL}`} className={cn("transition-colors hover:text-saffron", focusRing)}>
+            {PHONE_DISPLAY}
+          </a>
         </Row>
       </ul>
 
@@ -139,27 +152,5 @@ export default function ContactApp() {
         occasional gig.
       </p>
     </div>
-  );
-}
-
-function ActionArrow({ href }: { href: string }) {
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      className="grid size-8 place-items-center rounded-lg text-ink-muted transition-colors hover:bg-window-2 hover:text-ink"
-      aria-label="Open profile"
-    >
-      <svg viewBox="0 0 16 16" className="size-4" fill="none" aria-hidden>
-        <path
-          d="M5 11L11 5M11 5H6M11 5V10"
-          stroke="currentColor"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-        />
-      </svg>
-    </a>
   );
 }

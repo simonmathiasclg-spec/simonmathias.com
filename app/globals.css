@@ -64,6 +64,7 @@
 
   /* chrome — dark translucent, reads over the bright sky */
   --menubar: rgba(9, 24, 41, 0.52);
+  --menubar-bar: rgba(9, 24, 41, 0.34); /* lighter still, for the slim top bar */
   --menubar-ink: #f3f7fb;
   --menubar-hair: rgba(255, 255, 255, 0.16);
   --dock: rgba(9, 24, 41, 0.42);
@@ -124,6 +125,7 @@
   --ink-muted: #969ba6;
 
   --menubar: rgba(3, 9, 20, 0.56);
+  --menubar-bar: rgba(3, 9, 20, 0.38);
   --menubar-ink: #eef4fb;
   --menubar-hair: rgba(255, 255, 255, 0.1);
   --dock: rgba(3, 9, 20, 0.46);

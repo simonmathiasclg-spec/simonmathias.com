@@ -268,6 +268,59 @@ him — only resize / crop / compress.
   About · Work · YC Startup School · Contact; fits one line on the desktop dock and wraps
   cleanly on the 380px mobile launcher.
 
+## Overnight polish + ship-ready pass (v9)
+
+A finish pass — fixes, accessibility, real contact details, and deploy-readiness.
+
+- **Slimmed the menubar.** Down to 32px (from 36), a dedicated lighter `--menubar-bar`
+  token (kept the more-opaque `--menubar` for the doorway label pills), smaller
+  text/icons/dot, lighter blur. It breathes now and crowds the photos less.
+- **Goofy clip fixed.** The top-center Goofy slot was clipping under the bar; nudged it
+  down (`top: 15% → 21%`), shrank + calmed it, and verified every floating photo clears
+  the menubar **and** the page edges with margin even at worst-case bob/parallax. Then
+  the Goofy label collided with the name's kicker, so the name block moved down
+  (`-mt-20 → mt-9`) — measured a clean ~13px gap, name still centered + leading.
+- **Click bug stayed fixed + re-verified.** Real hit-tested coordinate clicks on **all
+  5 photos + all 4 dock items (incl. the YC emblem)** open their correct windows. (The
+  preview harness's click tool can't drive React's onClick in a backgrounded tab — fails
+  even on the static dock — so I dispatch full pointer sequences at each element's pixel
+  centre, which clicks whatever is actually topmost there, exactly like a user.)
+- **Music video confirmed.** The lazy `YouTubeFacade` renders (real thumbnail + saffron
+  play button + "starts at the solo" caption); clicking mounts the no-cookie iframe at
+  `?start=134`. Verified visible in the window.
+- **Contact wired for real.** Email `simon.mathiasclg@gmail.com` (mailto + a copy
+  button — confirmed secure-context + Clipboard API present; a real click supplies the
+  gesture), LinkedIn `/in/simonnandmathias` (new tab, `noopener`), phone `tel:+14374308003`.
+  **GitHub removed.** Icons: envelope / LinkedIn / phone.
+- **Social card.** Home already resolved `og:image`/`twitter:image` to the 1200×630
+  headshot card with `summary_large_image`. Found the deep-link routes were *clobbering*
+  it (child `generateMetadata` dropped the inherited image + downgraded the card to
+  `summary`); fixed so `/about`, `/contact`, … all inherit the headshot card. Route titles
+  stay in the document `<title>`.
+- **read-the-room slot** degrades gracefully — the self-healing `Photo` removes the
+  `<img>` on 404 (no broken-image icon) and shows a labeled placeholder naming the file
+  to drop in.
+- **Accessibility.** Global `:focus-visible` cerulean ring on every focusable element
+  (verified `:focus:not(:focus-visible)` correctly suppresses mouse-focus rings); added
+  explicit rings on the menubar + contact controls. All 5 photos carry alt text; all 12
+  icon-only buttons carry aria-labels. Reduced-motion: the sky/parallax are gated by
+  props (`reduced`/`still`/`ambient`) and a `prefers-reduced-motion` CSS block disables
+  the sky animations.
+- **Mobile (380px).** No horizontal overflow; bigger labeled cluster (Music / Goofy /
+  Leadership), the YC emblem row, and the name all fit; taps open sheets (verified the YC
+  row + a cluster photo). Name still leads.
+- **Deploy-ready.** `npm run build` clean (12 routes), no console errors, no required env
+  vars, the only `localhost` is the correct dev-only `SITE_URL` fallback (Vercel sets
+  `VERCEL_URL`). Wrote **`DEPLOY.md`** — GitHub → Vercel → custom domain in ~10 min,
+  including the one optional `NEXT_PUBLIC_SITE_URL` var for a custom domain.
+
+### Left for Simon
+
+- Drop `public/photos/read-the-room.jpg` (16:9) for the Startup School screenshot, and
+  `goofy-1.jpg` / `goofy-2.jpg` for the two Goofy in-window slots — all degrade
+  gracefully until then.
+- The deploy itself (Vercel login is yours) — follow `DEPLOY.md`.
+
 ## Screenshot / critique notes
 
 Each screen was launched, screenshotted, critiqued, and fixed — at least twice. Notable

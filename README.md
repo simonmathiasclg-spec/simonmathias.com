@@ -64,59 +64,20 @@ photo stories live in each app component (e.g. `components/apps/LeadershipApp.ts
 
 ---
 
-## 2. Fill in your contact handles
+## 2. Contact details (already wired)
 
-Open [`components/apps/ContactApp.tsx`](components/apps/ContactApp.tsx) and replace
-the five constants at the top, then delete the `<Placeholder>` wrappers around each
-value (they render the dashed "to add" markers):
-
-```ts
-const EMAIL = "hello@simonmathias.dev";          // ← your real email
-const LINKEDIN_URL = "https://linkedin.com/in/your-handle";
-const LINKEDIN_LABEL = "/in/your-handle";
-const GITHUB_URL = "https://github.com/your-handle";
-const GITHUB_LABEL = "@your-handle";
-```
-
-To remove a "to add" marker, change e.g. `<Placeholder>{EMAIL}</Placeholder>`
-back to just `{EMAIL}`.
+The Contact window has real, working links — **email** (with a copy button),
+**LinkedIn** (new tab), and **phone** (`tel:`). They live as constants at the top of
+[`components/apps/ContactApp.tsx`](components/apps/ContactApp.tsx) if you ever need to
+change them. Nothing to fill in.
 
 ---
 
-## 3. Confirm the internal product
+## 3. Deploy
 
-[`components/apps/ProjectsApp.tsx`](components/apps/ProjectsApp.tsx) has a third,
-deliberately-vague project ("Workforce intelligence", marked `Internal`). It reveals
-nothing specific. **Decide one of:** fill in real detail, or delete that `<li>`
-block. Look for the `TODO(simon)` comment.
-
----
-
-## 4. Deploy to Vercel
-
-This is a stock Next.js App Router app — Vercel deploys it with zero config.
-
-**Option A — dashboard (easiest):**
-
-1. Push this folder to a GitHub repo:
-   ```bash
-   git init && git add -A && git commit -m "Simon OS"
-   gh repo create simon-os --private --source=. --push   # or create the repo in the GitHub UI
-   ```
-2. Go to [vercel.com/new](https://vercel.com/new), import the repo.
-3. Framework preset auto-detects **Next.js**. Leave build/output settings default.
-4. Click **Deploy**. Done — you get a `*.vercel.app` URL.
-
-**Option B — CLI:**
-
-```bash
-npm i -g vercel
-vercel          # preview deploy, follow the prompts
-vercel --prod   # promote to production
-```
-
-No environment variables are required. Add a custom domain in
-**Project → Settings → Domains** when you're ready.
+A stock Next.js App Router app — Vercel deploys it with zero config and no environment
+variables. Step-by-step (GitHub → Vercel → custom domain), ~10 minutes, in
+**[`DEPLOY.md`](DEPLOY.md)**.
 
 ---
 
@@ -128,8 +89,8 @@ No environment variables are required. Add a custom domain in
   The choice is remembered in `localStorage`.
 - **Intro:** a one-time water-droplet open (stored in `localStorage`) that resolves into
   the sky; skippable by click/scroll/key, instant-and-calm under `prefers-reduced-motion`.
-- **Sound:** opt-in via the menubar toggle (off by default) — intro splash + a low
-  ambient ocean loop. Never autoplays.
+- **Sound:** opt-in via the menubar toggle (off by default) — a droplet splash on the
+  intro plus soft notes when you open photos/windows. Never autoplays.
 - **Home-first:** nothing opens on load; the sky home with your name is the landing.
   Closing every window returns to it.
 - **Accessibility:** visible keyboard focus (cerulean ring), `Escape` closes the

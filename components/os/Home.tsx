@@ -15,7 +15,7 @@ export default function Home() {
       transition={{ duration: reduce ? 0 : 0.5, ease: "easeOut" }}
     >
       <motion.div
-        className="-mt-20 flex flex-col items-center gap-5"
+        className="mt-9 flex flex-col items-center gap-5"
         initial={reduce ? false : { opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}

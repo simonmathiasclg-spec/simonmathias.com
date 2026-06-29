@@ -59,7 +59,7 @@ function BarButton({
         <button
           onClick={onClick}
           aria-label={label}
-          className="cursor-hover grid size-7 place-items-center rounded-md text-menubar-ink/85 transition-colors hover:bg-white/10 hover:text-menubar-ink"
+          className="cursor-hover grid size-6 place-items-center rounded-md text-menubar-ink/80 transition-colors hover:bg-white/10 hover:text-menubar-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cerulean)] focus-visible:ring-offset-1 focus-visible:ring-offset-transparent"
         >
           {children}
         </button>
@@ -90,12 +90,12 @@ export default function Menubar({ show }: { show: boolean }) {
       transition={
         reduce ? { duration: 0 } : { type: "spring", stiffness: 220, damping: 30 }
       }
-      className="fixed inset-x-0 top-0 z-[100] flex h-9 items-center justify-between border-b border-[var(--menubar-hair)] bg-[var(--menubar)] px-3 font-mono text-[12px] backdrop-blur-xl backdrop-saturate-150 sm:px-4"
+      className="fixed inset-x-0 top-0 z-[100] flex h-8 items-center justify-between border-b border-[var(--menubar-hair)] bg-[var(--menubar-bar)] px-3 font-mono text-[11px] backdrop-blur-md sm:px-4"
     >
       {/* left: identity + active app */}
       <div className="flex items-center gap-3">
         <span className="flex items-center gap-2 font-semibold text-menubar-ink">
-          <span className="size-2 rounded-full bg-saffron shadow-[0_0_8px_var(--saffron)]" />
+          <span className="size-1.5 rounded-full bg-saffron shadow-[0_0_8px_var(--saffron)]" />
           Simon Mathias
         </span>
         {focusedName && (
@@ -119,9 +119,9 @@ export default function Menubar({ show }: { show: boolean }) {
           onClick={toggleSound}
         >
           {sound ? (
-            <SpeakerSimpleHigh weight="fill" className="size-4" />
+            <SpeakerSimpleHigh weight="fill" className="size-3.5" />
           ) : (
-            <SpeakerSimpleSlash weight="regular" className="size-4" />
+            <SpeakerSimpleSlash weight="regular" className="size-3.5" />
           )}
         </BarButton>
         <BarButton
@@ -129,9 +129,9 @@ export default function Menubar({ show }: { show: boolean }) {
           onClick={toggleTheme}
         >
           {theme === "day" ? (
-            <Moon weight="fill" className="size-4" />
+            <Moon weight="fill" className="size-3.5" />
           ) : (
-            <Sun weight="fill" className="size-4" />
+            <Sun weight="fill" className="size-3.5" />
           )}
         </BarButton>
       </div>
