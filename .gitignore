@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# raw source photos/video — originals kept locally, NOT tracked. The committed
+# slot assets are the web-optimized .jpg files produced by
+# scripts/process-photos.mjs (re-run it after dropping new originals in _source/).
+/public/photos/_source/

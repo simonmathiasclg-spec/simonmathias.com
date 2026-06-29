@@ -1,6 +1,6 @@
 "use client";
 
-import { AppHeader, Body, Divider, SectionLabel, PhotoHero } from "./_kit";
+import { AppHeader, Body, Divider, SectionLabel, Figure, ViewAllPhotos } from "./_kit";
 
 const stats = [
   { big: "70%", label: "winning margin — a school record" },
@@ -12,11 +12,13 @@ const stats = [
 export default function LeadershipApp() {
   return (
     <div className="flex flex-col gap-8">
-      <PhotoHero
+      <Figure
         src="/photos/photo-lead.jpg"
         label="Leading"
         caption="Elected College President"
-        objectPosition="center 30%"
+        aspect="4 / 5"
+        priority
+        className="mx-auto w-full max-w-[290px]"
       />
 
       <AppHeader
@@ -45,6 +47,54 @@ export default function LeadershipApp() {
         </p>
       </Body>
 
+      {/* the personality moment */}
+      <Figure
+        src="/photos/gallery-saxy-president.jpg"
+        label="Saxy Simon, President"
+        caption="“Saxy Simon · President” — with the hardware to back it up"
+        aspect="3 / 4"
+        tilt={-1}
+        className="mx-auto w-full max-w-[330px]"
+      />
+
+      <Divider />
+
+      <section className="flex flex-col gap-5">
+        <SectionLabel>The trophy wall</SectionLabel>
+        <div className="grid grid-cols-2 gap-x-4 gap-y-5">
+          <Figure
+            src="/photos/gallery-trophy-1.jpg"
+            label="Silverware"
+            caption="Hardware"
+            aspect="3 / 4"
+            tilt={1.5}
+          />
+          <Figure
+            src="/photos/gallery-trophy-2.jpg"
+            label="More silverware"
+            caption="…and more"
+            aspect="3 / 4"
+            tilt={-1.5}
+            className="mt-7"
+          />
+          <Figure
+            src="/photos/gallery-team.jpg"
+            label="The team"
+            caption="8 / 8 — the championship season, with the team"
+            aspect="4 / 3"
+            className="col-span-2"
+          />
+          <Figure
+            src="/photos/gallery-poster.jpg"
+            label="Campaign poster"
+            caption="The campaign"
+            aspect="4 / 5"
+            tilt={1}
+            className="col-span-2 mx-auto w-full max-w-[230px]"
+          />
+        </div>
+      </section>
+
       <Divider />
 
       <section className="flex flex-col gap-4">
@@ -63,6 +113,10 @@ export default function LeadershipApp() {
           ))}
         </ul>
       </section>
+
+      <Divider />
+
+      <ViewAllPhotos />
     </div>
   );
 }

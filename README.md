@@ -18,30 +18,43 @@ npm run build    # production build (what Vercel runs)
 
 ---
 
-## 1. Add your photos
+## 1. Photos (already in) + how to swap one
 
-Every photo slot already shows a tasteful labeled placeholder, so the site looks
-finished with **zero** photos. Drop a real file at the path below and it appears
-automatically — no code changes, no rebuild needed in dev. Just match the filename.
+Your real photos are in and optimized. The web-ready slot files live in
+`/public/photos/` (committed); the **raw originals** live in
+`/public/photos/_source/` (git-ignored, kept locally). The five `photo-*.jpg` files
+are the home-screen signature — each is a doorway that opens a themed window; a small
+"view all photos" link (inside the Music & Stage window, and on the mobile launcher)
+browses them all in a lightbox.
 
-Put all files in **`/public/photos/`**:
+**To swap a photo:** drop a new original into `/public/photos/_source/`, point the
+matching entry in [`scripts/process-photos.mjs`](scripts/process-photos.mjs) at it, then:
 
-| Filename | What it opens (click on the home) | Best crop |
+```bash
+node scripts/process-photos.mjs   # re-crops + compresses into the slot files
+```
+
+The script **only resizes / crops / compresses** (auto-orienting via EXIF, never
+upscaling). Current mapping:
+
+| Slot file | From original | Used for |
 | --- | --- | --- |
-| `photo-stage.jpg` | **Music & Stage** — "Sax solo · 3,000 people · age 15" | **4:5 portrait** |
-| `photo-perform.jpg` | **Music & Stage** — "Guitar, live" | 4:5 portrait |
-| `photo-build.jpg` | **Work** — "Building software people use" | 4:3 |
-| `photo-lead.jpg` | **Leadership** — "Elected College President" | 4:3 |
-| `photo-candid.jpg` | **About** — "Off the clock" | 1:1 square |
-| `portrait.jpg` | inside the about window | 4:5 portrait (face upper-third) |
-| `read-the-room.jpg` | startup-school → Read the Room | 16:9 screenshot |
+| `photo-stage.jpg` | `Sax 1.JPG` | home doorway → **Music & Stage** hero |
+| `photo-perform.jpg` | `Sax pic.JPG` | home doorway → Music & Stage gallery |
+| `photo-lead.jpg` | `On Mike … .JPG` | home doorway → **Leadership** hero |
+| `photo-build.jpg` | `At Work.JPG` | home doorway → **Work** |
+| `photo-candid.jpg` | `At Work.JPG` (reuse) | home doorway → **About** |
+| `portrait.jpg` | `Headshot.png` | inside the About window |
+| `og-headshot.jpg` | `Headshot.png` | social-preview (OG) card |
+| `gallery-*.jpg` | Mic 3 / trophies / poster | woven into the window stories |
+| `read-the-room.jpg` | _(add yours)_ | startup-school → Read the Room (16:9) |
 
-The five **`photo-*.jpg`** files are the home-screen signature: each is a doorway
-that opens a themed window. A small "view all photos" link (inside the Music & Stage
-window, and on the mobile launcher) browses them all in a lightbox. Captions + which
-window each opens live in
-[`lib/photos.ts`](lib/photos.ts). The window heroes crop 16:9 (tweak `objectPosition`
-in the matching component if a face gets cut).
+Captions + the floating layout live in [`lib/photos.ts`](lib/photos.ts); the in-window
+photo stories live in each app component (e.g. `components/apps/LeadershipApp.tsx`).
+
+> Note: `photo-candid.jpg` and `photo-build.jpg` are both crops of `At Work.JPG`, so the
+> same desk shot appears in two home frames. If you'd rather vary it, there's an unused
+> `On Stage.JPG` in `_source/` you can point `photo-candid` at and re-run the script.
 
 ---
 

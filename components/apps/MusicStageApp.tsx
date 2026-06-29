@@ -1,7 +1,15 @@
 "use client";
 
 import { MusicNoteSimple, Guitar, MicrophoneStage, Confetti } from "@phosphor-icons/react";
-import { AppHeader, Body, Divider, SectionLabel, PhotoHero, Photo, ViewAllPhotos } from "./_kit";
+import {
+  AppHeader,
+  Body,
+  Divider,
+  SectionLabel,
+  Figure,
+  YouTubeFacade,
+  ViewAllPhotos,
+} from "./_kit";
 
 const facts = [
   { icon: MusicNoteSimple, label: "Saxophone & guitar" },
@@ -13,11 +21,13 @@ const facts = [
 export default function MusicStageApp() {
   return (
     <div className="flex flex-col gap-8">
-      <PhotoHero
+      <Figure
         src="/photos/photo-stage.jpg"
         label="On stage"
-        caption="Sax solo · 3,000 people · age 15"
-        objectPosition="center 35%"
+        caption="On stage with the band"
+        aspect="4 / 5"
+        priority
+        className="mx-auto w-full max-w-[290px]"
       />
 
       <AppHeader
@@ -43,29 +53,48 @@ export default function MusicStageApp() {
         </p>
       </Body>
 
+      {/* two from the stage — varied sizes + slight tilts */}
+      <div className="grid grid-cols-2 gap-4">
+        <Figure
+          src="/photos/photo-perform.jpg"
+          label="Performing"
+          caption="Solo, mid-set"
+          aspect="4 / 5"
+          tilt={-1.5}
+        />
+        <Figure
+          src="/photos/gallery-mic.jpg"
+          label="On the mic"
+          caption="On the mic"
+          aspect="4 / 5"
+          tilt={1.5}
+          className="mt-6"
+        />
+      </div>
+
+      {/* the live video — lazy YouTube facade, jumps to the solo */}
+      <YouTubeFacade
+        id="TbWnnb5J-Ec"
+        start={134}
+        title="Simon Mathias — live saxophone solo"
+        caption="Me, live — starts at the solo."
+      />
+
       <Divider />
 
       <section className="flex flex-col gap-4">
         <SectionLabel>Passing it on</SectionLabel>
-        <div className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-6">
-          <Body>
-            <p>
-              I taught guitar every week at a school for differently-abled kids. I
-              trained an autistic student named <strong>Roshan</strong> for a solo —
-              and quietly saved up to surprise him with a guitar of his own.
-            </p>
-            <p className="text-ink-muted">
-              The best part of music has never been the stage. It&rsquo;s watching
-              someone realize they can do the thing they thought they couldn&rsquo;t.
-            </p>
-          </Body>
-          <Photo
-            src="/photos/photo-perform.jpg"
-            label="Guitar, live"
-            className="aspect-[4/5] w-full shrink-0 sm:w-[190px]"
-            objectPosition="center 30%"
-          />
-        </div>
+        <Body>
+          <p>
+            I taught guitar every week at a school for differently-abled kids. I
+            trained an autistic student named <strong>Roshan</strong> for a solo —
+            and quietly saved up to surprise him with a guitar of his own.
+          </p>
+          <p className="text-ink-muted">
+            The best part of music has never been the stage. It&rsquo;s watching
+            someone realize they can do the thing they thought they couldn&rsquo;t.
+          </p>
+        </Body>
       </section>
 
       <Divider />

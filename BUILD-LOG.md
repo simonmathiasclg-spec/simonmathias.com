@@ -200,6 +200,39 @@ content untouched. Three targeted fixes.
   tips, two coconuts. Reads as a charming distant detail, not a cartoon (verified by
   magnifying the SVG 4× in an overlay and critiquing the shape).
 
+## Real photos + video (v7)
+
+Simon's real photos went in. A repeatable pipeline, no AI alteration of any photo of
+him — only resize / crop / compress.
+
+- **Processing pipeline** (`scripts/process-photos.mjs`, sharp): auto-orients via EXIF
+  (caught `At Work.JPG` stored sideways at orientation 6 → would have cropped a
+  face-down sliver without `.rotate()`), crops the largest face-safe rect that *fits*
+  the source (so it never upscales), then mozjpeg-compresses. Each source was inspected
+  first to place the crop on the face. Raw originals live in git-ignored
+  `public/photos/_source/`; the committed slot files are the optimized `.jpg`s. Output
+  is ~38–243 KB each (~2 MB total) vs. the 9 MB+ originals.
+- **Slots remapped to the real files** and re-shaped to fit them. Most sources are
+  portrait, so the two landscape floating frames (`lead`, `build`) became 4:5 — a 4:3
+  crop would have sliced the suit-and-mic close-up. Hero/floating: stage←Sax 1,
+  perform←Sax pic, lead←On Mike, build/candid←At Work (per brief, reused), portrait←the
+  studio headshot. Faces verified visible + uncropped in all five floating frames.
+- **Window photo stories** (a new `Figure` kit primitive — framed, captioned, slightly
+  tiltable; the rigid 16:9 `PhotoHero` was wrong for portrait sources). *Music & Stage*:
+  a stage hero, a two-up sax cluster with varied offsets + captions, then the live video.
+  *Leadership*: the suit-and-mic hero, the "Saxy Simon · President" trophy-jacket shot
+  featured, then a "trophy wall" that unfolds while scrolling (two trophy portraits → the
+  full-team championship shot → the campaign poster) → the stats. *Work* hero switched
+  from a 16:9 band to a contained 4:5 plate so the desk shot isn't sliced.
+- **Live video** = a lazy `YouTubeFacade`: thumbnail + saffron play button; the
+  (no-cookie) iframe mounts only on click, jumping to `?start=134` ("starts at the
+  solo"). The 142 MB `Sax Vid.MP4` was dropped — no ffmpeg to compress it, and the brief
+  allowed dropping it in favor of the embed.
+- **Social card** now Simon's real headshot: `og-headshot.jpg` (a 1200×630 face-centered
+  crop) is read at build and embedded as a data-URI background in `opengraph-image.tsx`,
+  with a bottom scrim + name + saffron accent. `og:image` and `twitter:image` (verified
+  in the rendered `<head>`) both resolve to it, so shared links show his face.
+
 ## Screenshot / critique notes
 
 Each screen was launched, screenshotted, critiqued, and fixed — at least twice. Notable

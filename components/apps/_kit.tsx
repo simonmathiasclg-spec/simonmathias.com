@@ -1,11 +1,12 @@
 "use client";
 
-import { useState, type ComponentType, type ReactNode } from "react";
+import { useState, type ComponentType, type CSSProperties, type ReactNode } from "react";
 import {
   ImageSquare,
   ArrowUpRight,
   ArrowRight,
   Images,
+  Play,
   type IconProps,
 } from "@phosphor-icons/react";
 import { useOS } from "@/lib/os-store";
@@ -174,6 +175,7 @@ export function Photo({
   priority,
   icon: Icon = ImageSquare,
   objectPosition,
+  style,
 }: {
   src: string;
   label: string;
@@ -182,6 +184,7 @@ export function Photo({
   priority?: boolean;
   icon?: AppIcon;
   objectPosition?: string;
+  style?: CSSProperties;
 }) {
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
@@ -189,6 +192,7 @@ export function Photo({
 
   return (
     <div
+      style={style}
       className={cn(
         "relative isolate overflow-hidden rounded-xl bg-window-2",
         "ring-1 ring-inset ring-hair",
@@ -260,6 +264,115 @@ export function PhotoHero({
         objectPosition={objectPosition}
         className={cn("aspect-[16/9] w-full", className)}
       />
+      {caption && (
+        <figcaption className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-muted">
+          {caption}
+        </figcaption>
+      )}
+    </figure>
+  );
+}
+
+/* ----------------------------------------------------------------- figure --- */
+
+/**
+ * A captioned, optionally-tilted photo "plate" with a paper frame — for weaving
+ * real photos through a window's prose (varied sizes + slight tilts → a story,
+ * not a grid). `aspect` is any CSS aspect-ratio string ("4 / 5", "3 / 4", ...).
+ */
+export function Figure({
+  src,
+  label,
+  caption,
+  aspect = "4 / 5",
+  objectPosition,
+  tilt = 0,
+  priority,
+  className,
+}: {
+  src: string;
+  label: string;
+  caption?: ReactNode;
+  aspect?: string;
+  objectPosition?: string;
+  tilt?: number;
+  priority?: boolean;
+  className?: string;
+}) {
+  return (
+    <figure
+      className={cn("flex flex-col gap-2", className)}
+      style={tilt ? { transform: `rotate(${tilt}deg)` } : undefined}
+    >
+      <div className="rounded-2xl bg-photo-frame p-1.5 shadow-[0_18px_44px_-22px_rgba(7,18,33,0.6)] ring-1 ring-black/[0.06]">
+        <Photo
+          src={src}
+          label={label}
+          priority={priority}
+          objectPosition={objectPosition}
+          style={{ aspectRatio: aspect }}
+          className="w-full rounded-[10px]"
+        />
+      </div>
+      {caption && (
+        <figcaption className="px-1 font-mono text-[10.5px] uppercase tracking-[0.16em] text-ink-muted">
+          {caption}
+        </figcaption>
+      )}
+    </figure>
+  );
+}
+
+/* ----------------------------------------------------------- youtube facade --- */
+
+/**
+ * A privacy-friendly, lazy YouTube embed: shows a thumbnail with a play button;
+ * only mounts the (no-cookie) iframe once clicked. Keeps the window light.
+ */
+export function YouTubeFacade({
+  id,
+  start = 0,
+  title,
+  caption,
+}: {
+  id: string;
+  start?: number;
+  title: string;
+  caption?: ReactNode;
+}) {
+  const [playing, setPlaying] = useState(false);
+  return (
+    <figure className="flex flex-col gap-2.5">
+      <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-black ring-1 ring-inset ring-hair">
+        {playing ? (
+          <iframe
+            className="absolute inset-0 h-full w-full"
+            src={`https://www.youtube-nocookie.com/embed/${id}?start=${start}&autoplay=1&rel=0`}
+            title={title}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+          />
+        ) : (
+          <button
+            type="button"
+            onClick={() => setPlaying(true)}
+            aria-label={`Play video: ${title}`}
+            className="cursor-hover group absolute inset-0 block"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
+              alt={title}
+              loading="lazy"
+              className="h-full w-full scale-[1.35] object-cover transition-transform duration-500 group-hover:scale-[1.4]"
+            />
+            <span className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/10" />
+            <span className="absolute left-1/2 top-1/2 grid size-[58px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-saffron text-[#2a1d04] shadow-[0_8px_28px_-6px_rgba(0,0,0,0.6)] transition-transform duration-300 group-hover:scale-110">
+              <Play weight="fill" className="ml-0.5 size-7" />
+            </span>
+          </button>
+        )}
+      </div>
       {caption && (
         <figcaption className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-muted">
           {caption}

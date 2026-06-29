@@ -1,7 +1,7 @@
 "use client";
 
 import { ChartLineUp, GraduationCap, Cpu, Compass } from "@phosphor-icons/react";
-import { AppHeader, Body, Divider, SectionLabel, PhotoHero } from "./_kit";
+import { AppHeader, Body, Divider, SectionLabel, Figure } from "./_kit";
 
 const focus = [
   {
@@ -29,11 +29,13 @@ const focus = [
 export default function WorkApp() {
   return (
     <div className="flex flex-col gap-8">
-      <PhotoHero
+      <Figure
         src="/photos/photo-build.jpg"
         label="Building"
         caption="Building software people use"
-        objectPosition="center 35%"
+        aspect="4 / 5"
+        priority
+        className="mx-auto w-full max-w-[300px]"
       />
       <AppHeader
         index="01"
