@@ -352,6 +352,21 @@ A finish pass — fixes, accessibility, real contact details, and deploy-readine
   at 380px, keyboard-focusable. Embedding the actual report (vs. recreating it) keeps it
   faithful and works on every browser.
 
+## Work rewrite + em dash sweep (v12)
+
+- **Work window rewritten** (content only; layout, hero photo, and window styling
+  untouched). New plain-voice intro, then the abstract "What I work on" list became
+  five named builds as cards in the site's card style (`bg-window-2` + `ring-hair`):
+  KnowYou, Read the Room, Decision tool, Client-mapping tool, Sales dashboard. Each is a
+  title, one or two sentences, and a small `Tag`. Only Read the Room is linked, via a
+  live tag that opens the app; KnowYou, the dashboard, and the client tool are not
+  linked, and no client names or real data appear. Closing line added below the cards.
+- **Em dashes removed from every rendered string** across the site: window copy, the
+  home/mobile taglines, alt text and aria-labels, the OG card alt + body, the page
+  description, deep-link titles, and the crawlable SEO blurbs. Replaced with periods,
+  commas, or colons so each line still reads cleanly. Code and CSS comments keep theirs
+  (not part of the rendered site). Verified by grep: zero em dashes in any rendered text.
+
 ## Screenshot / critique notes
 
 Each screen was launched, screenshotted, critiqued, and fixed — at least twice. Notable

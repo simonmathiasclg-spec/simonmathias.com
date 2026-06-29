@@ -33,7 +33,7 @@ function ViewerPhoto({ index }: { index: number }) {
           <img
             key={photo.src}
             src={photo.src}
-            alt={`Simon Mathias — ${photo.caption}`}
+            alt={`Simon Mathias, ${photo.caption}`}
             decoding="async"
             onLoad={() => setLoaded(true)}
             onError={() => setFailed(true)}

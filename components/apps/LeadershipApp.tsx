@@ -3,7 +3,7 @@
 import { AppHeader, Body, Divider, SectionLabel, Figure, ViewAllPhotos } from "./_kit";
 
 const stats = [
-  { big: "70%", label: "winning margin — a school record" },
+  { big: "70%", label: "winning margin, a school record" },
   { big: "~2,500", label: "students led as College President" },
   { big: "8 / 8", label: "inter-school championships won" },
   { big: "$18K", label: "raised for charity (CAD)" },
@@ -30,8 +30,8 @@ export default function LeadershipApp() {
 
       <Body>
         <p>
-          I was elected <strong>College President</strong> by 70% of the student body —
-          the largest margin in my school&rsquo;s history — and led roughly{" "}
+          I was elected <strong>College President</strong> by 70% of the student body,
+          the largest margin in my school&rsquo;s history, and led roughly{" "}
           <strong>2,500 students.</strong>
         </p>
         <p>
@@ -41,7 +41,7 @@ export default function LeadershipApp() {
           <strong>$18,000 CAD.</strong>
         </p>
         <p>
-          And once, in Europe, I led fifty stranded people — my principal among them —
+          And once, in Europe, I led fifty stranded people, my principal among them,
           out of a transit mess in broken French. The title was never the point; being
           useful when it counts is.
         </p>
@@ -51,7 +51,7 @@ export default function LeadershipApp() {
       <Figure
         src="/photos/gallery-saxy-president.jpg"
         label="Saxy Simon, President"
-        caption="“Saxy Simon · President” — with the hardware to back it up"
+        caption="“Saxy Simon · President,” with the hardware to back it up"
         aspect="3 / 4"
         tilt={-1}
         className="mx-auto w-full max-w-[330px]"
@@ -80,7 +80,7 @@ export default function LeadershipApp() {
           <Figure
             src="/photos/gallery-team.jpg"
             label="The team"
-            caption="8 / 8 — the championship season, with the team"
+            caption="8 / 8, the championship season, with the team"
             aspect="4 / 3"
             className="col-span-2"
           />

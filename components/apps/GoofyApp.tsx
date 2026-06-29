@@ -33,7 +33,7 @@ export default function GoofyApp() {
       <Body>
         <p>
           I take the work seriously. Myself, much less so. I&rsquo;ll dance at any
-          provided opportunity — badly, and with full commitment — and I have strong,
+          provided opportunity, badly and with full commitment, and I have strong,
           unsolicited opinions about the right way to plate a midnight snack.
         </p>
         <p>

@@ -29,7 +29,7 @@ export default function AboutApp() {
           <>
             Hi, I&rsquo;m Simon.
             <span className="mt-2 block text-[0.42em] font-light tracking-[0.04em] text-ink-muted">
-              I&rsquo;m obsessed with how people work — on stage and in software.
+              I&rsquo;m obsessed with how people work, on stage and in software.
             </span>
           </>
         }
@@ -58,7 +58,7 @@ export default function AboutApp() {
           </p>
           <p>
             Mostly I just like making things that are useful and a little bit
-            beautiful — and then watching real people actually use them.
+            beautiful, and then watching real people actually use them.
           </p>
         </Body>
 

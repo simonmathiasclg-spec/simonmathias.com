@@ -72,7 +72,7 @@ function PhotoFrame({
         onClick={handleClick}
         onHoverStart={() => setHovered(true)}
         onHoverEnd={() => setHovered(false)}
-        aria-label={`Open — ${photo.caption}`}
+        aria-label={`Open ${photo.caption}`}
         animate={buttonAnimate}
         whileHover={still ? undefined : { rotate: 0, scale: 1.08, y: -12 }}
         whileTap={{ scale: 0.97 }}
@@ -102,7 +102,7 @@ function PhotoFrame({
             // eslint-disable-next-line @next/next/no-img-element
             <img
               src={photo.src}
-              alt={`Simon Mathias — ${photo.caption}`}
+              alt={`Simon Mathias, ${photo.caption}`}
               loading="lazy"
               decoding="async"
               onLoad={() => setLoaded(true)}

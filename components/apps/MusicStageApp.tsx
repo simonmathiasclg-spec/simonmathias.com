@@ -13,7 +13,7 @@ import {
 
 const facts = [
   { icon: MusicNoteSimple, label: "Saxophone & guitar" },
-  { icon: MicrophoneStage, label: "Solo for 3,000 — at 15" },
+  { icon: MicrophoneStage, label: "Solo for 3,000 at 15" },
   { icon: Confetti, label: "Project Going Nowhere" },
   { icon: Guitar, label: "Self-taught, then taught others" },
 ];
@@ -40,7 +40,7 @@ export default function MusicStageApp() {
       <Body>
         <p>
           There were no saxophone teachers near me in Bangalore, so I taught myself
-          off YouTube for a year — with one goal: to <strong>surprise-perform at my
+          off YouTube for a year, with one goal: to <strong>surprise-perform at my
           sister&rsquo;s wedding.</strong> Then I trained two more years over Zoom.
         </p>
         <p>
@@ -76,8 +76,8 @@ export default function MusicStageApp() {
       <YouTubeFacade
         id="TbWnnb5J-Ec"
         start={134}
-        title="Simon Mathias — live saxophone solo"
-        caption="Me, live — starts at the solo."
+        title="Simon Mathias live saxophone solo"
+        caption="Me, live. Starts at the solo."
       />
 
       <Divider />
@@ -87,7 +87,7 @@ export default function MusicStageApp() {
         <Body>
           <p>
             I taught guitar every week at a school for differently-abled kids. I
-            trained an autistic student named <strong>Roshan</strong> for a solo —
+            trained an autistic student named <strong>Roshan</strong> for a solo,
             and quietly saved up to surprise him with a guitar of his own.
           </p>
           <p className="text-ink-muted">

@@ -32,7 +32,7 @@ function Clock() {
         hour12: true,
         timeZone: "America/Toronto",
       }).format(now)
-    : "—— ——";
+    : "·· ··";
 
   return (
     <span

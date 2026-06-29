@@ -2,7 +2,7 @@ import { ImageResponse } from "next/og";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
 
-export const alt = "Simon Mathias — builder, musician, operator";
+export const alt = "Simon Mathias: builder, musician, operator";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -105,7 +105,7 @@ export default function OpengraphImage() {
               display: "flex",
             }}
           >
-            Obsessed with how people work — on stage and in software.
+            Obsessed with how people work, on stage and in software.
           </div>
         </div>
       </div>

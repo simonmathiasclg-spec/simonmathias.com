@@ -75,7 +75,7 @@ export default function MobileShell({
                 <button
                   key={p.id}
                   onClick={() => setActive(p.target)}
-                  aria-label={`Open — ${p.caption}`}
+                  aria-label={`Open ${p.caption}`}
                   className="flex flex-col items-center gap-1.5 transition-transform active:scale-95"
                 >
                   <span
@@ -107,7 +107,7 @@ export default function MobileShell({
             Simon Mathias
           </h1>
           <p className="max-w-[32ch] text-[15px] font-light leading-relaxed text-white/60">
-            Obsessed with how people work — on stage and in software. Builder,
+            Obsessed with how people work, on stage and in software. Builder,
             musician, operator. Tap in.
           </p>
         </div>

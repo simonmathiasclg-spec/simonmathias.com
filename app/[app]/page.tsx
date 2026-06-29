@@ -31,7 +31,7 @@ export async function generateMetadata({
   // Only override the title — let the OG/Twitter image, card type, and
   // description inherit from the root layout + opengraph-image so every deep
   // link still unfurls with the headshot card. (og:title falls back to title.)
-  return { title: `Simon Mathias — ${TITLES[app]}` };
+  return { title: `Simon Mathias · ${TITLES[app]}` };
 }
 
 export default async function AppRoute({

@@ -6,7 +6,7 @@ const lessons = [
   {
     n: "01",
     title: "Distribution is a product feature, not an afterthought.",
-    body: "Juno's reach didn't come from a growth hack — it came from telling a true story people recognized. I build the story in now, not later.",
+    body: "Juno's reach didn't come from a growth hack. It came from telling a true story people recognized. I build the story in now, not later.",
   },
   {
     n: "02",
@@ -27,7 +27,7 @@ export default function StartupSchoolApp() {
         index="03"
         kicker="Startup School"
         title="Founder&rsquo;s notes"
-        lead="Honest notes on everything I&rsquo;ve tried to make work — written for whoever&rsquo;s reading this from YC."
+        lead="Honest notes on everything I&rsquo;ve tried to make work, written for whoever&rsquo;s reading this from YC."
       />
 
       <Body>
@@ -57,7 +57,7 @@ export default function StartupSchoolApp() {
         <figure className="my-1 border-l-2 border-saffron pl-5">
           <blockquote className="text-pretty font-display text-xl font-light italic leading-snug text-ink">
             &ldquo;It hit roughly a million views on LinkedIn and got me into VC
-            meetings — and then I pivoted, on purpose.&rdquo;
+            meetings, and then I pivoted, on purpose.&rdquo;
           </blockquote>
         </figure>
 
@@ -65,8 +65,8 @@ export default function StartupSchoolApp() {
           <p>
             Juno was a marketplace matching students with the right tutor on demand.
             I built it, I told its story, and the story{" "}
-            <strong>traveled — ~1M LinkedIn views</strong>{" "}and a handful of investor
-            conversations I was not expecting at my age. Then I pivoted — not because
+            <strong>traveled: ~1M LinkedIn views</strong>{" "}and a handful of investor
+            conversations I was not expecting at my age. Then I pivoted. Not because
             the attention dried up, but because I&rsquo;d learned enough to know the
             version in front of me wasn&rsquo;t the one worth a decade.
           </p>
@@ -80,7 +80,7 @@ export default function StartupSchoolApp() {
         <SectionLabel>What I&rsquo;ve shipped since</SectionLabel>
         <Body>
           <p>
-            I don&rsquo;t just have ideas — I put them in front of real users, end to
+            I don&rsquo;t just have ideas. I put them in front of real users, end to
             end.
           </p>
         </Body>
@@ -93,13 +93,13 @@ export default function StartupSchoolApp() {
             <Tag tone="live">Live</Tag>
           </div>
           <p className="max-w-[54ch] text-[15px] leading-relaxed text-ink/85">
-            A gamified Predictive Index training platform — you learn to read
+            A gamified Predictive Index training platform. You learn to read
             behavioral profiles by actually playing through scenarios. Designed, built,
             and deployed end-to-end.
           </p>
           <Photo
             src="/photos/read-the-room.jpg"
-            label="Read the Room — screenshot"
+            label="Read the Room screenshot"
             className="aspect-[16/9] w-full max-w-md"
           />
           <ExternalLink href="https://read-the-room-lime.vercel.app">
@@ -116,7 +116,7 @@ export default function StartupSchoolApp() {
           </div>
           <p className="max-w-[54ch] text-[15px] leading-relaxed text-ink/85">
             A live web app replacing aging Excel dashboards, built on real behavioral +
-            assessment data — the same numbers, but something a sales leader actually
+            assessment data. The same numbers, but something a sales leader actually
             wants to open.
           </p>
         </div>
@@ -148,15 +148,15 @@ export default function StartupSchoolApp() {
         <Body>
           <p>
             Since 2023 I&rsquo;ve wanted to build a <strong>&ldquo;Duolingo for
-            music&rdquo;</strong> — real-time AI feedback that hears you play and tells
-            you exactly what to fix. It comes straight from teaching myself saxophone
+            music&rdquo;</strong>. It gives real-time AI feedback that hears you play and
+            tells you exactly what to fix. It comes straight from teaching myself saxophone
             the hard way: a year of YouTube and guesswork, with no one to tell me what
-            was wrong. I want to be that missing teacher — for the kid in Bangalore who
+            was wrong. I want to be that missing teacher for the kid in Bangalore who
             can&rsquo;t find one.
           </p>
           <p className="text-ink-muted">
             That&rsquo;s the through-line in all of this: people learning to do the
-            thing they thought they couldn&rsquo;t — on stage, on a team, or in
+            thing they thought they couldn&rsquo;t, on stage, on a team, or in
             software. If that&rsquo;s your kind of problem, let&rsquo;s talk.
           </p>
         </Body>

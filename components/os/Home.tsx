@@ -36,14 +36,14 @@ export default function Home() {
           Simon Mathias
         </h1>
         <p className="sky-text-shadow max-w-[36ch] text-pretty text-[clamp(1rem,1.5vw,1.3rem)] font-light leading-snug text-white/85">
-          Obsessed with how people work — on stage and in software.
+          Obsessed with how people work, on stage and in software.
         </p>
 
         {/* primary call-to-action — the YC centerpiece */}
         <motion.button
           type="button"
           onClick={openYC}
-          aria-label="Why YC Startup School — open the founder's notes"
+          aria-label="Why YC Startup School: open the founder's notes"
           initial={reduce ? false : { opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: reduce ? 0 : 0.55, ease: [0.16, 1, 0.3, 1] }}

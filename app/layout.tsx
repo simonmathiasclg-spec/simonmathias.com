@@ -29,7 +29,7 @@ const SITE_URL =
   (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "http://localhost:3000");
 
 const DESCRIPTION =
-  "Simon Mathias — builder, musician, and operator obsessed with how people work, on stage and in software. A personal site that lives inside a little sky.";
+  "Simon Mathias is a builder, musician, and operator obsessed with how people work, on stage and in software. It's a personal site that lives inside a little sky.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),

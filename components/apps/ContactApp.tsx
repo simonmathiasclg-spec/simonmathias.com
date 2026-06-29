@@ -92,7 +92,7 @@ export default function ContactApp() {
         index="05"
         kicker="Contact"
         title="Let&rsquo;s talk"
-        lead="Recruiting, building, or just want to compare notes — I answer everything."
+        lead="Recruiting, building, or just want to compare notes: I answer everything."
       />
 
       <ul className="flex flex-col">
