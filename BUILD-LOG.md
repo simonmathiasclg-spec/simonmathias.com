@@ -367,6 +367,17 @@ A finish pass — fixes, accessibility, real contact details, and deploy-readine
   commas, or colons so each line still reads cleanly. Code and CSS comments keep theirs
   (not part of the rendered site). Verified by grep: zero em dashes in any rendered text.
 
+## Dock holds every category; YC home CTA removed (v13)
+
+- Removed the saffron "Why YC Startup School" centerpiece from the home and restored
+  the quiet "where to start" hint that points at the dock. Re-tuned the name's top
+  margin so it still clears the larger Goofy photo (measured ~18px gap), name centered.
+- The desktop dock now lists every section, so the floating-photo categories are all
+  reachable from the bottom tabs too: About, Work, YC Startup School, Music, Leadership,
+  Goofy, Contact. (Music & Stage, Leadership, and Goofy were photo-only before.) All
+  seven open on a real click; the dock is 668px wide and fits comfortably. On mobile the
+  launcher rows filter out the three cluster photos so nothing is listed twice.
+
 ## Screenshot / critique notes
 
 Each screen was launched, screenshotted, critiqued, and fixed — at least twice. Notable

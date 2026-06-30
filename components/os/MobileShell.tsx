@@ -15,8 +15,10 @@ import {
   SheetDescription,
 } from "@/components/ui/sheet";
 
-// performing · building · leading — the throughline, seen first
+// performing · building · leading: the throughline, seen first
 const CLUSTER = [0, 2, 3];
+// the cluster photos already cover these sections, so keep them out of the rows
+const CLUSTER_TARGETS = new Set(CLUSTER.map((i) => PHOTOS[i].target));
 
 export default function MobileShell({
   show,
@@ -120,7 +122,7 @@ export default function MobileShell({
         animate={show ? "visible" : "hidden"}
         className="flex flex-col gap-2.5"
       >
-        {DOCK_APPS.map((app) => {
+        {DOCK_APPS.filter((app) => !CLUSTER_TARGETS.has(app.id)).map((app) => {
           const Icon = app.icon;
           const star = app.id === "startup-school";
           return (

@@ -65,25 +65,14 @@ export const APPS: AppDef[] = [
     dock: true,
   },
   {
-    id: "contact",
-    name: "contact",
-    dockLabel: "Contact",
-    tagline: "say hello",
-    icon: PaperPlaneTilt,
-    Content: ContactApp,
-    window: { w: 580, h: 500 },
-    dock: true,
-  },
-  // windowed, opened by clicking the floating photos (not in the dock)
-  {
     id: "music-stage",
     name: "music & stage",
-    dockLabel: "Music & Stage",
+    dockLabel: "Music",
     tagline: "sax, guitar, the band",
     icon: MicrophoneStage,
     Content: MusicStageApp,
     window: { w: 720, h: 660 },
-    dock: false,
+    dock: true,
   },
   {
     id: "leadership",
@@ -93,7 +82,7 @@ export const APPS: AppDef[] = [
     icon: Trophy,
     Content: LeadershipApp,
     window: { w: 700, h: 620 },
-    dock: false,
+    dock: true,
   },
   {
     id: "goofy",
@@ -103,11 +92,21 @@ export const APPS: AppDef[] = [
     icon: Sunglasses,
     Content: GoofyApp,
     window: { w: 660, h: 600 },
-    dock: false,
+    dock: true,
+  },
+  {
+    id: "contact",
+    name: "contact",
+    dockLabel: "Contact",
+    tagline: "say hello",
+    icon: PaperPlaneTilt,
+    Content: ContactApp,
+    window: { w: 580, h: 500 },
+    dock: true,
   },
 ];
 
-/** the dock shows only these four */
+/** every section is reachable from the dock (the floating photos are shortcuts) */
 export const DOCK_APPS = APPS.filter((a) => a.dock);
 
 export const APP_MAP: Record<AppId, AppDef> = Object.fromEntries(
