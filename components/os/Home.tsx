@@ -20,14 +20,14 @@ export default function Home() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
       >
-        <p className="sky-text-shadow font-mono text-[12px] uppercase tracking-[0.34em] text-white/75">
-          Toronto · builder · musician
+        <p className="sky-headline-shadow font-mono text-[12px] uppercase tracking-[0.34em] text-white dark:text-white/75">
+          builder · performer · learner
         </p>
-        <h1 className="sky-text-shadow font-display text-[clamp(3rem,9vw,6rem)] font-extrabold leading-[0.92] tracking-[-0.035em] text-white">
+        <h1 className="sky-headline-shadow font-display text-[clamp(3rem,9vw,6rem)] font-extrabold leading-[0.92] tracking-[-0.035em] text-white">
           Simon Mathias
         </h1>
-        <p className="sky-text-shadow max-w-[36ch] text-pretty text-[clamp(1rem,1.5vw,1.3rem)] font-light leading-snug text-white/85">
-          Obsessed with how people work, on stage and in software.
+        <p className="sky-headline-shadow max-w-[36ch] text-pretty text-[clamp(1rem,1.5vw,1.3rem)] font-light leading-snug text-white dark:text-white/85">
+          Enthusiasm everywhere I go.
         </p>
       </motion.div>
 
