@@ -1,0 +1,19 @@
+<svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <clipPath id="r"><rect width="32" height="32" rx="7"/></clipPath>
+    <linearGradient id="sky" x1="16" y1="0" x2="16" y2="23" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4FB8FF"/>
+      <stop offset="1" stop-color="#AEDEFB"/>
+    </linearGradient>
+    <linearGradient id="sea" x1="16" y1="22" x2="16" y2="32" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#28C0CE"/>
+      <stop offset="1" stop-color="#0E7C8C"/>
+    </linearGradient>
+  </defs>
+  <g clip-path="url(#r)">
+    <rect width="32" height="32" fill="url(#sky)"/>
+    <circle cx="16" cy="13" r="10" fill="#FFD23F" opacity="0.22"/>
+    <circle cx="16" cy="13" r="6.4" fill="#FFD23F"/>
+    <rect y="22.5" width="32" height="9.5" fill="url(#sea)"/>
+  </g>
+</svg>

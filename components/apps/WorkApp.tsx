@@ -8,14 +8,14 @@ import { cn } from "@/lib/utils";
 const focusRing =
   "rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cerulean)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--window)]";
 
-// Read the Room is the only linked build — a live tag that opens the app.
-function LiveTag({ href }: { href: string }) {
+// A live build links out to the running app via a saffron tag.
+function LiveTag({ href, label }: { href: string; label: string }) {
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Read the Room, live (opens in a new tab)"
+      aria-label={`${label}, live (opens in a new tab)`}
       className={cn(
         "cursor-hover group inline-flex items-center gap-1.5 rounded-full border border-saffron/40 bg-saffron/15 px-2.5 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-[color-mix(in_srgb,var(--saffron)_72%,var(--ink))] transition-colors hover:bg-saffron/25",
         focusRing,
@@ -78,42 +78,53 @@ export default function WorkApp() {
         <SectionLabel>What I&rsquo;ve built</SectionLabel>
 
         <div className="flex flex-col gap-3.5">
-          <Build title="KnowYou" tag={<Tag tone="build">company product</Tag>}>
-            An AI workforce-intelligence platform I&rsquo;m lead builder on. It turns a
-            company&rsquo;s own data into insight on how teams actually work, including an
-            org-level view of team dynamics. Heading into its first customer pilot.
+          <Build title="KnowYou (Solas)" tag={<Tag tone="build">company product</Tag>}>
+            An AI workforce-intelligence platform I&rsquo;m lead builder on, built during
+            my internship. It reads a company&rsquo;s people data and strategy and turns
+            it into a full picture of the org: explore the whole chart with filters and
+            color-coding by risk, performance, or engagement, flag organizational risks
+            before they break you, rank internal successors for any critical role, and
+            model reorg scenarios before making them real. An AI agent surfaces live
+            signals from how people are working, and you can ask it anything about your
+            org and get an analyst-level answer grounded in real data. The edge is the
+            behavioral layer woven through all of it. It&rsquo;s live and heading into its
+            first customer pilot.
+          </Build>
+
+          <Build
+            title="The Power of Yes"
+            tag={<LiveTag href="https://power-of-yes.vercel.app" label="The Power of Yes" />}
+          >
+            A decision-making tool based on the framework in our CEO&rsquo;s book. You
+            frame a decision, then an AI &ldquo;council&rdquo; of advisors debates it from
+            different angles and surfaces what you missed, tuned to how you tend to
+            decide. You keep the final call.
+          </Build>
+
+          <Build title="Competency-assessment tool" tag={<Tag tone="past">client work</Tag>}>
+            A tool I built for a client that turns behavioral and role data into a clear
+            read on team fit and capability.
+          </Build>
+
+          <Build title="Client-mapping tool" tag={<Tag tone="internal">internal tool</Tag>}>
+            An internal planning tool for our sales reps. When a rep plans a visit to a
+            client, it surfaces every other client nearby so they can build and customize
+            the whole trip around it.
           </Build>
 
           <Build
             title="Read the Room"
-            tag={<LiveTag href="https://read-the-room-lime.vercel.app" />}
+            tag={<LiveTag href="https://read-the-room-lime.vercel.app" label="Read the Room" />}
           >
-            A live multiplayer game that trains people to read behavioral patterns. I
-            built it solo with Claude Code, Firebase, and Vercel in about two days.
-            It&rsquo;s in use and approved to expand.
-          </Build>
-
-          <Build title="Decision tool" tag={<Tag tone="build">company product</Tag>}>
-            Built on the framework from our CEO&rsquo;s book. It reads a person&rsquo;s
-            behavioral profile, then runs several AI agents that weigh a decision from
-            different angles and return a combined verdict.
-          </Build>
-
-          <Build title="Client-mapping tool" tag={<Tag tone="internal">internal tool</Tag>}>
-            A planning tool for our sales reps. When a rep plans a trip to visit a
-            client, it surfaces every other client nearby so they can build and customize
-            the whole route around it.
-          </Build>
-
-          <Build title="Sales dashboard" tag={<Tag tone="build">company product</Tag>}>
-            A web app I built to replace legacy Excel dashboards, running on live
-            behavioral and assessment data.
+            A multiplayer game that trains people to read behavioral patterns, built solo
+            with Claude Code, Firebase, and Vercel. It&rsquo;s early and I&rsquo;m still
+            building it out, but it&rsquo;s already in use at the company.
           </Build>
         </div>
 
         <p className="mt-1 max-w-[62ch] text-[14px] leading-relaxed text-ink-muted">
-          Most of these are products the company actually sells, not side experiments. I
-          also do ongoing automation work across departments.
+          I also do ongoing automation work across departments. Most of these are products
+          the company actually sells, not side experiments.
         </p>
       </section>
     </div>
