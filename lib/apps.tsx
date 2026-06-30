@@ -1,7 +1,6 @@
 import {
   IdentificationCard,
   Briefcase,
-  RocketLaunch,
   PaperPlaneTilt,
   MicrophoneStage,
   Trophy,
@@ -11,7 +10,6 @@ import type { AppId } from "@/lib/os-store";
 import type { AppIcon } from "@/components/apps/_kit";
 import AboutApp from "@/components/apps/AboutApp";
 import WorkApp from "@/components/apps/WorkApp";
-import StartupSchoolApp from "@/components/apps/StartupSchoolApp";
 import ContactApp from "@/components/apps/ContactApp";
 import MusicStageApp from "@/components/apps/MusicStageApp";
 import LeadershipApp from "@/components/apps/LeadershipApp";
@@ -52,16 +50,6 @@ export const APPS: AppDef[] = [
     icon: Briefcase,
     Content: WorkApp,
     window: { w: 680, h: 600 },
-    dock: true,
-  },
-  {
-    id: "startup-school",
-    name: "startup-school",
-    dockLabel: "YC Startup School",
-    tagline: "founder's notes",
-    icon: RocketLaunch,
-    Content: StartupSchoolApp,
-    window: { w: 720, h: 660 },
     dock: true,
   },
   {

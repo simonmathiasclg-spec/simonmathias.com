@@ -89,7 +89,7 @@ export default function ContactApp() {
   return (
     <div className="flex flex-col gap-8">
       <AppHeader
-        index="05"
+        index="02"
         kicker="Contact"
         title="Let&rsquo;s talk"
         lead="Recruiting, building, or just want to compare notes: I answer everything."

@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, useReducedMotion, type Variants } from "motion/react";
-import { Star } from "@phosphor-icons/react";
 import { useOS } from "@/lib/os-store";
 import { DOCK_APPS } from "@/lib/apps";
 
@@ -42,15 +41,8 @@ export default function Dock({ show }: { show: boolean }) {
         {DOCK_APPS.map((app) => {
           const Icon = app.icon;
           const open = windows.some((w) => w.id === app.id);
-          const star = app.id === "startup-school";
           return (
             <motion.li key={app.id} variants={item} className="relative">
-              {/* startup-school: "read this" micro-label */}
-              {star && (
-                <span className="absolute -top-2 left-1/2 z-10 flex -translate-x-1/2 items-center gap-0.5 whitespace-nowrap rounded-full bg-saffron px-1.5 py-px font-mono text-[8px] font-bold uppercase tracking-wider text-[#3a2a06] shadow-[0_2px_8px_rgba(255,210,63,0.5)]">
-                  <Star weight="fill" className="size-2" /> read this
-                </span>
-              )}
               <motion.button
                 onClick={() => openApp(app.id)}
                 aria-label={`Open ${app.dockLabel}`}
@@ -59,20 +51,10 @@ export default function Dock({ show }: { show: boolean }) {
                 transition={{ type: "spring", stiffness: 420, damping: 18 }}
                 className="cursor-hover flex min-w-[64px] flex-col items-center gap-2 rounded-xl px-3 pt-2"
               >
-                <span
-                  className={`grid size-[50px] place-items-center rounded-xl transition-colors ${
-                    star
-                      ? "bg-saffron/15 text-white ring-2 ring-saffron shadow-[0_0_18px_-2px_var(--saffron)]"
-                      : "bg-white/5 text-white/85 ring-1 ring-inset ring-white/10 hover:bg-white/12 hover:text-white"
-                  }`}
-                >
+                <span className="grid size-[50px] place-items-center rounded-xl bg-white/5 text-white/85 ring-1 ring-inset ring-white/10 transition-colors hover:bg-white/12 hover:text-white">
                   <Icon weight="duotone" className="size-7" />
                 </span>
-                <span
-                  className={`whitespace-nowrap font-mono text-[13px] leading-none tracking-tight ${
-                    star ? "font-semibold text-saffron" : "font-medium text-white/80"
-                  }`}
-                >
+                <span className="whitespace-nowrap font-mono text-[13px] font-medium leading-none tracking-tight text-white/80">
                   {app.dockLabel}
                 </span>
                 {/* open indicator */}

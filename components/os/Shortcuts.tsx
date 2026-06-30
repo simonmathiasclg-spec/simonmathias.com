@@ -9,20 +9,17 @@ import type { AppId } from "@/lib/app-ids";
 const BY_LETTER: Record<string, AppId> = {
   a: "about",
   w: "work",
-  s: "startup-school",
   c: "contact",
 };
 const BY_NUMBER: Record<string, AppId> = {
   "1": "about",
   "2": "work",
-  "3": "startup-school",
-  "4": "contact",
+  "3": "contact",
 };
 
 const ROWS: { key: string; label: string }[] = [
   { key: "a", label: "about" },
   { key: "w", label: "work" },
-  { key: "s", label: "startup-school" },
   { key: "c", label: "contact" },
 ];
 
@@ -100,7 +97,7 @@ export default function Shortcuts() {
               <div className="my-2.5 h-px bg-[var(--menubar-hair)]" />
               <ul className="flex flex-col gap-1.5 px-1 text-menubar-ink/65">
                 <li>
-                  <span className="text-menubar-ink/85">1–4</span> open by position
+                  <span className="text-menubar-ink/85">1–3</span> open by position
                 </li>
                 <li>
                   <span className="text-menubar-ink/85">esc</span> close window

@@ -14,7 +14,6 @@ export function generateStaticParams() {
 const TITLES: Record<AppId, string> = {
   about: "About",
   work: "Work",
-  "startup-school": "Startup School",
   contact: "Contact",
   "music-stage": "Music & Stage",
   leadership: "Leadership",

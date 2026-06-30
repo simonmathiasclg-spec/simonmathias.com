@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
-import { CaretRight, Star, ArrowRight } from "@phosphor-icons/react";
+import { CaretRight, ArrowRight } from "@phosphor-icons/react";
 import { DOCK_APPS, APP_MAP } from "@/lib/apps";
 import { useOS, type AppId } from "@/lib/os-store";
 import { PHOTOS } from "@/lib/photos";
@@ -124,20 +124,13 @@ export default function MobileShell({
       >
         {DOCK_APPS.filter((app) => !CLUSTER_TARGETS.has(app.id)).map((app) => {
           const Icon = app.icon;
-          const star = app.id === "startup-school";
           return (
             <motion.li key={app.id} variants={row}>
               <button
                 onClick={() => setActive(app.id)}
-                className={`flex w-full items-center gap-4 rounded-2xl border px-4 py-3.5 text-left backdrop-blur-md transition-colors active:bg-white/[0.1] ${
-                  star ? "border-saffron/45 bg-saffron/[0.09]" : "border-white/10 bg-white/[0.04]"
-                }`}
+                className="flex w-full items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3.5 text-left backdrop-blur-md transition-colors active:bg-white/[0.1]"
               >
-                <span
-                  className={`grid size-11 shrink-0 place-items-center rounded-xl ring-1 ring-inset ${
-                    star ? "bg-saffron/20 text-white ring-saffron/60" : "bg-white/8 text-white/90 ring-white/10"
-                  }`}
-                >
+                <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-white/8 text-white/90 ring-1 ring-inset ring-white/10">
                   <Icon weight="duotone" className="size-6" />
                 </span>
                 <span className="flex min-w-0 flex-col">
@@ -146,14 +139,7 @@ export default function MobileShell({
                   </span>
                   <span className="truncate text-[13px] text-white/50">{app.tagline}</span>
                 </span>
-                {star ? (
-                  <span className="ml-auto flex shrink-0 items-center gap-1 rounded-full bg-saffron px-2 py-0.5 font-mono text-[9px] font-bold uppercase tracking-wider text-[#3a2a06]">
-                    <Star weight="fill" className="size-2.5" />
-                    read this
-                  </span>
-                ) : (
-                  <CaretRight weight="bold" className="ml-auto size-4 shrink-0 text-white/35" />
-                )}
+                <CaretRight weight="bold" className="ml-auto size-4 shrink-0 text-white/35" />
               </button>
             </motion.li>
           );
