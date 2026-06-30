@@ -1,0 +1,11 @@
+# Raw photo/video originals. Only the web-optimized public/photos/*.jpg slots
+# (produced by scripts/process-photos.mjs) ship to production. The originals,
+# including the ~135MB sax video, stay local and would blow Vercel's 100MB
+# per-file limit otherwise.
+public/photos/_source/
+
+# Private build transcript, never published
+yc-coding-session.md
+
+# Local build artifacts (Vercel rebuilds from source anyway)
+.next/
