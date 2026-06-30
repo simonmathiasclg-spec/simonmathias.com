@@ -9,6 +9,7 @@ import {
   Figure,
   YouTubeFacade,
   ViewAllPhotos,
+  Highlight,
 } from "./_kit";
 
 const facts = [
@@ -44,7 +45,8 @@ export default function MusicStageApp() {
           sister&rsquo;s wedding.</strong> Then I trained two more years over Zoom.
         </p>
         <p>
-          By fifteen, I played a <strong>solo for three thousand people.</strong>
+          By fifteen, I played a{" "}
+          <Highlight>solo for three thousand people.</Highlight>
         </p>
         <p>
           These days I&rsquo;m the saxophonist in <strong>Project Going Nowhere</strong>,

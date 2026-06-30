@@ -1,7 +1,7 @@
 "use client";
 
 import { Sunglasses, Pizza, SneakerMove, HandPeace } from "@phosphor-icons/react";
-import { AppHeader, Body, Divider, SectionLabel, Figure } from "./_kit";
+import { AppHeader, Body, Divider, SectionLabel, Figure, Highlight } from "./_kit";
 
 const facts = [
   { icon: Sunglasses, label: "Sunglasses indoors: occasionally" },
@@ -33,13 +33,13 @@ export default function GoofyApp() {
       <Body>
         <p>
           I take the work seriously. Myself, much less so. I&rsquo;ll dance at any
-          provided opportunity, badly and with full commitment, and I have strong,
-          unsolicited opinions about the right way to plate a midnight snack.
+          opportunity, badly and with full commitment, and I have strong, unsolicited
+          opinions about the right way to plate a midnight snack.
         </p>
         <p>
           If we end up working together, you get the version of me that ships things
           and the version wearing sunglasses indoors for no reason. Both, it turns out,
-          are load-bearing.
+          are <Highlight>load-bearing</Highlight>.
         </p>
       </Body>
 
@@ -47,23 +47,14 @@ export default function GoofyApp() {
 
       <section className="flex flex-col gap-4">
         <SectionLabel>The evidence</SectionLabel>
-        <div className="grid grid-cols-2 gap-4">
-          <Figure
-            src="/photos/goofy-1.jpg"
-            label="Guitar"
-            caption="Guitar, behind the head"
-            aspect="4 / 5"
-            tilt={1.5}
-          />
-          <Figure
-            src="/photos/goofy-2.jpg"
-            label="Goofy 2"
-            caption="Add a photo →"
-            aspect="4 / 5"
-            tilt={-1.5}
-            className="mt-6"
-          />
-        </div>
+        <Figure
+          src="/photos/goofy-1.jpg"
+          label="Guitar"
+          caption="Guitar solo, behind the head"
+          aspect="4 / 5"
+          tilt={-1}
+          className="mx-auto w-full max-w-[300px]"
+        />
       </section>
 
       <Divider />

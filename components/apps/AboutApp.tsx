@@ -8,7 +8,7 @@ import {
   ChartBar,
   ArrowUpRight,
 } from "@phosphor-icons/react";
-import { AppHeader, Body, Photo, Divider } from "./_kit";
+import { AppHeader, Body, Photo, Divider, Highlight } from "./_kit";
 
 const PI_REPORT = "/simon-mathias-pi-behavioral-report.pdf";
 
@@ -41,14 +41,14 @@ export default function AboutApp() {
             I grew up in <strong>Bangalore</strong>{" "}and came to Toronto on a
             scholarship. Now I&rsquo;m at the <strong>University of Toronto</strong>,
             building software during the week and chasing the things that don&rsquo;t
-            fit in a resume the rest of the time.
+            fit on a r&eacute;sum&eacute; the rest of the time.
           </p>
           <p>
             There&rsquo;s one throughline to all of it. Whether it&rsquo;s a room of
             three thousand people or a dashboard a sales team opens every morning,
-            the job is the same: <strong>read the room, then give it exactly what it
-            needs.</strong>{" "}I&rsquo;ve spent years doing that from a stage, and now I
-            do it in product.
+            the job is the same: <Highlight>read the room, then give it exactly
+            what it needs.</Highlight>{" "}I&rsquo;ve spent years doing that from a
+            stage, and now I do it in product.
           </p>
           <p>
             I play saxophone and guitar, I&rsquo;ve performed for crowds in the

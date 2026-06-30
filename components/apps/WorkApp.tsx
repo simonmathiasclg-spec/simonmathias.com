@@ -2,7 +2,7 @@
 
 import { type ReactNode } from "react";
 import { ArrowUpRight } from "@phosphor-icons/react";
-import { AppHeader, SectionLabel, Tag, Figure } from "./_kit";
+import { AppHeader, SectionLabel, Tag, Figure, Highlight } from "./_kit";
 import { cn } from "@/lib/utils";
 
 const focusRing =
@@ -51,7 +51,9 @@ function Build({
         </h4>
         {tag}
       </div>
-      <p className="max-w-[62ch] text-[15px] leading-relaxed text-ink/85">{children}</p>
+      <p className="max-w-[62ch] text-[15px] leading-relaxed text-ink/85 [&_strong]:font-semibold [&_strong]:text-ink">
+        {children}
+      </p>
     </div>
   );
 }
@@ -79,16 +81,16 @@ export default function WorkApp() {
 
         <div className="flex flex-col gap-3.5">
           <Build title="KnowYou (Solas)" tag={<Tag tone="build">company product</Tag>}>
-            An AI workforce-intelligence platform I&rsquo;m lead builder on, built during
-            my internship. It reads a company&rsquo;s people data and strategy and turns
-            it into a full picture of the org: explore the whole chart with filters and
-            color-coding by risk, performance, or engagement, flag organizational risks
-            before they break you, rank internal successors for any critical role, and
-            model reorg scenarios before making them real. An AI agent surfaces live
-            signals from how people are working, and you can ask it anything about your
-            org and get an analyst-level answer grounded in real data. The edge is the
-            behavioral layer woven through all of it. It&rsquo;s live and heading into its
-            first customer pilot.
+            An AI workforce-intelligence platform I&rsquo;m <strong>lead builder</strong>{" "}
+            on, built during my internship. It reads a company&rsquo;s people data and
+            strategy and turns it into a full picture of the org: explore the whole chart
+            with filters and color-coding by risk, performance, or engagement; flag
+            organizational risks before they break you; rank internal successors for any
+            critical role; and model reorg scenarios before making them real. An AI agent
+            surfaces live signals from how people are working, and you can ask it anything
+            about your org and get an analyst-level answer grounded in real data. The edge
+            is the behavioral layer woven through all of it.{" "}
+            <Highlight>It&rsquo;s live and heading into its first customer pilot.</Highlight>
           </Build>
 
           <Build
@@ -116,15 +118,16 @@ export default function WorkApp() {
             title="Read the Room"
             tag={<LiveTag href="https://read-the-room-lime.vercel.app" label="Read the Room" />}
           >
-            A multiplayer game that trains people to read behavioral patterns, built solo
-            with Claude Code, Firebase, and Vercel. It&rsquo;s early and I&rsquo;m still
-            building it out, but it&rsquo;s already in use at the company.
+            A multiplayer game that trains people to read behavioral patterns,{" "}
+            <strong>built solo</strong> with Claude Code, Firebase, and Vercel. It&rsquo;s
+            early and I&rsquo;m still building it out, but it&rsquo;s{" "}
+            <strong>already in use at the company.</strong>
           </Build>
         </div>
 
-        <p className="mt-1 max-w-[62ch] text-[14px] leading-relaxed text-ink-muted">
-          I also do ongoing automation work across departments. Most of these are products
-          the company actually sells, not side experiments.
+        <p className="mt-1 max-w-[62ch] text-[14px] leading-relaxed text-ink-muted [&_strong]:font-semibold [&_strong]:text-ink">
+          I also do ongoing automation work across departments. Most of these are{" "}
+          <strong>products the company actually sells</strong>, not side experiments.
         </p>
       </section>
     </div>

@@ -1,6 +1,6 @@
 "use client";
 
-import { AppHeader, Body, Divider, SectionLabel, Figure, ViewAllPhotos } from "./_kit";
+import { AppHeader, Body, Divider, SectionLabel, Figure, ViewAllPhotos, Highlight } from "./_kit";
 
 const stats = [
   { big: "70%", label: "winning margin, a school record" },
@@ -42,8 +42,8 @@ export default function LeadershipApp() {
         </p>
         <p>
           And once, in Europe, I led fifty stranded people, my principal among them,
-          out of a transit mess in broken French. The title was never the point; being
-          useful when it counts is.
+          out of a transit mess in broken French. The title was never the point;{" "}
+          <Highlight>being useful when it counts</Highlight> is.
         </p>
       </Body>
 

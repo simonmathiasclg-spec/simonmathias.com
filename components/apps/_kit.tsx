@@ -392,11 +392,28 @@ export function Body({ children }: { children: ReactNode }) {
   );
 }
 
+/* --------------------------------------------------------------- highlight --- */
+
+/**
+ * The single thesis phrase in a window, lifted into the sun accent. A second,
+ * warmer tier of emphasis above the plain ink-bold <strong>. Uses a <mark> (not
+ * <strong>) so Body's `[&_strong]` ink color never overrides the saffron, and a
+ * color-mix that stays legible in both day and night themes.
+ */
+export function Highlight({ children }: { children: ReactNode }) {
+  return (
+    <mark className="bg-transparent font-semibold text-[color-mix(in_srgb,var(--saffron)_70%,var(--ink))]">
+      {children}
+    </mark>
+  );
+}
+
 /* ----------------------------------------------------------- section head --- */
 
 export function SectionLabel({ children }: { children: ReactNode }) {
   return (
-    <h3 className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-ink-muted">
+    <h3 className="flex items-center gap-3 font-display text-2xl font-bold leading-none tracking-[-0.02em] text-ink">
+      <span className="h-[1.05em] w-1 shrink-0 rounded-full bg-saffron" aria-hidden />
       {children}
     </h3>
   );
