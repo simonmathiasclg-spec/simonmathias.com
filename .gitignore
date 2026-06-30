@@ -44,3 +44,6 @@ next-env.d.ts
 # slot assets are the web-optimized .jpg files produced by
 # scripts/process-photos.mjs (re-run it after dropping new originals in _source/).
 /public/photos/_source/
+
+# private build transcript — kept local, never published
+/yc-coding-session.md
