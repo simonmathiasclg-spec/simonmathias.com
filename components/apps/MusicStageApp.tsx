@@ -8,6 +8,7 @@ import {
   SectionLabel,
   Figure,
   YouTubeFacade,
+  InstagramReel,
   ViewAllPhotos,
   Highlight,
 } from "./_kit";
@@ -80,6 +81,15 @@ export default function MusicStageApp() {
         start={134}
         title="Simon Mathias live saxophone solo"
         caption="Me, live. Starts at the solo."
+      />
+
+      {/* a performance reel — lazy Instagram embed */}
+      <InstagramReel
+        embedUrl="https://www.instagram.com/reel/C2ttamILGlA/embed/"
+        href="https://www.instagram.com/reel/C2ttamILGlA/"
+        poster="/photos/photo-stage.jpg"
+        title="Simon Mathias performing, Instagram reel"
+        caption="A reel from a set"
       />
 
       <Divider />

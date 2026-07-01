@@ -7,6 +7,7 @@ import {
   ArrowRight,
   Images,
   Play,
+  InstagramLogo,
   type IconProps,
 } from "@phosphor-icons/react";
 import { useOS } from "@/lib/os-store";
@@ -376,6 +377,87 @@ export function YouTubeFacade({
       {caption && (
         <figcaption className="font-mono text-[11px] uppercase tracking-[0.16em] text-ink-muted">
           {caption}
+        </figcaption>
+      )}
+    </figure>
+  );
+}
+
+/* --------------------------------------------------------- instagram reel --- */
+
+/**
+ * A privacy-friendly, lazy Instagram reel embed: a poster with a play button;
+ * only mounts the embed iframe once clicked. Reels are portrait, so the frame is
+ * 9:16. Mirrors YouTubeFacade. `href` is the public reel URL (fallback: opens in
+ * a new tab if the in-page embed is unavailable).
+ */
+export function InstagramReel({
+  embedUrl,
+  href,
+  poster,
+  title,
+  caption,
+}: {
+  embedUrl: string;
+  href: string;
+  poster: string;
+  title: string;
+  caption?: ReactNode;
+}) {
+  const [playing, setPlaying] = useState(false);
+  return (
+    <figure className="flex flex-col gap-2.5">
+      <div className="relative mx-auto aspect-[9/16] w-full max-w-[320px] overflow-hidden rounded-xl bg-black ring-1 ring-inset ring-hair">
+        {playing ? (
+          <iframe
+            className="absolute inset-0 h-full w-full"
+            src={embedUrl}
+            title={title}
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            allowFullScreen
+            scrolling="no"
+          />
+        ) : (
+          <button
+            type="button"
+            onClick={() => setPlaying(true)}
+            aria-label={`Play reel: ${title}`}
+            className="cursor-hover group absolute inset-0 block"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={poster}
+              alt={title}
+              loading="lazy"
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <span className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/30" />
+            <span className="absolute left-3 top-3 flex items-center gap-1.5 rounded-full bg-black/45 px-2.5 py-1 font-mono text-[10px] font-semibold uppercase tracking-wider text-white backdrop-blur-sm">
+              <InstagramLogo weight="fill" className="size-3.5" />
+              Reel
+            </span>
+            <span className="absolute left-1/2 top-1/2 grid size-[58px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-saffron text-[#2a1d04] shadow-[0_8px_28px_-6px_rgba(0,0,0,0.6)] transition-transform duration-300 group-hover:scale-110">
+              <Play weight="fill" className="ml-0.5 size-7" />
+            </span>
+          </button>
+        )}
+      </div>
+      {caption && (
+        <figcaption className="text-center font-mono text-[11px] uppercase tracking-[0.16em] text-ink-muted">
+          {caption}
+          {href && (
+            <>
+              {" · "}
+              <a
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="underline decoration-saffron decoration-2 underline-offset-2 transition-colors hover:text-ink"
+              >
+                open on Instagram
+              </a>
+            </>
+          )}
         </figcaption>
       )}
     </figure>

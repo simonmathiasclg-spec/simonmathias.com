@@ -47,14 +47,23 @@ export default function GoofyApp() {
 
       <section className="flex flex-col gap-4">
         <SectionLabel>The evidence</SectionLabel>
-        <Figure
-          src="/photos/goofy-1.jpg"
-          label="Guitar"
-          caption="Guitar solo, behind the head"
-          aspect="4 / 5"
-          tilt={-1}
-          className="mx-auto w-full max-w-[300px]"
-        />
+        <div className="grid grid-cols-2 gap-4">
+          <Figure
+            src="/photos/goofy-1.jpg"
+            label="Guitar"
+            caption="Guitar solo, behind the head"
+            aspect="4 / 5"
+            tilt={1.5}
+          />
+          <Figure
+            src="/photos/goofy-2.jpg"
+            label="Superman"
+            caption="The Superman era"
+            aspect="4 / 5"
+            tilt={-1.5}
+            className="mt-6"
+          />
+        </div>
       </section>
 
       <Divider />
