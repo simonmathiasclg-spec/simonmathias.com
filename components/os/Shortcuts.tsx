@@ -6,26 +6,40 @@ import { Question } from "@phosphor-icons/react";
 import { useOS } from "@/lib/os-store";
 import type { AppId } from "@/lib/app-ids";
 
+// letters avoid the easter-egg secret ("luffy"), hence p(resident) for leadership
 const BY_LETTER: Record<string, AppId> = {
   a: "about",
   w: "work",
+  m: "music-stage",
+  p: "leadership",
+  g: "goofy",
   c: "contact",
 };
+// numbers follow dock order
 const BY_NUMBER: Record<string, AppId> = {
   "1": "about",
   "2": "work",
-  "3": "contact",
+  "3": "music-stage",
+  "4": "leadership",
+  "5": "goofy",
+  "6": "contact",
 };
 
 const ROWS: { key: string; label: string }[] = [
   { key: "a", label: "about" },
   { key: "w", label: "work" },
+  { key: "m", label: "music & stage" },
+  { key: "p", label: "leadership" },
+  { key: "g", label: "goofy" },
   { key: "c", label: "contact" },
 ];
 
 export default function Shortcuts() {
   const [open, setOpen] = useState(false);
   const openApp = useOS((s) => s.openApp);
+  // the lightbox owns the keyboard while it's up (esc / ← / →), so a stray
+  // letter shouldn't open a window invisibly behind it
+  const viewerOpen = useOS((s) => s.photoViewer) !== null;
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -48,6 +62,7 @@ export default function Shortcuts() {
         setOpen(false);
         return; // window close is handled by the window manager
       }
+      if (viewerOpen) return;
       const id = BY_NUMBER[e.key] ?? BY_LETTER[e.key.toLowerCase()];
       if (id) {
         openApp(id);
@@ -56,7 +71,7 @@ export default function Shortcuts() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [openApp]);
+  }, [openApp, viewerOpen]);
 
   return (
     <>
@@ -97,7 +112,7 @@ export default function Shortcuts() {
               <div className="my-2.5 h-px bg-[var(--menubar-hair)]" />
               <ul className="flex flex-col gap-1.5 px-1 text-menubar-ink/65">
                 <li>
-                  <span className="text-menubar-ink/85">1–3</span> open by position
+                  <span className="text-menubar-ink/85">1–6</span> open by position
                 </li>
                 <li>
                   <span className="text-menubar-ink/85">esc</span> close window
