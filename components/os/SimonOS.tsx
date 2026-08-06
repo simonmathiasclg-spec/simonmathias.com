@@ -114,13 +114,16 @@ export default function SimonOS({ initialApp }: { initialApp?: AppId }) {
       {/* desktop only — on mobile the springboard shows a photo cluster instead */}
       {!isMobile && <FloatingPhotos parallax={ambient} still={reduce} />}
 
-      {/* mobile reads white-on-sky, so dim the sky just enough for legibility */}
+      {/* mobile reads white-on-sky, so dim the sky just enough for legibility.
+          Day stays bright (the text carries its own glow); night needs more. */}
       {isMobile && (
         <div
           className="pointer-events-none fixed inset-0 z-[1]"
           style={{
             background:
-              "linear-gradient(180deg, rgba(5,16,34,0.58) 0%, rgba(5,16,34,0.26) 42%, rgba(5,16,34,0.5) 100%)",
+              theme === "night"
+                ? "linear-gradient(180deg, rgba(5,16,34,0.58) 0%, rgba(5,16,34,0.26) 42%, rgba(5,16,34,0.5) 100%)"
+                : "linear-gradient(180deg, rgba(6,22,40,0.32) 0%, rgba(6,22,40,0.10) 45%, rgba(6,22,40,0.28) 100%)",
           }}
         />
       )}

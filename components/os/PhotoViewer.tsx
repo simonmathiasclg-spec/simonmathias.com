@@ -119,7 +119,9 @@ export default function PhotoViewer({
           <figcaption className="flex flex-col items-center gap-1 text-center">
             <span className="sky-text-shadow font-mono text-sm text-white/95">{photo.caption}</span>
             <span className="font-mono text-[11px] tracking-wider text-white/45">
-              {index + 1} / {PHOTOS.length} · use ← → to browse
+              {index + 1} / {PHOTOS.length}
+              {/* keyboard hint is meaningless on touch — desktop only */}
+              <span className="hidden sm:inline"> · use ← → to browse</span>
             </span>
           </figcaption>
         </motion.figure>

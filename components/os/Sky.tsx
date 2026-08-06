@@ -106,16 +106,17 @@ export default function Sky({ parallax, reduced = false }: { parallax: boolean; 
         ))}
       </div>
 
-      {/* clouds (day) — fade out at night */}
+      {/* clouds (day) — fade out at night. In reduced (mobile/static) mode they
+          sit higher and quieter so the centered name gets clear sky. */}
       <motion.div style={{ x: cloudX, y: cloudY }} className="layer-day swap absolute inset-0">
         {(reduced ? CLOUDS.slice(0, 2) : CLOUDS).map((c, i) => (
           <div
             key={i}
             className={animate ? "anim-cloud absolute" : "absolute"}
             style={{
-              top: `${c.top}%`,
+              top: `${reduced ? c.top * 0.5 : c.top}%`,
               left: 0,
-              opacity: c.o,
+              opacity: reduced ? c.o * 0.5 : c.o,
               animationDuration: `${c.dur}s`,
               animationDelay: `${c.delay}s`,
               transform: animate ? undefined : `translateX(${15 + i * 22}%)`,

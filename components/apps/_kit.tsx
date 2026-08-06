@@ -342,6 +342,9 @@ export function YouTubeFacade({
   caption?: ReactNode;
 }) {
   const [playing, setPlaying] = useState(false);
+  // maxresdefault is true 16:9 (no letterbox bars); some videos lack it, so
+  // fall back to the always-present hqdefault on error.
+  const [thumb, setThumb] = useState(`https://i.ytimg.com/vi/${id}/maxresdefault.jpg`);
   return (
     <figure className="flex flex-col gap-2.5">
       <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-black ring-1 ring-inset ring-hair">
@@ -362,10 +365,11 @@ export function YouTubeFacade({
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={`https://i.ytimg.com/vi/${id}/hqdefault.jpg`}
+              src={thumb}
               alt={title}
               loading="lazy"
-              className="h-full w-full scale-[1.35] object-cover transition-transform duration-500 group-hover:scale-[1.4]"
+              onError={() => setThumb(`https://i.ytimg.com/vi/${id}/hqdefault.jpg`)}
+              className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
             />
             <span className="absolute inset-0 bg-gradient-to-t from-black/45 via-transparent to-black/10" />
             <span className="absolute left-1/2 top-1/2 grid size-[58px] -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-saffron text-[#2a1d04] shadow-[0_8px_28px_-6px_rgba(0,0,0,0.6)] transition-transform duration-300 group-hover:scale-110">

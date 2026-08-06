@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
-import { CaretRight, ArrowRight } from "@phosphor-icons/react";
-import { DOCK_APPS, APP_MAP } from "@/lib/apps";
+import { Images, ArrowRight } from "@phosphor-icons/react";
+import { DOCK_APPS, APP_MAP, type AppDef } from "@/lib/apps";
 import { useOS, type AppId } from "@/lib/os-store";
-import { PHOTOS } from "@/lib/photos";
+import { PHOTOS, type PhotoDef } from "@/lib/photos";
 import { Photo } from "@/components/apps/_kit";
 import {
   Sheet,
@@ -15,10 +15,47 @@ import {
   SheetDescription,
 } from "@/components/ui/sheet";
 
-// performing · building · leading: the throughline, seen first
-const CLUSTER = [0, 2, 3];
-// the cluster photos already cover these sections, so keep them out of the rows
-const CLUSTER_TARGETS = new Set(CLUSTER.map((i) => PHOTOS[i].target));
+// The mobile home is a true Simon OS springboard: the same photo doorways as the
+// desktop sky, laid out as app icons. Five tiles use the photo AS the icon;
+// Contact is a frosted glass tile.
+const PHOTO_BY_TARGET: Partial<Record<AppId, PhotoDef>> = Object.fromEntries(
+  PHOTOS.map((p) => [p.target, p]),
+);
+
+function Tile({
+  app,
+  onOpen,
+}: {
+  app: AppDef;
+  onOpen: (id: AppId) => void;
+}) {
+  const photo = PHOTO_BY_TARGET[app.id];
+  const Icon = app.icon;
+  return (
+    <button
+      onClick={() => onOpen(app.id)}
+      aria-label={`Open ${app.dockLabel}`}
+      className="flex w-full flex-col items-center gap-2 transition-transform active:scale-95"
+    >
+      {photo ? (
+        <span className="block w-full rounded-[22px] bg-photo-frame p-1 shadow-[0_10px_26px_-10px_rgba(6,22,40,0.55)] ring-1 ring-white/20">
+          <Photo
+            src={photo.src}
+            label={app.dockLabel}
+            className="aspect-square w-full rounded-[18px]"
+          />
+        </span>
+      ) : (
+        <span className="grid aspect-square w-full place-items-center rounded-[22px] border border-white/20 bg-white/12 shadow-[0_10px_26px_-10px_rgba(6,22,40,0.55)] backdrop-blur-md">
+          <Icon weight="duotone" className="size-9 text-white" />
+        </span>
+      )}
+      <span className="sky-headline-shadow font-mono text-[10.5px] font-semibold uppercase tracking-[0.14em] text-white/95">
+        {app.dockLabel}
+      </span>
+    </button>
+  );
+}
 
 export default function MobileShell({
   show,
@@ -46,116 +83,81 @@ export default function MobileShell({
     }
   }, [active]);
 
-  const list: Variants = {
+  const grid: Variants = {
     hidden: {},
-    visible: { transition: reduce ? {} : { staggerChildren: 0.05, delayChildren: 0.1 } },
+    visible: { transition: reduce ? {} : { staggerChildren: 0.05, delayChildren: 0.15 } },
   };
-  const row: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : 12 },
+  const tile: Variants = {
+    hidden: { opacity: 0, y: reduce ? 0 : 10, scale: reduce ? 1 : 0.92 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: reduce ? { duration: 0 } : { type: "spring", stiffness: 320, damping: 28 },
+      scale: 1,
+      transition: reduce ? { duration: 0 } : { duration: 0.4, ease: [0.16, 1, 0.3, 1] },
     },
   };
 
   return (
-    <div className="relative z-10 min-h-dvh px-5 pb-16 pt-14">
-      {/* hero */}
+    <div className="relative z-10 flex min-h-dvh flex-col px-6 pb-[calc(1.75rem+env(safe-area-inset-bottom))] pt-16">
+      {/* hero — the name leads, centered over the sky like the desktop */}
       <motion.header
         initial={{ opacity: 0, y: reduce ? 0 : 14 }}
         animate={show ? { opacity: 1, y: 0 } : {}}
         transition={reduce ? { duration: 0 } : { duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="flex flex-col items-start gap-5 pb-9 pt-2"
+        className="flex flex-1 flex-col items-center justify-center gap-3.5 py-8 text-center"
       >
-        {/* photo cluster — tap to open that part of the world */}
-        <div className="flex flex-col gap-2">
-          <div className="flex gap-3">
-            {CLUSTER.map((i, k) => {
-              const p = PHOTOS[i];
-              return (
-                <button
-                  key={p.id}
-                  onClick={() => setActive(p.target)}
-                  aria-label={`Open ${p.caption}`}
-                  className="flex flex-col items-center gap-1.5 transition-transform active:scale-95"
-                >
-                  <span
-                    style={{ transform: `rotate(${k === 1 ? 0 : p.tilt}deg)` }}
-                    className="block rounded-xl bg-photo-frame p-1 shadow-[0_8px_20px_-8px_rgba(6,22,40,0.5)] ring-1 ring-white/15"
-                  >
-                    <Photo src={p.src} label={p.label} className="size-[88px] rounded-lg" />
-                  </span>
-                  <span className="flex items-center gap-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-white/80">
-                    {p.label}
-                    <ArrowRight weight="bold" className="size-2.5 text-saffron" />
-                  </span>
-                </button>
-              );
-            })}
-          </div>
-          <button
-            onClick={() => setViewer(0)}
-            className="self-start font-mono text-[11px] text-white/55 underline decoration-white/30 underline-offset-4 active:text-white/80"
-          >
-            view all photos →
-          </button>
-        </div>
-        <div className="flex flex-col gap-2.5">
-          <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-white/45">
-            Simon&nbsp;OS
-          </p>
-          <h1 className="font-display text-[2.6rem] font-extrabold leading-[0.95] tracking-[-0.03em] text-white">
-            Simon Mathias
-          </h1>
-          <p className="max-w-[32ch] text-[15px] font-light leading-relaxed text-white/60">
-            Obsessed with how people work, on stage and in software. Builder,
-            musician, operator. Tap in.
-          </p>
-        </div>
+        <p className="sky-headline-shadow font-mono text-[11px] uppercase tracking-[0.3em] text-white">
+          builder · performer · learner
+        </p>
+        <h1 className="sky-headline-shadow font-display text-[clamp(2.7rem,13vw,3.4rem)] font-extrabold leading-[0.95] tracking-[-0.03em] text-white">
+          Simon Mathias
+        </h1>
+        <p className="sky-headline-shadow text-[17px] font-light leading-snug text-white/95">
+          Enthusiasm everywhere I go.
+        </p>
       </motion.header>
 
-      {/* app launcher */}
-      <motion.ul
-        variants={list}
+      {/* springboard — the photos ARE the navigation, same as the desktop sky */}
+      <motion.nav
+        aria-label="Apps"
+        variants={grid}
         initial="hidden"
         animate={show ? "visible" : "hidden"}
-        className="flex flex-col gap-2.5"
+        className="grid grid-cols-3 gap-x-4 gap-y-5"
       >
-        {DOCK_APPS.filter((app) => !CLUSTER_TARGETS.has(app.id)).map((app) => {
-          const Icon = app.icon;
-          return (
-            <motion.li key={app.id} variants={row}>
-              <button
-                onClick={() => setActive(app.id)}
-                className="flex w-full items-center gap-4 rounded-2xl border border-white/10 bg-white/[0.04] px-4 py-3.5 text-left backdrop-blur-md transition-colors active:bg-white/[0.1]"
-              >
-                <span className="grid size-11 shrink-0 place-items-center rounded-xl bg-white/8 text-white/90 ring-1 ring-inset ring-white/10">
-                  <Icon weight="duotone" className="size-6" />
-                </span>
-                <span className="flex min-w-0 flex-col">
-                  <span className="font-mono text-[15px] font-medium text-white">
-                    {app.dockLabel}
-                  </span>
-                  <span className="truncate text-[13px] text-white/50">{app.tagline}</span>
-                </span>
-                <CaretRight weight="bold" className="ml-auto size-4 shrink-0 text-white/35" />
-              </button>
-            </motion.li>
-          );
-        })}
-      </motion.ul>
+        {DOCK_APPS.map((app) => (
+          <motion.div key={app.id} variants={tile}>
+            <Tile app={app} onOpen={setActive} />
+          </motion.div>
+        ))}
+      </motion.nav>
 
-      <p className="mt-10 font-mono text-[10px] uppercase tracking-[0.25em] text-white/30">
+      <motion.button
+        initial={{ opacity: 0 }}
+        animate={show ? { opacity: 1 } : {}}
+        transition={{ delay: reduce ? 0 : 0.7, duration: 0.5 }}
+        onClick={() => setViewer(0)}
+        className="mx-auto mt-7 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-white/75 active:text-white"
+      >
+        <Images weight="bold" className="size-3.5 text-saffron" />
+        View all photos
+        <ArrowRight weight="bold" className="size-3" />
+      </motion.button>
+
+      <p className="mt-6 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-white/40">
         Toronto · built by hand
       </p>
 
       {/* app sheet */}
       <Sheet open={!!active} onOpenChange={(o) => !o && setActive(null)}>
-        <SheetContent side="bottom" className="h-[93dvh] rounded-t-[22px] border-hair bg-window p-0">
+        <SheetContent
+          side="bottom"
+          className="flex h-[93dvh] flex-col gap-0 rounded-t-[22px] border-hair bg-window p-0"
+        >
           {active && (
             <>
-              <SheetHeader className="flex-row items-baseline gap-2 space-y-0 border-b border-hair px-5 py-3.5">
+              <div className="mx-auto mt-2.5 h-1 w-10 shrink-0 rounded-full bg-ink/15" aria-hidden />
+              <SheetHeader className="flex-row items-baseline gap-2 space-y-0 border-b border-hair px-5 pb-3.5 pt-2">
                 <SheetTitle className="font-mono text-[13px] font-medium lowercase text-ink">
                   {APP_MAP[active].name}
                 </SheetTitle>
@@ -163,7 +165,7 @@ export default function MobileShell({
                   {APP_MAP[active].tagline}
                 </SheetDescription>
               </SheetHeader>
-              <div className="paper-scroll h-[calc(93dvh-52px)] overflow-y-auto px-5 py-7">
+              <div className="paper-scroll min-h-0 flex-1 overflow-y-auto px-5 py-7">
                 {ActiveContent && <ActiveContent />}
               </div>
             </>
