@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
-import { Images, ArrowRight } from "@phosphor-icons/react";
+import { Images, ArrowRight, X } from "@phosphor-icons/react";
 import { DOCK_APPS, APP_MAP, type AppDef } from "@/lib/apps";
 import { useOS, type AppId } from "@/lib/os-store";
 import { PHOTOS, type PhotoDef } from "@/lib/photos";
@@ -69,19 +69,44 @@ export default function MobileShell({
   const [active, setActive] = useState<AppId | null>(null);
   const ActiveContent = active ? APP_MAP[active].Content : null;
 
-  // deep link: open the shared sheet on load
+  // Whether WE pushed a history entry for the open sheet. A deep-linked sheet
+  // arrived on its own entry, so there is nothing of ours to pop for it.
+  const pushedEntry = useRef(false);
+
+  // Opening a sheet PUSHES a history entry (deep-linkable URL), so the phone's
+  // back gesture closes the sheet instead of leaving the site.
+  const openSheet = (id: AppId) => {
+    window.history.pushState({ sheet: id }, "", `/${id}`);
+    pushedEntry.current = true;
+    setActive(id);
+  };
+
+  // Closing from the UI consumes our pushed entry so history stays clean.
+  const closeSheet = () => {
+    if (pushedEntry.current) {
+      pushedEntry.current = false;
+      window.history.back();
+    } else {
+      window.history.replaceState(null, "", "/");
+    }
+    setActive(null);
+  };
+
+  // back/forward → close the sheet, stay on the site
+  useEffect(() => {
+    const onPop = () => {
+      pushedEntry.current = false;
+      setActive(null);
+    };
+    window.addEventListener("popstate", onPop);
+    return () => window.removeEventListener("popstate", onPop);
+  }, []);
+
+  // deep link: open the shared sheet on load (URL is already /[app])
   useEffect(() => {
     if (initialApp) setActive(initialApp);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  // reflect the open sheet in the URL (shareable)
-  useEffect(() => {
-    const path = active ? `/${active}` : "/";
-    if (typeof window !== "undefined" && window.location.pathname !== path) {
-      window.history.replaceState(null, "", path);
-    }
-  }, [active]);
 
   const grid: Variants = {
     hidden: {},
@@ -127,7 +152,7 @@ export default function MobileShell({
       >
         {DOCK_APPS.map((app) => (
           <motion.div key={app.id} variants={tile}>
-            <Tile app={app} onOpen={setActive} />
+            <Tile app={app} onOpen={openSheet} />
           </motion.div>
         ))}
       </motion.nav>
@@ -149,23 +174,35 @@ export default function MobileShell({
       </p>
 
       {/* app sheet */}
-      <Sheet open={!!active} onOpenChange={(o) => !o && setActive(null)}>
+      <Sheet open={!!active} onOpenChange={(o) => !o && closeSheet()}>
         <SheetContent
           side="bottom"
-          className="flex h-[93dvh] flex-col gap-0 rounded-t-[22px] border-hair bg-window p-0"
+          showCloseButton={false}
+          /* inline height: the base sheet's data-[side=bottom]:h-auto rule
+             outranks any height class, which let the sheet grow to content
+             height and killed scrolling. Inline style outranks everything. */
+          style={{ height: "92dvh" }}
+          className="flex flex-col gap-0 overflow-hidden rounded-t-[22px] border-hair bg-window p-0"
         >
           {active && (
             <>
               <div className="mx-auto mt-2.5 h-1 w-10 shrink-0 rounded-full bg-ink/15" aria-hidden />
-              <SheetHeader className="flex-row items-baseline gap-2 space-y-0 border-b border-hair px-5 pb-3.5 pt-2">
+              <SheetHeader className="flex-row items-center gap-2 space-y-0 border-b border-hair px-5 pb-3 pt-1.5">
                 <SheetTitle className="font-mono text-[13px] font-medium lowercase text-ink">
                   {APP_MAP[active].name}
                 </SheetTitle>
-                <SheetDescription className="font-mono text-[11px] text-ink-muted">
+                <SheetDescription className="min-w-0 truncate font-mono text-[11px] text-ink-muted">
                   {APP_MAP[active].tagline}
                 </SheetDescription>
+                <button
+                  onClick={closeSheet}
+                  aria-label="Close"
+                  className="ml-auto grid size-8 shrink-0 place-items-center rounded-full bg-window-2 text-ink ring-1 ring-inset ring-hair transition-colors active:bg-hair"
+                >
+                  <X weight="bold" className="size-4" />
+                </button>
               </SheetHeader>
-              <div className="paper-scroll min-h-0 flex-1 overflow-y-auto px-5 py-7">
+              <div className="paper-scroll min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain px-5 py-7">
                 {ActiveContent && <ActiveContent />}
               </div>
             </>
