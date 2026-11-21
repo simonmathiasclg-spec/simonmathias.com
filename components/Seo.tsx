@@ -4,7 +4,7 @@ import type { AppId } from "@/lib/app-ids";
 // screen-reader accessible even though the interactive OS is canvas-like.
 // These are concise summaries — the real, full copy lives in the app windows.
 const ENTRIES: { id: AppId; name: string; blurb: string }[] = [
-  { id: "about", name: "About", blurb: "From Bangalore to Toronto on a scholarship, now at the University of Toronto. A musician (saxophone and guitar) and a builder who ships real software." },
+  { id: "about", name: "About", blurb: "From Bangalore to Toronto on a scholarship, now at the University of Toronto. A musician (saxophone and guitar) and a builder who ships real software. Selected for Y Combinator Startup School 2026 in San Francisco." },
   { id: "work", name: "Work", blurb: "AI Developer & Solutions Specialist at Predictive Success Corporation in Toronto (intern, now part-time, since May 2026). Rebuilt the company website, built Talent Atlas as sole developer, shipped 10+ production web apps, and led the company's AI rollout. Earlier: AI Automation Extern at Wayfair and Data Analytics Extern at Beats by Dre." },
   { id: "projects", name: "Projects", blurb: "NoteAlong, a play-along app that puts a song's melody notes above each lyric; Talent Atlas, a workforce intelligence platform; and Read the Room, a multiplayer Predictive Index training game." },
   { id: "music-stage", name: "Music & Stage", blurb: "Self-taught saxophonist who played a solo for 3,000 at 15; saxophonist in the band Project Going Nowhere; taught guitar to differently-abled kids." },

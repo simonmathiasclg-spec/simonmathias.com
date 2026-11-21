@@ -1,6 +1,16 @@
 "use client";
 
-import { AppHeader, Body, Photo, Divider, Highlight, FactList, ExternalLink } from "./_kit";
+import {
+  AppHeader,
+  Body,
+  Photo,
+  Figure,
+  Divider,
+  Highlight,
+  FactList,
+  ExternalLink,
+  SectionLabel,
+} from "./_kit";
 
 const PI_REPORT = "/simon-mathias-pi-behavioral-report.pdf";
 
@@ -69,6 +79,25 @@ export default function AboutApp() {
       </div>
 
       <Divider />
+
+      {/* Recently: text left, photo in the same 230px right column as the portrait */}
+      <section className="flex flex-col gap-5 sm:flex-row sm:items-start sm:gap-8">
+        <div className="flex flex-1 flex-col gap-3">
+          <SectionLabel>Recently</SectionLabel>
+          <p className="font-display text-[1.3rem] leading-snug text-balance text-ink">
+            Selected for Y Combinator{" "}
+            <span className="whitespace-nowrap">Startup School 2026</span>{" "}in San
+            Francisco.
+          </p>
+        </div>
+        <Figure
+          src="/photos/about-yc.jpg"
+          label="YC Startup School"
+          alt="Simon pointing at the Y Combinator sign at Startup School 2026 in San Francisco."
+          aspect="3 / 4"
+          className="w-full sm:w-[230px] sm:shrink-0"
+        />
+      </section>
 
       <FactList items={facts} />
     </div>

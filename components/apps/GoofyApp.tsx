@@ -57,6 +57,14 @@ export default function GoofyApp() {
             aspect="4 / 5"
             className="mt-6"
           />
+          <Figure
+            src="/photos/goofy-icecream.jpg"
+            label="Ice cream"
+            alt="Simon and his niece grinning over a chocolate ice cream cone."
+            caption={"Uncle duty: ice cream negotiations with my niece. I lost."}
+            aspect="3 / 4"
+            className="col-span-2 mx-auto mt-2 w-full max-w-[300px]"
+          />
         </div>
       </section>
 

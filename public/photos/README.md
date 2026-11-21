@@ -20,6 +20,10 @@ resizes / crops / compresses — auto-orienting via EXIF, never upscaling or alt
 - `gallery-mic.jpg`          → Music & Stage gallery    (from `Mic 3.JPG`)
 - `gallery-saxy-president.jpg`, `gallery-trophy-1.jpg`, `gallery-trophy-2.jpg`,
   `gallery-team.jpg`, `gallery-poster.jpg` → the Leadership "trophy wall"
+- `about-yc.jpg`             → About, "Recently" (YC Startup School 2026)
+- `goofy-icecream.jpg`       → Goofy, "The evidence"
+  (These two were resized to 1200px and re-encoded with every bit of metadata,
+  EXIF/GPS included, stripped. Their originals are not kept in the repo.)
 - `read-the-room.jpg`        → startup-school screenshot (add a 16:9 image)
 
 ## To swap a photo

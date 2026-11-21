@@ -161,6 +161,7 @@ export function ViewAllPhotos({ className }: { className?: string }) {
 export function Photo({
   src,
   label,
+  alt,
   className,
   imgClassName,
   priority,
@@ -168,7 +169,9 @@ export function Photo({
   style,
 }: {
   src: string;
+  /** short placeholder shown while loading; also the alt text unless `alt` is set */
   label: string;
+  alt?: string;
   className?: string;
   imgClassName?: string;
   priority?: boolean;
@@ -199,7 +202,7 @@ export function Photo({
         // eslint-disable-next-line @next/next/no-img-element
         <img
           src={src}
-          alt={label}
+          alt={alt ?? label}
           loading={priority ? "eager" : "lazy"}
           onLoad={() => setLoaded(true)}
           onError={() => setFailed(true)}
@@ -250,6 +253,7 @@ export function PhotoHero({
 export function Figure({
   src,
   label,
+  alt,
   caption,
   aspect = "4 / 5",
   objectPosition,
@@ -258,6 +262,7 @@ export function Figure({
 }: {
   src: string;
   label: string;
+  alt?: string;
   caption?: ReactNode;
   aspect?: string;
   objectPosition?: string;
@@ -269,6 +274,7 @@ export function Figure({
       <Photo
         src={src}
         label={label}
+        alt={alt}
         priority={priority}
         objectPosition={objectPosition}
         style={{ aspectRatio: aspect }}
