@@ -2,7 +2,6 @@
 
 import { type RefObject } from "react";
 import { motion, useDragControls, useReducedMotion } from "motion/react";
-import { X } from "@phosphor-icons/react";
 import type { AppDef } from "@/lib/apps";
 
 export default function Window({
@@ -30,7 +29,6 @@ export default function Window({
 }) {
   const reduce = useReducedMotion();
   const controls = useDragControls();
-  const Icon = app.icon;
   const Content = app.Content;
 
   const startDrag = (e: React.PointerEvent) => {
@@ -49,20 +47,10 @@ export default function Window({
       dragElastic={0.04}
       dragMomentum={false}
       onPointerDownCapture={onFocus}
-      initial={
-        reduce ? { opacity: 0 } : { opacity: 0, scale: 0.92, filter: "blur(4px)" }
-      }
-      animate={
-        reduce
-          ? { opacity: 1 }
-          : { opacity: 1, scale: 1, filter: "blur(0px)" }
-      }
-      exit={reduce ? { opacity: 0 } : { opacity: 0, scale: 0.95, filter: "blur(2px)" }}
-      transition={
-        reduce
-          ? { duration: 0.12 }
-          : { type: "spring", stiffness: 380, damping: 30, mass: 0.8 }
-      }
+      initial={reduce ? { opacity: 0 } : { opacity: 0, y: 10 }}
+      animate={reduce ? { opacity: 1 } : { opacity: 1, y: 0 }}
+      exit={reduce ? { opacity: 0 } : { opacity: 0, y: 6 }}
+      transition={reduce ? { duration: 0.12 } : { duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
       style={{
         position: "absolute",
         left,
@@ -72,14 +60,17 @@ export default function Window({
         zIndex: z,
         boxShadow: focused ? "var(--win-shadow-focus)" : "var(--win-shadow)",
       }}
-      className="pointer-events-auto flex flex-col overflow-hidden rounded-xl bg-window ring-1 ring-[var(--hair-strong)] transition-shadow duration-300"
+      className="pointer-events-auto flex flex-col overflow-hidden rounded-md border border-hair-strong bg-window transition-shadow duration-300"
     >
       {/* title bar (drag handle) */}
       <div
         onPointerDown={startDrag}
-        className="flex h-10 shrink-0 touch-none select-none items-center gap-2.5 border-b border-hair bg-window px-3.5"
+        className="flex h-11 shrink-0 touch-none select-none items-center gap-3 border-b border-hair bg-window px-4"
         style={{ cursor: "grab" }}
       >
+        <span className="text-[14px] font-medium text-ink">{app.name}</span>
+        <span className="hidden text-[13px] text-ink-muted sm:inline">{app.tagline}</span>
+
         <button
           onClick={(e) => {
             e.stopPropagation();
@@ -87,39 +78,22 @@ export default function Window({
           }}
           onPointerDown={(e) => e.stopPropagation()}
           aria-label={`Close ${app.name}`}
-          className="cursor-hover group/dot grid size-3.5 place-items-center rounded-full bg-ink/15 transition-colors hover:bg-[var(--destructive)]"
+          className="cursor-hover ml-auto -mr-1.5 rounded-[3px] px-1.5 py-0.5 text-[13px] text-ink-muted transition-colors hover:bg-window-2 hover:text-ink"
         >
-          <X
-            weight="bold"
-            className="size-2.5 text-white opacity-0 transition-opacity group-hover/dot:opacity-100"
-          />
+          Close
         </button>
-
-        <div className="flex items-baseline gap-2">
-          <span className="font-mono text-[12px] font-medium lowercase tracking-tight text-ink">
-            {app.name}
-          </span>
-          <span className="hidden font-mono text-[11px] text-ink-muted sm:inline">
-            {app.tagline}
-          </span>
-        </div>
-
-        <Icon
-          weight="duotone"
-          className="ml-auto size-4 text-ink-muted/50"
-        />
       </div>
 
       {/* body */}
       <div className="paper-scroll min-h-0 flex-1 overflow-y-auto overflow-x-hidden">
-        <div className="p-7 sm:p-9">
+        <div className="px-7 py-8 sm:px-10 sm:py-10">
           <Content />
         </div>
       </div>
 
       {/* recede when not focused */}
       {!focused && (
-        <div className="pointer-events-none absolute inset-0 rounded-xl bg-ink/[0.04]" />
+        <div className="pointer-events-none absolute inset-0 bg-ink/[0.03]" />
       )}
     </motion.section>
   );

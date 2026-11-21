@@ -19,30 +19,15 @@ const CLOUDS = [
   { top: 38, w: 150, h: 46, dur: 145, delay: -50, o: 0.65, scale: 0.8 },
 ];
 
+/* A flat, printed-looking cloud: a few solid lobes on a flat base. No blur. */
 function Cloud({ w, h }: { w: number; h: number }) {
   return (
-    <div style={{ width: w, height: h, filter: "blur(3px)" }} className="relative">
-      {[
-        { l: 0, t: 30, s: 60 },
-        { l: 22, t: 8, s: 78 },
-        { l: 48, t: 18, s: 66 },
-        { l: 30, t: 38, s: 90 },
-        { l: 64, t: 34, s: 58 },
-      ].map((p, i) => (
-        <span
-          key={i}
-          className="absolute rounded-full"
-          style={{
-            left: `${p.l}%`,
-            top: `${p.t}%`,
-            width: `${p.s}%`,
-            height: `${p.s}%`,
-            background:
-              "radial-gradient(circle at 42% 40%, var(--cloud) 0%, var(--cloud) 34%, var(--cloud-2) 60%, transparent 82%)",
-          }}
-        />
-      ))}
-    </div>
+    <svg width={w} height={h} viewBox="0 0 100 40" fill="var(--cloud)" aria-hidden>
+      <circle cx="30" cy="24" r="13" />
+      <circle cx="50" cy="17" r="16" />
+      <circle cx="70" cy="24" r="12" />
+      <rect x="18" y="24" width="64" height="13" rx="6.5" />
+    </svg>
   );
 }
 
@@ -109,14 +94,14 @@ export default function Sky({ parallax, reduced = false }: { parallax: boolean; 
       {/* clouds (day) — fade out at night. In reduced (mobile/static) mode they
           sit higher and quieter so the centered name gets clear sky. */}
       <motion.div style={{ x: cloudX, y: cloudY }} className="layer-day swap absolute inset-0">
-        {(reduced ? CLOUDS.slice(0, 2) : CLOUDS).map((c, i) => (
+        {(reduced ? CLOUDS.slice(0, 1) : CLOUDS).map((c, i) => (
           <div
             key={i}
             className={animate ? "anim-cloud absolute" : "absolute"}
             style={{
-              top: `${reduced ? c.top * 0.5 : c.top}%`,
+              top: `${reduced ? c.top * 0.35 : c.top}%`,
               left: 0,
-              opacity: reduced ? c.o * 0.5 : c.o,
+              opacity: reduced ? c.o * 0.55 : c.o,
               animationDuration: `${c.dur}s`,
               animationDelay: `${c.delay}s`,
               transform: animate ? undefined : `translateX(${15 + i * 22}%)`,
@@ -140,20 +125,9 @@ export default function Sky({ parallax, reduced = false }: { parallax: boolean; 
             <div
               style={{
                 position: "absolute",
-                inset: -120,
-                background:
-                  "radial-gradient(circle, color-mix(in srgb, var(--sun) 60%, transparent) 0%, color-mix(in srgb, var(--sun) 14%, transparent) 36%, transparent 66%)",
-              }}
-            />
-            <div
-              className={animate ? "anim-sun" : ""}
-              style={{
-                position: "absolute",
                 inset: 0,
                 borderRadius: "9999px",
                 background: "var(--sun)",
-                boxShadow: "0 0 64px 10px color-mix(in srgb, var(--sun) 60%, transparent)",
-                animationDuration: "7s",
               }}
             />
           </div>
@@ -168,18 +142,9 @@ export default function Sky({ parallax, reduced = false }: { parallax: boolean; 
             <div
               style={{
                 position: "absolute",
-                inset: -90,
-                background:
-                  "radial-gradient(circle, color-mix(in srgb, var(--moon, #ede6cf) 42%, transparent) 0%, transparent 60%)",
-              }}
-            />
-            <div
-              style={{
-                position: "absolute",
                 inset: 0,
                 borderRadius: "9999px",
                 background: "var(--moon, #ede6cf)",
-                boxShadow: "0 0 46px 6px color-mix(in srgb, var(--moon, #ede6cf) 50%, transparent)",
               }}
             >
               <span className="absolute left-[26%] top-[30%] size-3 rounded-full bg-black/10" />
@@ -196,7 +161,7 @@ export default function Sky({ parallax, reduced = false }: { parallax: boolean; 
             height="58"
             viewBox="0 0 126 58"
             fill="none"
-            className="swap-fill drop-shadow-[0_3px_5px_rgba(6,22,40,0.18)]"
+            className="swap-fill"
             style={{ overflow: "visible" }}
           >
             {/* low, long landmass — flatter + better proportioned than a cartoon hump */}
@@ -261,42 +226,32 @@ export default function Sky({ parallax, reduced = false }: { parallax: boolean; 
         {/* SUN reflection (day) — a glowing column under the sun that breathes +
             shimmers on the ripples. MOON reflection (night) sits left. */}
         <div
-          className="layer-day swap absolute bottom-0 left-[70%] h-full w-[150px] -translate-x-1/2 overflow-hidden"
+          className="layer-day swap absolute bottom-0 left-[70%] h-full w-[96px] -translate-x-1/2 overflow-hidden"
           style={{ maskImage: "linear-gradient(90deg, transparent, black 32%, black 68%, transparent)", WebkitMaskImage: "linear-gradient(90deg, transparent, black 32%, black 68%, transparent)" }}
         >
           <div
-            className={animate ? "anim-reflect-breathe absolute inset-0" : "absolute inset-0"}
-            style={{ animationDuration: "6.5s", background: "linear-gradient(180deg, var(--day-streak) 0%, transparent 86%)", filter: "blur(8px)" }}
-          />
-          <div
-            className={`absolute inset-0 mix-blend-screen ${animate ? "anim-reflect-drift" : ""}`}
+            className={`absolute inset-0 ${animate ? "anim-reflect-drift" : ""}`}
             style={{
               animationDuration: "3.6s",
-              opacity: 0.4,
-              filter: "blur(0.6px)",
-              maskImage: "linear-gradient(180deg, black 0%, transparent 80%)",
-              WebkitMaskImage: "linear-gradient(180deg, black 0%, transparent 80%)",
-              background: "repeating-linear-gradient(180deg, transparent 0 9px, color-mix(in srgb, var(--day-streak) 60%, white) 9px 10.5px)",
+              opacity: 0.35,
+              maskImage: "linear-gradient(180deg, black 0%, transparent 55%)",
+              WebkitMaskImage: "linear-gradient(180deg, black 0%, transparent 55%)",
+              background: "repeating-linear-gradient(180deg, transparent 0 15px, color-mix(in srgb, var(--day-streak) 60%, white) 15px 16px)",
             }}
           />
         </div>
         <div
-          className="layer-night swap absolute bottom-0 left-[30%] h-full w-[130px] -translate-x-1/2 overflow-hidden"
+          className="layer-night swap absolute bottom-0 left-[30%] h-full w-[96px] -translate-x-1/2 overflow-hidden"
           style={{ maskImage: "linear-gradient(90deg, transparent, black 32%, black 68%, transparent)", WebkitMaskImage: "linear-gradient(90deg, transparent, black 32%, black 68%, transparent)" }}
         >
           <div
-            className={animate ? "anim-reflect-breathe absolute inset-0" : "absolute inset-0"}
-            style={{ animationDuration: "7.5s", background: "linear-gradient(180deg, var(--night-streak) 0%, transparent 86%)", filter: "blur(8px)" }}
-          />
-          <div
-            className={`absolute inset-0 mix-blend-screen ${animate ? "anim-reflect-drift" : ""}`}
+            className={`absolute inset-0 ${animate ? "anim-reflect-drift" : ""}`}
             style={{
               animationDuration: "4.4s",
-              opacity: 0.36,
-              filter: "blur(0.6px)",
-              maskImage: "linear-gradient(180deg, black 0%, transparent 80%)",
-              WebkitMaskImage: "linear-gradient(180deg, black 0%, transparent 80%)",
-              background: "repeating-linear-gradient(180deg, transparent 0 10px, color-mix(in srgb, var(--night-streak) 66%, white) 10px 11.5px)",
+              opacity: 0.3,
+              maskImage: "linear-gradient(180deg, black 0%, transparent 55%)",
+              WebkitMaskImage: "linear-gradient(180deg, black 0%, transparent 55%)",
+              background: "repeating-linear-gradient(180deg, transparent 0 15px, color-mix(in srgb, var(--night-streak) 66%, white) 15px 16px)",
             }}
           />
         </div>
@@ -315,19 +270,7 @@ export default function Sky({ parallax, reduced = false }: { parallax: boolean; 
           </div>
         </div>
 
-        {/* slow soft sheen gliding across the surface — calm, premium shimmer */}
-        <div
-          className={`absolute inset-x-0 top-0 h-2/3 mix-blend-screen ${animate ? "anim-sea-sheen" : ""}`}
-          style={{
-            animationDuration: "15s",
-            opacity: 0.5,
-            maskImage: "linear-gradient(180deg, black 0%, transparent 88%)",
-            WebkitMaskImage: "linear-gradient(180deg, black 0%, transparent 88%)",
-            background:
-              "radial-gradient(120% 70% at 50% -10%, color-mix(in srgb, var(--sea-streak) 24%, transparent) 0%, transparent 58%)",
-          }}
-        />
-        {/* the faintest static ripple texture for grain under the sheen */}
+        {/* the faintest static ripple texture */}
         <div
           className="absolute inset-0"
           style={{
@@ -338,9 +281,6 @@ export default function Sky({ parallax, reduced = false }: { parallax: boolean; 
           }}
         />
       </div>
-
-      {/* soft top scrim so the menubar stays legible */}
-      <div className="absolute inset-x-0 top-0 h-24" style={{ background: "linear-gradient(180deg, rgba(6,22,40,0.22), transparent)" }} />
     </div>
   );
 }

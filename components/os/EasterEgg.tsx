@@ -52,7 +52,7 @@ export default function EasterEgg() {
           animate={{ y: 0, opacity: 1, scale: 1 }}
           exit={{ y: 16, opacity: 0 }}
           transition={{ type: "spring", stiffness: 320, damping: 24 }}
-          className="pointer-events-none fixed bottom-24 left-1/2 z-[115] flex -translate-x-1/2 items-center gap-2.5 rounded-full border border-[var(--menubar-hair)] bg-[var(--menubar)] py-2 pl-3 pr-4 shadow-[0_16px_40px_-10px_rgba(4,8,15,0.7)] backdrop-blur-2xl"
+          className="pointer-events-none fixed bottom-24 left-1/2 z-[115] flex -translate-x-1/2 items-center gap-2.5 rounded-[4px] border border-hair-strong bg-window py-2 pl-3 pr-4 shadow-[var(--win-shadow)]"
         >
           <motion.span
             initial={{ rotate: -16, y: -2 }}
@@ -61,8 +61,8 @@ export default function EasterEgg() {
           >
             <StrawHat />
           </motion.span>
-          <span className="font-mono text-[12px] lowercase tracking-wide text-menubar-ink">
-            the One Piece is real
+          <span className="font-display text-[16px] italic text-ink">
+            The One Piece is real.
           </span>
         </motion.div>
       )}

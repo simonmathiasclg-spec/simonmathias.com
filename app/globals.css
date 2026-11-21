@@ -47,35 +47,36 @@
   /* solid fallback that peeks for a frame before the Sky paints */
   --desk: #59b6f3;
 
-  /* window surfaces — clean warm paper, fully opaque over the bright sky */
-  --window: #f8f5ef;
-  --window-2: #efeade;
-  --photo-frame: #fffdf7;
-  --hair: rgba(22, 19, 15, 0.1);
-  --hair-strong: rgba(22, 19, 15, 0.16);
+  /* window surfaces — crisp, slightly cool paper (tied to the sky, not cream) */
+  --window: #f8fafb;
+  --window-2: #eef3f6;
+  --photo-frame: #ffffff;
+  --hair: rgba(19, 32, 43, 0.12);
+  --hair-strong: rgba(19, 32, 43, 0.2);
 
   /* ink */
-  --ink: #16130f;
-  --ink-muted: #6b6457;
+  --ink: #13202b;
+  --ink-muted: #586874;
 
-  /* accents — the sun IS the primary accent */
-  --saffron: #ffd23f;
-  --cerulean: #2e6bff;
+  /* accents — sky blue is the accent; the sun stays up in the sky */
+  --sky: #4fb8ff; /* decorative: rules, marks */
+  --sky-ink: #1a6fa8; /* text-safe sky for links + emphasis (AA on paper) */
+  --saffron: #ffd23f; /* the sun only */
+  --cerulean: #1a6fa8; /* focus ring (name kept for existing classes) */
 
-  /* chrome — dark translucent, reads over the bright sky */
-  --menubar: rgba(9, 24, 41, 0.52);
-  --menubar-bar: rgba(9, 24, 41, 0.34); /* lighter still, for the slim top bar */
-  --menubar-ink: #f3f7fb;
-  --menubar-hair: rgba(255, 255, 255, 0.16);
-  --dock: rgba(9, 24, 41, 0.42);
+  /* chrome — solid paper, no glass */
+  --menubar: var(--window);
+  --menubar-bar: var(--window);
+  --menubar-ink: var(--ink);
+  --menubar-hair: var(--hair);
+  --dock: var(--window);
 
-  /* window shadows (dark, so they read crisply over the bright sky) */
-  --win-shadow: 0 1px 1px rgba(6, 22, 38, 0.16), 0 10px 22px rgba(6, 22, 38, 0.2),
-    0 30px 64px rgba(6, 22, 38, 0.26);
-  --win-shadow-focus: 0 2px 5px rgba(6, 22, 38, 0.22),
-    0 20px 44px rgba(6, 22, 38, 0.3), 0 52px 110px rgba(6, 22, 38, 0.4);
+  /* window shadows — one quiet lift, not a glow */
+  --win-shadow: 0 1px 2px rgba(6, 22, 38, 0.1), 0 6px 18px rgba(6, 22, 38, 0.12);
+  --win-shadow-focus: 0 1px 2px rgba(6, 22, 38, 0.12),
+    0 10px 30px rgba(6, 22, 38, 0.18);
 
-  --radius: 0.625rem;
+  --radius: 0.375rem;
 
   /* shadcn semantic tokens remapped onto the palette */
   --background: var(--window);
@@ -114,26 +115,27 @@
 
   --desk: #0a1b3a;
 
-  /* windows — charcoal, still opaque + readable */
-  --window: #161b24;
-  --window-2: #1d232f;
-  --photo-frame: #232a36;
-  --hair: rgba(255, 255, 255, 0.08);
-  --hair-strong: rgba(255, 255, 255, 0.14);
+  /* windows — deep night paper, still opaque + readable */
+  --window: #121a23;
+  --window-2: #18222d;
+  --photo-frame: #1e2a36;
+  --hair: rgba(255, 255, 255, 0.09);
+  --hair-strong: rgba(255, 255, 255, 0.16);
 
-  --ink: #ece7dd;
-  --ink-muted: #969ba6;
+  --ink: #e6edf2;
+  --ink-muted: #96a4af;
 
-  --menubar: rgba(3, 9, 20, 0.56);
-  --menubar-bar: rgba(3, 9, 20, 0.38);
-  --menubar-ink: #eef4fb;
-  --menubar-hair: rgba(255, 255, 255, 0.1);
-  --dock: rgba(3, 9, 20, 0.46);
+  --sky-ink: #7ccbff;
+  --cerulean: #7ccbff;
 
-  --win-shadow: 0 1px 1px rgba(0, 0, 0, 0.4), 0 10px 24px rgba(0, 0, 0, 0.5),
-    0 30px 70px rgba(0, 0, 0, 0.6);
-  --win-shadow-focus: 0 2px 6px rgba(0, 0, 0, 0.5),
-    0 22px 50px rgba(0, 0, 0, 0.62), 0 56px 120px rgba(0, 0, 0, 0.72);
+  --menubar: var(--window);
+  --menubar-bar: var(--window);
+  --menubar-ink: var(--ink);
+  --menubar-hair: var(--hair);
+  --dock: var(--window);
+
+  --win-shadow: 0 1px 2px rgba(0, 0, 0, 0.35), 0 8px 24px rgba(0, 0, 0, 0.4);
+  --win-shadow-focus: 0 1px 2px rgba(0, 0, 0, 0.4), 0 12px 34px rgba(0, 0, 0, 0.5);
 
   --background: var(--window);
   --foreground: var(--ink);
@@ -156,10 +158,14 @@
 
 @theme inline {
   /* fonts (wired in layout.tsx via next/font) */
-  --font-display: var(--font-bricolage);
-  --font-heading: var(--font-bricolage);
-  --font-sans: var(--font-geist);
-  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-newsreader);
+  --font-heading: var(--font-newsreader);
+  --font-serif: var(--font-newsreader);
+  --font-sans: var(--font-plex-sans);
+  --font-mono: var(--font-plex-mono);
+
+  --color-sky: var(--sky);
+  --color-sky-ink: var(--sky-ink);
 
   /* palette → Tailwind color tokens */
   --color-desk: var(--desk);
@@ -236,8 +242,8 @@
   }
 
   ::selection {
-    background: var(--saffron);
-    color: #16130f;
+    background: #cfeaff;
+    color: #13202b;
   }
 
   body.cursor-hidden,
@@ -246,22 +252,25 @@
   }
 }
 
-/* legible white text floating over the bright sky */
-.sky-text-shadow {
-  text-shadow: 0 1px 2px rgba(6, 22, 40, 0.35), 0 4px 22px rgba(6, 22, 40, 0.28);
+/* Type set directly on the sky: dark ink by day (about 7:1 on the sky, so no
+   glow needed), light ink by night. No text-shadow halos. */
+.sky-ink {
+  color: var(--ink);
+}
+.dark .sky-ink {
+  color: #f2f6f9;
+}
+.sky-ink-muted {
+  color: color-mix(in srgb, var(--ink) 78%, transparent);
+}
+.dark .sky-ink-muted {
+  color: rgba(242, 246, 249, 0.78);
 }
 
-/* home headline (name / tagline / kicker): a stronger, soft dark glow so the white
-   text stays comfortably legible on the bright DAY sky. Night (.dark) restores the
-   original, softer treatment so it is left exactly as it was. */
+/* kept as no-ops for any lingering references */
+.sky-text-shadow,
 .sky-headline-shadow {
-  text-shadow:
-    0 1px 2px rgba(6, 22, 40, 0.55),
-    0 2px 10px rgba(6, 22, 40, 0.45),
-    0 6px 28px rgba(6, 22, 40, 0.3);
-}
-.dark .sky-headline-shadow {
-  text-shadow: 0 1px 2px rgba(6, 22, 40, 0.35), 0 4px 22px rgba(6, 22, 40, 0.28);
+  text-shadow: none;
 }
 
 /* paper scrollbars inside windows */

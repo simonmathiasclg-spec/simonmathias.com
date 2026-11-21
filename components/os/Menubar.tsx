@@ -37,7 +37,7 @@ function Clock() {
   return (
     <span
       suppressHydrationWarning
-      className="tabular-nums tracking-tight text-menubar-ink"
+      className="font-mono text-[12px] tabular-nums text-menubar-ink"
     >
       {text}
     </span>
@@ -59,7 +59,7 @@ function BarButton({
         <button
           onClick={onClick}
           aria-label={label}
-          className="cursor-hover grid size-6 place-items-center rounded-md text-menubar-ink/80 transition-colors hover:bg-white/10 hover:text-menubar-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cerulean)] focus-visible:ring-offset-1 focus-visible:ring-offset-transparent"
+          className="cursor-hover grid size-7 place-items-center rounded-[3px] text-ink-muted transition-colors hover:bg-window-2 hover:text-ink focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--cerulean)] focus-visible:ring-offset-1 focus-visible:ring-offset-transparent"
         >
           {children}
         </button>
@@ -90,30 +90,22 @@ export default function Menubar({ show }: { show: boolean }) {
       transition={
         reduce ? { duration: 0 } : { type: "spring", stiffness: 220, damping: 30 }
       }
-      className="fixed inset-x-0 top-0 z-[100] flex h-8 items-center justify-between border-b border-[var(--menubar-hair)] bg-[var(--menubar-bar)] px-3 font-mono text-[11px] backdrop-blur-md sm:px-4"
+      className="fixed inset-x-0 top-0 z-[100] flex h-9 items-center justify-between border-b border-hair bg-window px-3 text-[13px] sm:px-5"
     >
-      {/* left: identity + active app */}
-      <div className="flex items-center gap-3">
-        <span className="flex items-center gap-2 font-semibold text-menubar-ink">
-          <span className="size-1.5 rounded-full bg-saffron shadow-[0_0_8px_var(--saffron)]" />
-          Simon Mathias
-        </span>
+      {/* left: identity + active section */}
+      <div className="flex items-baseline gap-3">
+        <span className="font-display text-[16px] font-medium text-ink">Simon Mathias</span>
         {focusedName && (
-          <span className="hidden text-menubar-ink/55 sm:inline">
-            {focusedName}
-          </span>
+          <span className="hidden text-ink-muted sm:inline">{focusedName}</span>
         )}
       </div>
 
       {/* right: status cluster */}
-      <div className="flex items-center gap-1.5 text-menubar-ink/85 sm:gap-2.5">
-        <span className="hidden items-center gap-1.5 sm:flex">
-          <span className="size-1 rounded-full bg-menubar-ink/40" />
-          Toronto
-        </span>
-        <span className="hidden h-3 w-px bg-[var(--menubar-hair)] sm:block" />
+      <div className="flex items-center gap-1.5 text-ink-muted sm:gap-3">
+        <span className="hidden sm:inline">Toronto</span>
+        <span className="hidden h-3 w-px bg-hair-strong sm:block" />
         <Clock />
-        <span className="h-3 w-px bg-[var(--menubar-hair)]" />
+        <span className="h-3 w-px bg-hair-strong" />
         <BarButton
           label={sound ? "Sound on" : "Sound off"}
           onClick={toggleSound}

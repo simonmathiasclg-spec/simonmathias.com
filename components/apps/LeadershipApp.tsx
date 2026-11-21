@@ -22,15 +22,13 @@ export default function LeadershipApp() {
       />
 
       <AppHeader
-        index="★"
-        kicker="Leadership"
         title="Leading people"
-        lead="Whether it&rsquo;s 2,500 students or 50 strangers in a foreign train station, I like being the one who&rsquo;s responsible."
+        lead="Whether it’s 2,500 students or 50 strangers in a foreign train station, I like being the one who’s responsible."
       />
 
       <Body>
         <p>
-          I was elected <strong>College President</strong> by 70% of the student body,
+          I was elected <strong>College President</strong>{" "}by 70% of the student body,
           the largest margin in my school&rsquo;s history, and led roughly{" "}
           <strong>2,500 students.</strong>
         </p>
@@ -47,13 +45,11 @@ export default function LeadershipApp() {
         </p>
       </Body>
 
-      {/* the personality moment */}
       <Figure
         src="/photos/gallery-saxy-president.jpg"
         label="Saxy Simon, President"
-        caption="“Saxy Simon · President,” with the hardware to back it up"
+        caption="“Saxy Simon, President,” with the hardware to back it up"
         aspect="3 / 4"
-        tilt={-1}
         className="mx-auto w-full max-w-[330px]"
       />
 
@@ -67,14 +63,12 @@ export default function LeadershipApp() {
             label="Silverware"
             caption="Hardware"
             aspect="3 / 4"
-            tilt={1.5}
           />
           <Figure
             src="/photos/gallery-trophy-2.jpg"
             label="More silverware"
             caption="…and more"
             aspect="3 / 4"
-            tilt={-1.5}
             className="mt-7"
           />
           <Figure
@@ -89,7 +83,6 @@ export default function LeadershipApp() {
             label="Campaign poster"
             caption="The campaign"
             aspect="4 / 5"
-            tilt={1}
             className="col-span-2 mx-auto w-full max-w-[230px]"
           />
         </div>
@@ -99,22 +92,17 @@ export default function LeadershipApp() {
 
       <section className="flex flex-col gap-4">
         <SectionLabel>By the numbers</SectionLabel>
-        <ul className="grid grid-cols-2 gap-3">
+        <dl className="grid grid-cols-2 gap-x-8 border-t border-hair">
           {stats.map((s) => (
-            <li
-              key={s.big}
-              className="flex flex-col gap-1 rounded-xl bg-window-2 p-4 ring-1 ring-inset ring-hair"
-            >
-              <span className="font-display text-3xl font-extrabold tracking-tight text-ink">
+            <div key={s.big} className="flex flex-col gap-1 border-b border-hair py-4">
+              <dt className="order-2 text-[13.5px] leading-snug text-ink-muted">{s.label}</dt>
+              <dd className="order-1 font-display text-[2rem] font-medium leading-none tracking-[-0.01em] text-ink">
                 {s.big}
-              </span>
-              <span className="text-[13px] leading-snug text-ink-muted">{s.label}</span>
-            </li>
+              </dd>
+            </div>
           ))}
-        </ul>
+        </dl>
       </section>
-
-      <Divider />
 
       <ViewAllPhotos />
     </div>

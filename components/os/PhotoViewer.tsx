@@ -2,30 +2,23 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useReducedMotion } from "motion/react";
-import { CaretLeft, CaretRight, X, ImageSquare } from "@phosphor-icons/react";
+import { CaretLeft, CaretRight } from "@phosphor-icons/react";
 import { PHOTOS } from "@/lib/photos";
 
 function ViewerPhoto({ index }: { index: number }) {
   const photo = PHOTOS[index];
   const [loaded, setLoaded] = useState(false);
   const [failed, setFailed] = useState(false);
-  const file = photo.src.split("/").pop();
 
   return (
-    <div className="rounded-2xl bg-photo-frame p-2 shadow-[0_30px_80px_-20px_rgba(0,0,0,0.7)]">
+    <div className="rounded-[3px] bg-photo-frame p-[6px]">
       <div
-        className="relative overflow-hidden rounded-xl bg-window-2"
+        className="relative overflow-hidden rounded-[2px] bg-window-2"
         style={{ aspectRatio: photo.ratio, maxHeight: "64vh", maxWidth: "84vw", height: "64vh" }}
       >
         {!loaded && (
-          <div className="absolute inset-0 grid place-items-center bg-[radial-gradient(120%_120%_at_30%_20%,color-mix(in_srgb,var(--ink)_8%,var(--window-2)),var(--window-2))]">
-            <div className="flex flex-col items-center gap-2 px-4 text-center">
-              <ImageSquare weight="thin" className="size-9 text-ink-muted/55" />
-              <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-ink-muted">
-                {photo.label}
-              </span>
-              <span className="font-mono text-[11px] text-ink-muted/55">/photos/{file}</span>
-            </div>
+          <div className="absolute inset-0 grid place-items-center">
+            <span className="px-4 text-center text-[13px] text-ink-muted">{photo.label}</span>
           </div>
         )}
         {!failed && (
@@ -50,7 +43,7 @@ function Arrow({ side, onClick }: { side: "left" | "right"; onClick: () => void 
     <button
       onClick={onClick}
       aria-label={side === "left" ? "Previous photo" : "Next photo"}
-      className={`cursor-hover absolute top-1/2 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-full border border-white/15 bg-white/10 text-white/90 backdrop-blur-md transition-colors hover:bg-white/20 ${side === "left" ? "left-4 sm:left-8" : "right-4 sm:right-8"}`}
+      className={`cursor-hover absolute top-1/2 z-10 grid size-11 -translate-y-1/2 place-items-center rounded-[3px] bg-window text-ink transition-colors hover:bg-window-2 ${side === "left" ? "left-4 sm:left-8" : "right-4 sm:right-8"}`}
     >
       {side === "left" ? <CaretLeft weight="bold" className="size-5" /> : <CaretRight weight="bold" className="size-5" />}
     </button>
@@ -92,7 +85,7 @@ export default function PhotoViewer({
       <button
         aria-label="Close viewer"
         onClick={onClose}
-        className="absolute inset-0 cursor-default bg-[rgba(4,10,20,0.74)] backdrop-blur-md"
+        className="absolute inset-0 cursor-default bg-[rgba(8,16,26,0.88)]"
       />
 
       <Arrow side="left" onClick={onPrev} />
@@ -101,9 +94,9 @@ export default function PhotoViewer({
       <button
         aria-label="Close viewer"
         onClick={onClose}
-        className="cursor-hover absolute right-4 top-4 z-10 grid size-10 place-items-center rounded-full border border-white/15 bg-white/10 text-white/90 backdrop-blur-md transition-colors hover:bg-white/20"
+        className="cursor-hover absolute right-4 top-4 z-10 rounded-[3px] bg-window px-3 py-2 text-[14px] font-medium text-ink transition-colors hover:bg-window-2"
       >
-        <X weight="bold" className="size-5" />
+        Close
       </button>
 
       <AnimatePresence mode="wait">
@@ -117,8 +110,8 @@ export default function PhotoViewer({
         >
           <ViewerPhoto index={index} />
           <figcaption className="flex flex-col items-center gap-1 text-center">
-            <span className="sky-text-shadow font-mono text-sm text-white/95">{photo.caption}</span>
-            <span className="font-mono text-[11px] tracking-wider text-white/45">
+            <span className="font-display text-[18px] italic text-white">{photo.caption}</span>
+            <span className="text-[13px] text-white/55">
               {index + 1} / {PHOTOS.length}
               {/* keyboard hint is meaningless on touch — desktop only */}
               <span className="hidden sm:inline"> · use ← → to browse</span>

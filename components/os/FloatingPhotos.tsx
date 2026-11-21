@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence, useSpring, useTransform } from "motion/react";
-import { ImageSquare, ArrowRight } from "@phosphor-icons/react";
 import { useOS } from "@/lib/os-store";
 import { playNote } from "@/lib/sound";
 import { PHOTOS, type PhotoDef } from "@/lib/photos";
@@ -33,7 +32,6 @@ function PhotoFrame({
   const [hovered, setHovered] = useState(false);
 
   const h = ratioToHeight(photo.w, photo.ratio);
-  const file = photo.src.split("/").pop();
 
   const handleClick = () => {
     if (sound) playNote(photo.note);
@@ -74,28 +72,22 @@ function PhotoFrame({
         onHoverEnd={() => setHovered(false)}
         aria-label={`Open ${photo.caption}`}
         animate={buttonAnimate}
-        whileHover={still ? undefined : { rotate: 0, scale: 1.08, y: -12 }}
-        whileTap={{ scale: 0.97 }}
+        whileHover={still ? undefined : { rotate: restRotate * 0.5, scale: 1.03, y: -4 }}
+        whileTap={{ scale: 0.98 }}
         transition={
           !still && wave
             ? { duration: 0.7, delay: index * 0.13, ease: "easeInOut" }
-            : { type: "spring", stiffness: 300, damping: 22 }
+            : { type: "spring", stiffness: 300, damping: 26 }
         }
-        className="cursor-hover pointer-events-auto relative block h-full w-full cursor-pointer rounded-2xl bg-photo-frame p-1.5 shadow-[0_10px_26px_-10px_rgba(6,22,40,0.5)] ring-1 ring-hair"
+        className="cursor-hover pointer-events-auto relative block h-full w-full cursor-pointer rounded-[3px] bg-photo-frame p-[5px] shadow-[0_1px_2px_rgba(6,22,40,0.18),0_4px_10px_rgba(6,22,40,0.12)]"
       >
         <div
-          className="relative overflow-hidden rounded-[11px] bg-window-2"
-          style={{ aspectRatio: photo.ratio, filter: hovered ? "brightness(1.07)" : "brightness(1)", transition: "filter 0.2s" }}
+          className="relative overflow-hidden rounded-[2px] bg-window-2"
+          style={{ aspectRatio: photo.ratio }}
         >
           {!loaded && (
-            <div className="absolute inset-0 grid place-items-center bg-[radial-gradient(120%_120%_at_30%_20%,color-mix(in_srgb,var(--ink)_8%,var(--window-2)),var(--window-2))]">
-              <div className="flex flex-col items-center gap-1.5 px-2 text-center">
-                <ImageSquare weight="thin" className="size-6 text-ink-muted/55" />
-                <span className="font-mono text-[9px] uppercase tracking-[0.16em] text-ink-muted">
-                  {photo.label}
-                </span>
-                <span className="font-mono text-[9px] text-ink-muted/55">{file}</span>
-              </div>
+            <div className="absolute inset-0 grid place-items-center">
+              <span className="px-2 text-center text-[11px] text-ink-muted">{photo.label}</span>
             </div>
           )}
           {!failed && (
@@ -112,30 +104,31 @@ function PhotoFrame({
           )}
         </div>
 
-        {/* permanent doorway label — signals "click to enter" */}
-        <span className="absolute left-1/2 top-full mt-2.5 flex -translate-x-1/2 items-center gap-1.5 whitespace-nowrap rounded-full border border-[var(--menubar-hair)] bg-[var(--menubar)] px-2.5 py-1 font-mono text-[11px] font-semibold uppercase tracking-[0.12em] text-menubar-ink shadow-[0_4px_16px_-5px_rgba(4,8,15,0.55)] backdrop-blur-md">
-          {photo.label}
+        {/* permanent doorway caption, like a label under a print */}
+        <span className="sky-ink absolute left-1/2 top-full mt-2 flex -translate-x-1/2 items-baseline gap-1.5 whitespace-nowrap text-[14px] font-medium">
+          <span className={hovered ? "underline decoration-1 underline-offset-[4px]" : ""}>
+            {photo.label}
+          </span>
           <motion.span
             aria-hidden
             animate={{ x: hovered ? 3 : 0 }}
-            transition={{ type: "spring", stiffness: 420, damping: 18 }}
-            className="text-saffron"
+            transition={{ type: "spring", stiffness: 420, damping: 22 }}
           >
-            <ArrowRight weight="bold" className="size-3" />
+            →
           </motion.span>
         </span>
 
-        {/* one-time "click me" nudge (first photo only) */}
+        {/* one-time nudge (first photo only) */}
         <AnimatePresence>
           {showHint && !hovered && (
             <motion.span
-              initial={{ opacity: 0, y: -6, scale: 0.9 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.9 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="pointer-events-none absolute left-full top-1/2 ml-3 flex w-max -translate-y-1/2 items-center gap-1 rounded-full bg-saffron px-2.5 py-1 font-mono text-[10px] font-bold uppercase tracking-wider text-[#3a2a06] shadow-[0_4px_14px_rgba(255,210,63,0.5)]"
+              initial={{ opacity: 0, x: -4 }}
+              animate={{ opacity: 1, x: 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.35, ease: "easeOut" }}
+              className="sky-ink pointer-events-none absolute left-full top-1/2 ml-4 w-max -translate-y-1/2 font-display text-[17px] italic"
             >
-              ← click me
+              ← start here
             </motion.span>
           )}
         </AnimatePresence>

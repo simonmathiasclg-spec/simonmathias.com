@@ -70,7 +70,7 @@ export default function WindowManager() {
   return (
     <div
       ref={containerRef}
-      className="pointer-events-none absolute inset-x-0 bottom-[92px] top-9 z-10"
+      className="pointer-events-none absolute inset-x-0 bottom-[78px] top-10 z-10"
     >
       <AnimatePresence>
         {size.w > 0 &&

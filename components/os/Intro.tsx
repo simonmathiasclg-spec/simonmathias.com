@@ -107,12 +107,11 @@ export default function Intro({
         <div
           className="absolute right-[14%] top-[40%]"
           style={{
-            width: 320,
-            height: 320,
+            width: 106,
+            height: 106,
+            borderRadius: 9999,
             transform: "translate(50%,-50%)",
-            background: night
-              ? "radial-gradient(circle, color-mix(in srgb, var(--moon) 40%, transparent), transparent 62%)"
-              : "radial-gradient(circle, color-mix(in srgb, var(--sun) 55%, transparent), transparent 66%)",
+            background: night ? "var(--moon)" : "var(--sun)",
           }}
         />
       </motion.div>

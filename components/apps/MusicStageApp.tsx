@@ -1,6 +1,5 @@
 "use client";
 
-import { MusicNoteSimple, Guitar, MicrophoneStage, Confetti } from "@phosphor-icons/react";
 import {
   AppHeader,
   Body,
@@ -11,13 +10,14 @@ import {
   InstagramReel,
   ViewAllPhotos,
   Highlight,
+  FactList,
 } from "./_kit";
 
 const facts = [
-  { icon: MusicNoteSimple, label: "Saxophone & guitar" },
-  { icon: MicrophoneStage, label: "Solo for 3,000 at 15" },
-  { icon: Confetti, label: "Project Going Nowhere" },
-  { icon: Guitar, label: "Self-taught, then taught others" },
+  "Saxophone & guitar",
+  "Solo for 3,000 at 15",
+  "Project Going Nowhere",
+  "Self-taught, then taught others",
 ];
 
 export default function MusicStageApp() {
@@ -26,17 +26,15 @@ export default function MusicStageApp() {
       <Figure
         src="/photos/photo-perform.jpg"
         label="On stage"
-        caption="Sax solo · 3,000 people · age 15"
+        caption="Sax solo, 3,000 people, age 15"
         aspect="4 / 5"
         priority
         className="mx-auto w-full max-w-[290px]"
       />
 
       <AppHeader
-        index="♪"
-        kicker="Music & Stage"
         title="Self-taught, on stage"
-        lead="My parents handed me a saxophone to strengthen my asthmatic lungs. It became the thing I&rsquo;m most myself doing."
+        lead="My parents handed me a saxophone to strengthen my asthmatic lungs. It became the thing I’m most myself doing."
       />
 
       <Body>
@@ -56,26 +54,22 @@ export default function MusicStageApp() {
         </p>
       </Body>
 
-      {/* two from the stage — varied sizes + slight tilts */}
       <div className="grid grid-cols-2 gap-4">
         <Figure
           src="/photos/photo-stage.jpg"
           label="With the band"
           caption="With the band"
           aspect="4 / 5"
-          tilt={-1.5}
         />
         <Figure
           src="/photos/gallery-mic.jpg"
           label="On the mic"
           caption="On the mic"
           aspect="4 / 5"
-          tilt={1.5}
           className="mt-6"
         />
       </div>
 
-      {/* the live video — lazy YouTube facade, jumps to the solo */}
       <YouTubeFacade
         id="TbWnnb5J-Ec"
         start={134}
@@ -83,7 +77,6 @@ export default function MusicStageApp() {
         caption="Me, live. Starts at the solo."
       />
 
-      {/* a performance reel — lazy Instagram embed */}
       <InstagramReel
         embedUrl="https://www.instagram.com/reel/C2ttamILGlA/embed/"
         href="https://www.instagram.com/reel/C2ttamILGlA/"
@@ -109,20 +102,7 @@ export default function MusicStageApp() {
         </Body>
       </section>
 
-      <Divider />
-
-      <ul className="grid grid-cols-2 gap-x-6 gap-y-4">
-        {facts.map(({ icon: Icon, label }) => (
-          <li key={label} className="flex items-center gap-3">
-            <span className="grid size-9 shrink-0 place-items-center rounded-lg bg-window-2 ring-1 ring-inset ring-hair">
-              <Icon weight="duotone" className="size-[18px] text-ink" />
-            </span>
-            <span className="text-sm font-medium text-ink">{label}</span>
-          </li>
-        ))}
-      </ul>
-
-      <Divider />
+      <FactList items={facts} />
 
       <ViewAllPhotos />
     </div>

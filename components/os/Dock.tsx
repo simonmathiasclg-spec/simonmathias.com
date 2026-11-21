@@ -1,70 +1,48 @@
 "use client";
 
-import { motion, useReducedMotion, type Variants } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useOS } from "@/lib/os-store";
 import { DOCK_APPS } from "@/lib/apps";
 
+/**
+ * The section bar along the bottom of the sky: a solid strip of paper with text
+ * links. An open section gets a sky-blue underline.
+ */
 export default function Dock({ show }: { show: boolean }) {
   const reduce = useReducedMotion();
   const openApp = useOS((s) => s.openApp);
   const windows = useOS((s) => s.windows);
-
-  const container: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : 26 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: reduce
-        ? { duration: 0 }
-        : { type: "spring", stiffness: 260, damping: 30, staggerChildren: 0.06, delayChildren: 0.08 },
-    },
-  };
-  const item: Variants = {
-    hidden: { opacity: 0, y: reduce ? 0 : 16, scale: reduce ? 1 : 0.6 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      scale: 1,
-      transition: reduce ? { duration: 0 } : { type: "spring", stiffness: 480, damping: 24 },
-    },
-  };
+  const focusedId = useOS((s) => s.focusedId);
 
   return (
     <motion.nav
-      aria-label="Apps"
-      variants={container}
-      initial="hidden"
-      animate={show ? "visible" : "hidden"}
-      className="fixed inset-x-0 bottom-0 z-[100] flex justify-center pb-3 sm:pb-4"
+      aria-label="Sections"
+      initial={false}
+      animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: reduce ? 0 : 16 }}
+      transition={reduce ? { duration: 0 } : { duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed inset-x-0 bottom-0 z-[100] flex justify-center pb-4"
     >
-      <ul className="flex items-start gap-1 rounded-[20px] border border-[var(--menubar-hair)] bg-[var(--dock)] px-2.5 pb-2 pt-2.5 shadow-[0_12px_40px_-8px_rgba(4,8,15,0.6)] backdrop-blur-2xl backdrop-saturate-150">
+      <ul className="flex items-stretch rounded-md border border-hair-strong bg-window px-2 shadow-[var(--win-shadow)]">
         {DOCK_APPS.map((app) => {
-          const Icon = app.icon;
           const open = windows.some((w) => w.id === app.id);
+          const focused = focusedId === app.id;
           return (
-            <motion.li key={app.id} variants={item} className="relative">
-              <motion.button
+            <li key={app.id}>
+              <button
                 onClick={() => openApp(app.id)}
-                aria-label={`Open ${app.dockLabel}`}
-                whileHover={reduce ? undefined : { y: -4, scale: 1.08 }}
-                whileTap={reduce ? undefined : { scale: 0.95 }}
-                transition={{ type: "spring", stiffness: 420, damping: 18 }}
-                className="cursor-hover flex min-w-[64px] flex-col items-center gap-2 rounded-xl px-3 pt-2"
+                aria-label={`Open ${app.name}`}
+                aria-current={focused ? "page" : undefined}
+                className="cursor-hover group relative block px-4 py-3 text-[14.5px] font-medium text-ink-muted transition-colors hover:text-ink aria-[current=page]:text-ink"
               >
-                <span className="grid size-[50px] place-items-center rounded-xl bg-white/5 text-white/85 ring-1 ring-inset ring-white/10 transition-colors hover:bg-white/12 hover:text-white">
-                  <Icon weight="duotone" className="size-7" />
-                </span>
-                <span className="whitespace-nowrap font-mono text-[13px] font-medium leading-none tracking-tight text-white/80">
-                  {app.dockLabel}
-                </span>
-                {/* open indicator */}
+                {app.dockLabel}
                 <span
-                  className={`h-1 w-1 rounded-full bg-saffron transition-opacity duration-300 ${
-                    open ? "opacity-100" : "opacity-0"
+                  aria-hidden
+                  className={`absolute inset-x-4 bottom-2 h-[2px] bg-sky transition-opacity duration-200 ${
+                    open ? "opacity-100" : "opacity-0 group-hover:opacity-40"
                   }`}
                 />
-              </motion.button>
-            </motion.li>
+              </button>
+            </li>
           );
         })}
       </ul>

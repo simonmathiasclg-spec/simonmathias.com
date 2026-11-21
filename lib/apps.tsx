@@ -1,15 +1,7 @@
-import {
-  IdentificationCard,
-  Briefcase,
-  PaperPlaneTilt,
-  MicrophoneStage,
-  Trophy,
-  Sunglasses,
-} from "@phosphor-icons/react";
 import type { AppId } from "@/lib/os-store";
-import type { AppIcon } from "@/components/apps/_kit";
 import AboutApp from "@/components/apps/AboutApp";
 import WorkApp from "@/components/apps/WorkApp";
+import ProjectsApp from "@/components/apps/ProjectsApp";
 import ContactApp from "@/components/apps/ContactApp";
 import MusicStageApp from "@/components/apps/MusicStageApp";
 import LeadershipApp from "@/components/apps/LeadershipApp";
@@ -17,79 +9,81 @@ import GoofyApp from "@/components/apps/GoofyApp";
 
 export type AppDef = {
   id: AppId;
-  /** lowercase OS-style name shown in title bars */
+  /** shown in window title bars */
   name: string;
-  /** title-case label shown in the dock + mobile launcher (fits, no ellipsis) */
+  /** label in the dock + mobile launcher */
   dockLabel: string;
-  /** one-line subtitle for mobile nav + viewer */
+  /** one-line subtitle for title bars + mobile sheets */
   tagline: string;
-  icon: AppIcon;
   Content: React.ComponentType;
   /** default window size on desktop (px) */
   window: { w: number; h: number };
-  /** shown in the dock? (photo-only windows are not) */
+  /** shown in the dock? */
   dock: boolean;
 };
 
 export const APPS: AppDef[] = [
   {
     id: "about",
-    name: "about",
+    name: "About",
     dockLabel: "About",
     tagline: "who I am",
-    icon: IdentificationCard,
     Content: AboutApp,
     window: { w: 780, h: 600 },
     dock: true,
   },
   {
     id: "work",
-    name: "work",
+    name: "Work",
     dockLabel: "Work",
     tagline: "Predictive Success",
-    icon: Briefcase,
     Content: WorkApp,
-    window: { w: 680, h: 600 },
+    window: { w: 700, h: 620 },
+    dock: true,
+  },
+  {
+    id: "projects",
+    name: "Projects",
+    dockLabel: "Projects",
+    tagline: "things I built",
+    Content: ProjectsApp,
+    window: { w: 660, h: 600 },
     dock: true,
   },
   {
     id: "music-stage",
-    name: "music & stage",
+    name: "Music & Stage",
     dockLabel: "Music",
     tagline: "sax, guitar, the band",
-    icon: MicrophoneStage,
     Content: MusicStageApp,
     window: { w: 720, h: 660 },
     dock: true,
   },
   {
     id: "leadership",
-    name: "leadership",
+    name: "Leadership",
     dockLabel: "Leadership",
-    tagline: "president & more",
-    icon: Trophy,
+    tagline: "president and more",
     Content: LeadershipApp,
     window: { w: 700, h: 620 },
     dock: true,
   },
   {
     id: "goofy",
-    name: "goofy",
+    name: "Goofy",
     dockLabel: "Goofy",
     tagline: "the fun side",
-    icon: Sunglasses,
     Content: GoofyApp,
     window: { w: 660, h: 600 },
     dock: true,
   },
   {
     id: "contact",
-    name: "contact",
+    name: "Contact",
     dockLabel: "Contact",
     tagline: "say hello",
-    icon: PaperPlaneTilt,
     Content: ContactApp,
-    window: { w: 580, h: 500 },
+    window: { w: 580, h: 520 },
     dock: true,
   },
 ];

@@ -2,7 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { motion, useReducedMotion, type Variants } from "motion/react";
-import { Images, ArrowRight, X } from "@phosphor-icons/react";
 import { DOCK_APPS, APP_MAP, type AppDef } from "@/lib/apps";
 import { useOS, type AppId } from "@/lib/os-store";
 import { PHOTOS, type PhotoDef } from "@/lib/photos";
@@ -15,9 +14,9 @@ import {
   SheetDescription,
 } from "@/components/ui/sheet";
 
-// The mobile home is a true Simon OS springboard: the same photo doorways as the
-// desktop sky, laid out as app icons. Five tiles use the photo AS the icon;
-// Contact is a frosted glass tile.
+// The mobile home: the same photo doorways as the desktop sky, laid out as a
+// grid. Sections with a photo use it as the tile; the rest (Projects, Contact)
+// are plain paper tiles carrying their name.
 const PHOTO_BY_TARGET: Partial<Record<AppId, PhotoDef>> = Object.fromEntries(
   PHOTOS.map((p) => [p.target, p]),
 );
@@ -30,28 +29,27 @@ function Tile({
   onOpen: (id: AppId) => void;
 }) {
   const photo = PHOTO_BY_TARGET[app.id];
-  const Icon = app.icon;
   return (
     <button
       onClick={() => onOpen(app.id)}
-      aria-label={`Open ${app.dockLabel}`}
-      className="flex w-full flex-col items-center gap-2 transition-transform active:scale-95"
+      aria-label={`Open ${app.name}`}
+      className="flex w-full flex-col items-start gap-1.5 transition-transform active:scale-[0.98]"
     >
       {photo ? (
-        <span className="block w-full rounded-[22px] bg-photo-frame p-1 shadow-[0_10px_26px_-10px_rgba(6,22,40,0.55)] ring-1 ring-white/20">
+        <span className="block w-full rounded-[3px] bg-photo-frame p-[4px] shadow-[0_1px_2px_rgba(6,22,40,0.18),0_4px_10px_rgba(6,22,40,0.12)]">
           <Photo
             src={photo.src}
             label={app.dockLabel}
-            className="aspect-square w-full rounded-[18px]"
+            className="aspect-square w-full rounded-[2px]"
           />
         </span>
       ) : (
-        <span className="grid aspect-square w-full place-items-center rounded-[22px] border border-white/20 bg-white/12 shadow-[0_10px_26px_-10px_rgba(6,22,40,0.55)] backdrop-blur-md">
-          <Icon weight="duotone" className="size-9 text-white" />
+        <span className="flex aspect-square w-full items-end rounded-[3px] border border-hair-strong bg-window p-3 text-left font-display text-[18px] italic leading-tight text-ink">
+          {app.tagline.charAt(0).toUpperCase() + app.tagline.slice(1)}
         </span>
       )}
-      <span className="sky-headline-shadow font-mono text-[10.5px] font-semibold uppercase tracking-[0.14em] text-white/95">
-        {app.dockLabel}
+      <span className="sky-ink text-[13.5px] font-medium">
+        {app.dockLabel} <span aria-hidden>→</span>
       </span>
     </button>
   );
@@ -124,20 +122,18 @@ export default function MobileShell({
 
   return (
     <div className="relative z-10 flex min-h-dvh flex-col px-6 pb-[calc(1.75rem+env(safe-area-inset-bottom))] pt-16">
-      {/* hero — the name leads, centered over the sky like the desktop */}
+      {/* hero: the name leads, set straight on the sky like the desktop */}
       <motion.header
-        initial={{ opacity: 0, y: reduce ? 0 : 14 }}
+        initial={{ opacity: 0, y: reduce ? 0 : 12 }}
         animate={show ? { opacity: 1, y: 0 } : {}}
         transition={reduce ? { duration: 0 } : { duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-        className="flex flex-1 flex-col items-center justify-center gap-3.5 py-8 text-center"
+        className="flex flex-1 flex-col justify-center gap-2 py-10 text-left"
       >
-        <p className="sky-headline-shadow font-mono text-[11px] uppercase tracking-[0.3em] text-white">
-          builder · performer · learner
-        </p>
-        <h1 className="sky-headline-shadow font-display text-[clamp(2.7rem,13vw,3.4rem)] font-extrabold leading-[0.95] tracking-[-0.03em] text-white">
+        <p className="sky-ink-muted text-[14px] font-medium">Builder, performer, learner.</p>
+        <h1 className="sky-ink font-display text-[clamp(3rem,15vw,3.9rem)] font-medium leading-[0.95] tracking-[-0.02em]">
           Simon Mathias
         </h1>
-        <p className="sky-headline-shadow text-[17px] font-light leading-snug text-white/95">
+        <p className="sky-ink mt-1 font-display text-[20px] italic leading-snug">
           Enthusiasm everywhere I go.
         </p>
       </motion.header>
@@ -162,16 +158,12 @@ export default function MobileShell({
         animate={show ? { opacity: 1 } : {}}
         transition={{ delay: reduce ? 0 : 0.7, duration: 0.5 }}
         onClick={() => setViewer(0)}
-        className="mx-auto mt-7 flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.16em] text-white/75 active:text-white"
+        className="sky-ink mt-8 self-start text-[14px] font-medium underline decoration-1 underline-offset-[4px]"
       >
-        <Images weight="bold" className="size-3.5 text-saffron" />
-        View all photos
-        <ArrowRight weight="bold" className="size-3" />
+        View all photos <span aria-hidden>→</span>
       </motion.button>
 
-      <p className="mt-6 text-center font-mono text-[10px] uppercase tracking-[0.25em] text-white/40">
-        Toronto · built by hand
-      </p>
+      <p className="sky-ink-muted mt-5 text-[13px]">Toronto. Built by hand.</p>
 
       {/* app sheet */}
       <Sheet open={!!active} onOpenChange={(o) => !o && closeSheet()}>
@@ -182,24 +174,24 @@ export default function MobileShell({
              outranks any height class, which let the sheet grow to content
              height and killed scrolling. Inline style outranks everything. */
           style={{ height: "92dvh" }}
-          className="flex flex-col gap-0 overflow-hidden rounded-t-[22px] border-hair bg-window p-0"
+          className="flex flex-col gap-0 overflow-hidden rounded-t-[10px] border-hair bg-window p-0"
         >
           {active && (
             <>
-              <div className="mx-auto mt-2.5 h-1 w-10 shrink-0 rounded-full bg-ink/15" aria-hidden />
-              <SheetHeader className="flex-row items-center gap-2 space-y-0 border-b border-hair px-5 pb-3 pt-1.5">
-                <SheetTitle className="font-mono text-[13px] font-medium lowercase text-ink">
+              <div className="mx-auto mt-2.5 h-1 w-9 shrink-0 rounded-full bg-ink/15" aria-hidden />
+              <SheetHeader className="flex-row items-baseline gap-2.5 space-y-0 border-b border-hair px-5 pb-3 pt-2">
+                <SheetTitle className="text-[15px] font-medium text-ink">
                   {APP_MAP[active].name}
                 </SheetTitle>
-                <SheetDescription className="min-w-0 truncate font-mono text-[11px] text-ink-muted">
+                <SheetDescription className="min-w-0 truncate text-[13px] text-ink-muted">
                   {APP_MAP[active].tagline}
                 </SheetDescription>
                 <button
                   onClick={closeSheet}
                   aria-label="Close"
-                  className="ml-auto grid size-8 shrink-0 place-items-center rounded-full bg-window-2 text-ink ring-1 ring-inset ring-hair transition-colors active:bg-hair"
+                  className="ml-auto shrink-0 rounded-[3px] px-2 py-1 text-[14px] text-ink-muted transition-colors active:bg-window-2"
                 >
-                  <X weight="bold" className="size-4" />
+                  Close
                 </button>
               </SheetHeader>
               <div className="paper-scroll min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain px-5 py-7">

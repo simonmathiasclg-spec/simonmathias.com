@@ -3,6 +3,7 @@
 export const APP_IDS = [
   "about",
   "work",
+  "projects",
   "contact",
   // windowed but not in the dock — opened by clicking the floating photos
   "music-stage",

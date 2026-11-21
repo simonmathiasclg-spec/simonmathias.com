@@ -1,53 +1,35 @@
 "use client";
 
 import { motion, useReducedMotion } from "motion/react";
-import { CaretDown } from "@phosphor-icons/react";
 
+/**
+ * The sky home's headline. Set like a poster: dark serif ink straight on the sky
+ * by day (light by night), left-aligned in the clear middle of the scene.
+ */
 export default function Home() {
   const reduce = useReducedMotion();
 
   return (
     <motion.div
-      className="pointer-events-none fixed inset-0 z-[5] flex flex-col items-center justify-center px-6 text-center"
+      className="pointer-events-none fixed inset-0 z-[5] flex items-center justify-center px-6"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: reduce ? 0 : 0.5, ease: "easeOut" }}
     >
       <motion.div
-        className="mt-20 flex flex-col items-center gap-5"
-        initial={reduce ? false : { opacity: 0, y: 16 }}
+        className="mt-24 w-full max-w-[min(720px,56vw)] text-left"
+        initial={reduce ? false : { opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1], delay: 0.05 }}
       >
-        <p className="sky-headline-shadow font-mono text-[12px] uppercase tracking-[0.34em] text-white dark:text-white/75">
-          builder · performer · learner
-        </p>
-        <h1 className="sky-headline-shadow font-display text-[clamp(3rem,9vw,6rem)] font-extrabold leading-[0.92] tracking-[-0.035em] text-white">
+        <p className="sky-ink-muted text-[15px] font-medium">Builder, performer, learner.</p>
+        <h1 className="sky-ink mt-2 font-display text-[clamp(3.4rem,8vw,6.6rem)] font-medium leading-[0.95] tracking-[-0.02em]">
           Simon Mathias
         </h1>
-        <p className="sky-headline-shadow max-w-[36ch] text-pretty text-[clamp(1rem,1.5vw,1.3rem)] font-light leading-snug text-white dark:text-white/85">
+        <p className="sky-ink mt-4 font-display text-[clamp(1.25rem,1.9vw,1.6rem)] italic leading-snug">
           Enthusiasm everywhere I go.
         </p>
-      </motion.div>
-
-      {/* hint toward the dock */}
-      <motion.div
-        className="absolute bottom-[118px] flex flex-col items-center gap-2"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: reduce ? 0 : 1.1, duration: 0.6 }}
-      >
-        <span className="sky-text-shadow font-mono text-[11px] uppercase tracking-[0.28em] text-white/70">
-          where to start
-        </span>
-        <motion.span
-          animate={reduce ? undefined : { y: [0, 5, 0] }}
-          transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
-          className="text-white/70"
-        >
-          <CaretDown weight="bold" className="size-4 drop-shadow-[0_2px_6px_rgba(6,22,40,0.4)]" />
-        </motion.span>
       </motion.div>
     </motion.div>
   );

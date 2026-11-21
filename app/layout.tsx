@@ -1,27 +1,32 @@
 import type { Metadata, Viewport } from "next";
-import { Bricolage_Grotesque, Geist, Geist_Mono } from "next/font/google";
+import { Newsreader, IBM_Plex_Sans, IBM_Plex_Mono } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import "./globals.css";
 
-const bricolage = Bricolage_Grotesque({
-  variable: "--font-bricolage",
+// Headings + the name: an optical-size serif with real italics.
+const newsreader = Newsreader({
+  variable: "--font-newsreader",
   subsets: ["latin"],
   display: "swap",
-  weight: ["200", "300", "400", "500", "600", "700", "800"],
+  style: ["normal", "italic"],
+  axes: ["opsz"],
 });
 
-const geist = Geist({
-  variable: "--font-geist",
-  subsets: ["latin"],
-  display: "swap",
-  weight: ["300", "400", "500", "600", "700"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// Body + interface: a sturdy, readable sans with engineered details.
+const plexSans = IBM_Plex_Sans({
+  variable: "--font-plex-sans",
   subsets: ["latin"],
   display: "swap",
   weight: ["400", "500", "600"],
+  style: ["normal", "italic"],
+});
+
+// Only the menubar clock and a few tabular details.
+const plexMono = IBM_Plex_Mono({
+  variable: "--font-plex-mono",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["400", "500"],
 });
 
 const SITE_URL =
@@ -44,6 +49,8 @@ export const metadata: Metadata = {
     "saxophone",
     "founder",
     "Read the Room",
+    "Talent Atlas",
+    "NoteAlong",
   ],
   openGraph: {
     title: "Simon Mathias",
@@ -72,7 +79,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${bricolage.variable} ${geist.variable} ${geistMono.variable}`}
+      className={`${newsreader.variable} ${plexSans.variable} ${plexMono.variable}`}
     >
       <body>
         <TooltipProvider delayDuration={200} skipDelayDuration={400}>
